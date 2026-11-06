@@ -1,0 +1,37 @@
+
+/* =====================================================================
+   Intro stats: numbers on one line, labels underneath, all aligned
+   ===================================================================== */
+.hero-stats div {
+  display: flex; flex-direction: column-reverse;
+  justify-content: flex-end;          /* keep every number at the top, whatever the label length */
+}
+.hero-stats dd { white-space: nowrap; }
+.hero-stats dt { margin-top: 4px; line-height: 1.35; }
+
+@media (max-width: 600px) {
+  .hero-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0; padding-top: 20px;
+  }
+  .hero-stats div { padding: 0 12px; border-left: 1px solid var(--side-line, var(--line)); }
+  .hero-stats div:first-child { padding-left: 0; border-left: 0; }
+  .hero-stats dd { font-size: 26px; }
+  .hero-stats dt { font-size: 12px; }
+}
+@media (max-width: 374px) {
+  .hero-stats div { padding: 0 8px; }
+  .hero-stats dd { font-size: 22px; }
+  .hero-stats dt { font-size: 11px; }
+}
+
+/* Narrow phones: keep the name and the Home / Projects links from touching */
+@media (max-width: 420px) {
+  .side .name { font-size: 18px; padding-right: 118px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .page-links { gap: 12px; }
+  .page-links a { font-size: 13px; }
+}
+@media (max-width: 340px) {
+  .side .name { font-size: 16px; padding-right: 100px; }
+  .page-links { gap: 10px; right: 14px; }
+}
