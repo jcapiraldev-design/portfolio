@@ -36,13 +36,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/data/css/styles.css">
+<link rel="stylesheet" href="/data/css/photo-css-to-append.css">
 </head>
 <body>
 <div class="layout">
 
   <aside class="side">
     <!-- EDIT: your name -->
-    <p class="name"><a href="/" style="color: inherit; text-decoration: none;">Jasper Capiral</a></p>
+        <a href="/" class="avatar-link" aria-hidden="true" tabindex="-1"><div class="avatar photo-flip">
+      <img src="/data/images/meta/jasper-avatar.webp" alt="" width="96" height="96">
+      <img class="toon" src="/data/images/meta/jasper-avatar-toon.webp" alt="" width="96" height="96">
+    </div>
+    <p class="name">Jasper Capiral</p>
+  </a>
     <p class="role">PHP Developer</p>
     <nav class="page-links" aria-label="Pages"><a href="/">Home</a><a href="/projects/" aria-current="page">Projects</a></nav>
 
