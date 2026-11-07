@@ -911,3 +911,10 @@ html.modal-open { overflow: hidden; }
   .process.will-animate .process-note { opacity: 1; transform: none; transition: none; }
   .process.will-animate .process-steps li:not(:last-child)::after { opacity: .5; transform: rotate(45deg); transition: none; }
 }
+
+/* Dark mode fix for the service icons: inverting the whole icon also inverted
+   its light box, making icon and box the same color. Keep the icon navy and
+   put it on a light chip instead. */
+@media (prefers-color-scheme: dark) {
+  .service-icon.dark-invert { filter: none; background: #C9D4FF; border-color: transparent; }
+}
