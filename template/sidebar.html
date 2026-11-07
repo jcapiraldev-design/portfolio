@@ -7,7 +7,23 @@
 </div></a>
 <p class="name">Jasper Capiral</p>
 <p class="role">Senior Web Developer</p>
-<nav class="page-links" aria-label="Pages"><a href="/">Home</a><a href="/projects/">Projects</a></nav>
+<!-- Phones: hamburger button and page menu (hidden on larger screens) -->
+<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Pages">
+  <ul>
+    <li><a href="/" data-ico="home">Home</a></li>
+    <li><a href="/projects/" data-ico="projects">All projects</a></li>
+    <li><a href="/case-studies/" data-ico="cases">Case studies</a></li>
+    <li><a href="/#contact" data-ico="contact">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-extra">
+    <a href="mailto:jcapiraldev@gmail.com"><img src="/data/images/icons/gmail.svg" alt="" width="16" height="16">jcapiraldev@gmail.com</a>
+    <a href="https://github.com/jcapiraldev-design" target="_blank"><img src="/data/images/icons/github.svg" alt="" width="16" height="16" class="dark-invert">GitHub</a>
+    <a href="/data/files/jasper-capiral-resume.pdf" download><img src="/data/images/icons/resume.svg" alt="" width="16" height="16" class="dark-invert">Résumé (PDF)</a>
+  </div>
+</nav>
 
 <!-- Homepage: jump to each section -->
 <nav aria-label="Sections" data-menu="home">

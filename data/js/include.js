@@ -18,6 +18,39 @@
   function page() { return document.body.getAttribute("data-page") || "home"; }
   function cleanPath(p) { return p.replace(/index\.html$/, "").replace(/\/?$/, "/"); }
 
+
+  // Phones: the fixed header's height varies with text size, so measure it
+  // and let the page content start right below it (CSS reads --hh)
+  function headerHeight() {
+    var side = document.querySelector(".side");
+    if (!side) return;
+    if (window.innerWidth <= 860) document.documentElement.style.setProperty("--hh", side.offsetHeight + "px");
+    else document.documentElement.style.removeProperty("--hh");
+  }
+  window.addEventListener("resize", headerHeight);
+
+
+  // Phones: hamburger menu
+  function mobileNav() {
+    var btn = document.querySelector(".nav-toggle"), nav = document.getElementById("mobile-nav");
+    if (!btn || !nav) return;
+    function set(open) {
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      nav.classList.toggle("is-open", open);
+      document.documentElement.classList.toggle("nav-open", open);
+    }
+    btn.addEventListener("click", function () { set(btn.getAttribute("aria-expanded") !== "true"); });
+    nav.addEventListener("click", function (e) { if (e.target.closest("a")) set(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { set(false); btn.focus(); }
+    });
+    document.addEventListener("click", function (e) {
+      if (btn.getAttribute("aria-expanded") === "true" && !nav.contains(e.target) && !btn.contains(e.target)) set(false);
+    });
+    window.addEventListener("resize", function () { if (window.innerWidth > 860) set(false); });
+  }
+
   function finish() {
     var here = cleanPath(location.pathname);
 
@@ -28,7 +61,7 @@
     });
 
     // Highlight links that point to the current page (not section links like /#contact)
-    Array.prototype.forEach.call(document.querySelectorAll(".topnav a, .page-links a, .menu a"), function (a) {
+    Array.prototype.forEach.call(document.querySelectorAll(".topnav a, .page-links a, .mobile-nav a, .menu a"), function (a) {
       var href = a.getAttribute("href");
       if (!href || href.charAt(0) === "#" || href.indexOf("#") !== -1) return;
       if (cleanPath(href) === here) {
@@ -42,6 +75,8 @@
       y.textContent = new Date().getFullYear();
     });
 
+    mobileNav();
+    headerHeight();
     ready = true;
     queue.forEach(function (fn) { fn(); });
     queue = [];
