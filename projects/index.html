@@ -37,45 +37,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/data/css/styles.css">
 <link rel="stylesheet" href="/data/css/photo-css-to-append.css">
+<link rel="stylesheet" href="/data/css/stats-and-header.css">
 <link rel="stylesheet" href="/data/css/contact-icons.css">
 <link rel="stylesheet" href="/data/css/nav-icons.css">
+<link rel="stylesheet" href="/data/css/interactive.css">
 </head>
-<body>
+<body data-page="projects">
 <div class="layout">
 
-  <aside class="side">
-    <!-- EDIT: your name -->
-        <a href="/" class="avatar-link" aria-hidden="true" tabindex="-1"><div class="avatar photo-flip">
-      <img src="/data/images/meta/jasper-avatar.webp" alt="" width="96" height="96">
-      <img class="toon" src="/data/images/meta/jasper-avatar-toon.webp" alt="" width="96" height="96">
-    </div>
-    <p class="name">Jasper Capiral</p>
-  </a>
-    <p class="role">Senior Web Developer</p>
-    <nav class="page-links" aria-label="Pages"><a href="/">Home</a><a href="/projects/" aria-current="page">Projects</a></nav>
-
-    <nav aria-label="Site">
-      <ul class="menu">
-        <li><a href="/#intro">Home</a></li>
-        <li><a href="/#work">Featured projects</a></li>
-        <li><a href="/projects/" class="active" aria-current="page">All projects</a></li>
-        <li><a href="/#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="links">
-      <!-- EDIT: your email and profile links -->
-      <a href="mailto:jcapiraldev@gmail.com"><img src="/data/images/icons/gmail.svg" alt="" width="16" height="16">jcapiraldev@gmail.com</a>
-      <a href="https://github.com/jcapiraldev-design" target="_blank"><img src="/data/images/icons/github.svg" alt="" width="16" height="16" class="dark-invert">GitHub</a>
-    </div>
-  </aside>
+  <!-- Sidebar is loaded from /template/sidebar.html -->
+  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
 
   <main>
-    <nav class="topnav" aria-label="Pages">
-      <a href="/">Home</a>
-      <a href="/projects/" aria-current="page">All projects</a>
-      <a href="/#contact">Contact</a>
-    </nav>
+    <!-- Top navigation is loaded from /template/header.html -->
+    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
     <header class="page-head">
       <h1>All projects</h1>
       <p id="total-line">Every live website I’ve built or worked on.</p>
@@ -231,15 +206,17 @@
 
     render("all");
 
-    // Place the menu marker next to "All projects"
-    var menu = document.querySelector(".menu");
-    var active = menu.querySelector("a.active");
-    function mark() {
-      menu.style.setProperty("--h", active.offsetHeight + "px");
-      menu.style.setProperty("--y", active.parentElement.offsetTop + "px");
-    }
-    mark();
-    window.addEventListener("resize", mark);
+    // Place the menu marker next to the current page (after the sidebar loads)
+    onIncludes(function () {
+      var menu = document.querySelector(".menu"), active = menu && menu.querySelector("a.active");
+      if (!active) return;
+      function mark() {
+        menu.style.setProperty("--h", active.offsetHeight + "px");
+        menu.style.setProperty("--y", active.parentElement.offsetTop + "px");
+      }
+      mark();
+      window.addEventListener("resize", mark);
+    });
   })();
 </script>
 </body>
