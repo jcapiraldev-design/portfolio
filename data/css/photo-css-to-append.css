@@ -22,7 +22,6 @@
 .about-photo figcaption { margin-top: 12px; font-weight: 500; color: var(--ink); font-size: 16px; }
 .about-photo figcaption span { display: block; font-weight: 400; color: var(--muted); font-size: 14px; }
 @media (min-width: 1100px) {
-  .about-grid { grid-template-columns: minmax(0, 1fr) 280px; gap: 56px; }
   .about-photo { max-width: none; position: sticky; top: 110px; }
 }
 @media (min-width: 1680px) { .about-grid { grid-template-columns: minmax(0, 1fr) 320px; } }

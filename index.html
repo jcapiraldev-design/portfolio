@@ -42,6 +42,7 @@
 <link rel="stylesheet" href="/data/css/nav-icons.css">
 <link rel="stylesheet" href="/data/css/interactive.css">
 <link rel="stylesheet" href="/data/css/experience-timeline.css">
+<link rel="stylesheet" href="/data/css/about.css">
 
 <script type="application/ld+json">
 {
@@ -102,12 +103,39 @@
         <section id="about">
       <h2>About me</h2>
       <div class="about-grid">
-        <div class="about-text">
-          <p>I started as a web developer in Manila in 2012. Through MicroSourcing, I worked remotely with agencies in the Netherlands and Australia, and since 2016 I’ve been with LH Creatives, building websites for Japanese companies, from small brand sites to large corporate and recruitment sites.</p>
-          <p>I handle projects from start to finish: joining kickoff meetings, planning schedules, turning Figma and Adobe XD designs into responsive sites, building custom WordPress themes and PHP systems, testing everything before launch, and deploying to live servers.</p>
-          <p>Also giving older websites a second life by upgrading them to modern PHP.</p>
+        <div class="about-text" data-reveal-words>
+          <p>I started as a web developer in Manila in 2012. Through <a href="#experience" class="kw">MicroSourcing</a>, I worked remotely with agencies in the <a href="#experience" class="kw">Netherlands and Australia</a>, and since 2016 I’ve been with <a href="#experience" class="kw">LH Creatives</a>, building websites for Japanese companies, from small brand sites to large corporate and recruitment sites.</p>
+          <p>I handle projects from start to finish: joining kickoff meetings, planning schedules, turning <a href="#skills" class="kw">Figma and Adobe XD</a> designs into responsive sites, building <a href="/projects/?q=wordpress" class="kw">custom WordPress themes</a> and PHP systems, testing everything before launch, and deploying to live servers.</p>
+          <p>Also giving older websites a second life by <a href="/case-studies/" class="kw">upgrading them to modern PHP</a>.</p>
           <p class="availability">Currently available for freelance projects.</p>
         </div>
+
+        <!-- Quick facts: the clock and the "working hours" status update live -->
+        <aside class="about-facts" aria-label="Quick facts">
+          <div class="fact fact-clock">
+            <p class="fact-label">My local time</p>
+            <p class="fact-value"><span id="local-time">–</span></p>
+            <p class="fact-note"><span class="dot" id="work-dot"></span><span id="work-status">Makati City, Philippines (UTC+8)</span></p>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Building websites since</p>
+            <p class="fact-value">2012</p>
+            <p class="fact-note"><span id="years-exp">14</span> years of experience</p>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Clients in</p>
+            <ul class="fact-flags">
+              <li><span aria-hidden="true">🇯🇵</span>Japan</li>
+              <li><span aria-hidden="true">🇳🇱</span>Netherlands</li>
+              <li><span aria-hidden="true">🇦🇺</span>Australia</li>
+            </ul>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Reply time</p>
+            <p class="fact-value">1 day</p>
+            <p class="fact-note">Within one business day</p>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -161,9 +189,11 @@
       <p class="section-intro">Pick what fits your project, or combine them. Most clients start with one and come back for another.</p>
       <div class="service-grid">
 
-        <article class="service">
-          <img class="service-icon dark-invert" src="/data/images/icons/svc-build.svg" alt="" width="28" height="28">
-          <h3>New website builds</h3>
+                <article class="service">
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/svc-build.svg" alt="" width="28" height="28">
+            <h3>New website builds</h3>
+          </div>
           <p>Your Figma or Adobe XD design, turned into a fast, responsive site that looks right on every screen and is ready for launch.</p>
           <ul class="service-tags">
             <li>Pixel-accurate layouts</li>
@@ -175,8 +205,10 @@
         </article>
 
         <article class="service">
-          <img class="service-icon dark-invert" src="/data/images/icons/svc-cms.svg" alt="" width="28" height="28">
-          <h3>WordPress and CMS development</h3>
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/svc-cms.svg" alt="" width="28" height="28">
+            <h3>WordPress and CMS development</h3>
+          </div>
           <p>Custom themes and editing screens your staff can use without touching code, so news, jobs, and works stay up to date.</p>
           <ul class="service-tags">
             <li>Custom WordPress themes</li>
@@ -188,8 +220,10 @@
         </article>
 
         <article class="service">
-          <img class="service-icon dark-invert" src="/data/images/icons/svc-upgrade.svg" alt="" width="28" height="28">
-          <h3>PHP upgrades and security fixes</h3>
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/svc-upgrade.svg" alt="" width="28" height="28">
+            <h3>PHP upgrades and security fixes</h3>
+          </div>
           <p>Older PHP 5 and 7 sites moved to PHP 8.x without breaking what already works, with every page and form tested before going live.</p>
           <ul class="service-tags">
             <li>PHP 8.x compatibility</li>
@@ -201,8 +235,10 @@
         </article>
 
         <article class="service">
-          <img class="service-icon dark-invert" src="/data/images/icons/svc-care.svg" alt="" width="28" height="28">
-          <h3>Updates and ongoing support</h3>
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/svc-care.svg" alt="" width="28" height="28">
+            <h3>Updates and ongoing support</h3>
+          </div>
           <p>A reliable developer to call when your site needs new pages, layout changes, bug fixes, or a move to a new server.</p>
           <ul class="service-tags">
             <li>New pages and sections</li>
@@ -656,6 +692,72 @@
     (splitQuery.addEventListener ? splitQuery.addEventListener("change", setMode) : splitQuery.addListener(setMode));
   })();
 </script>
+
+<script>
+  // About: words light up as you read, plus a live local clock and working-hours status
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // 1. Live clock in Manila time, the time difference to the visitor, and working hours
+    var timeEl = document.getElementById("local-time"), statusEl = document.getElementById("work-status"), dot = document.getElementById("work-dot");
+    function tick() {
+      var now = new Date();
+      var parts = {};
+      new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Manila", hour: "numeric", minute: "2-digit", weekday: "short", hour12: true })
+        .formatToParts(now).forEach(function (p) { parts[p.type] = p.value; });
+      timeEl.textContent = parts.hour + ":" + parts.minute + " " + parts.dayPeriod;
+      var h24 = +new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Manila", hour: "numeric", hourCycle: "h23" }).format(now);
+      var weekend = parts.weekday === "Sat" || parts.weekday === "Sun";
+      var working = !weekend && h24 >= 9 && h24 < 18;
+      // time difference to the visitor (Manila is UTC+8)
+      var diff = 8 + now.getTimezoneOffset() / 60, rel = "";
+      if (diff > 0) rel = ", " + diff + (diff === 1 ? " hour" : " hours") + " ahead of you";
+      else if (diff < 0) rel = ", " + (-diff) + (diff === -1 ? " hour" : " hours") + " behind you";
+      else rel = ", same time as you";
+      statusEl.textContent = (working ? "Working hours now" : "Outside working hours") + rel;
+      dot.classList.toggle("is-on", working);
+    }
+    if (timeEl) { tick(); setInterval(tick, 30000); }
+    var years = document.getElementById("years-exp");
+    if (years) years.textContent = new Date().getFullYear() - 2012;
+
+    // 2. Words brighten as the paragraph scrolls past (links stay clickable)
+    var box = document.querySelector("[data-reveal-words]");
+    if (!box || reduce) return;
+    var words = [];
+    Array.prototype.forEach.call(box.querySelectorAll("p:not(.availability)"), function (p) {
+      var walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var w = document.createElement("span");
+          w.className = "rw"; w.textContent = part;
+          frag.appendChild(w); words.push(w);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+    box.classList.add("is-revealing");
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = box.getBoundingClientRect(), vh = window.innerHeight;
+      // 0 when the text enters the lower part of the screen, 1 when its end passes the middle
+      var start = vh * 0.85, end = vh * 0.45;
+      var k = (start - r.top) / ((start - end) + r.height * 0.9);
+      k = Math.max(0, Math.min(1, k));
+      var lit = Math.round(k * words.length);
+      for (var i = 0; i < words.length; i++) words[i].classList.toggle("on", i < lit);
+    }
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
+
 
 
 </body>
