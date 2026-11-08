@@ -23,7 +23,6 @@ var projects = [
     { name: "MANIFEST", type: "Corporate website", role: "Sales and marketing support company site with a full-screen menu, brand and business pages, company history and revenue charts, photo gallery, news, recruitment, and internship pages", url: "https://manifest.co.jp/", image: "/data/images/projects/manifest.webp", tech: ["PHP", "JavaScript"], year: "", featured: false },
     { name: "Mizuno Kenzai", type: "Corporate website", role: "Building materials supplier site with a route search to their yard, product catalog with price estimates, delivery news, and contact form", url: "http://mizuken.co/", image: "/data/images/projects/mizuken.webp", tech: ["PHP", "JavaScript", "Google Maps"], year: 2018, featured: false },
     { name: "PERSONAL STUDY Online Coaching", type: "Service landing page", role: "Long-form landing page for an online study coaching school, with testimonials, tabbed student case comparisons, step-by-step program flow, FAQ, and LINE sign-up calls to action", url: "https://onlinecoaching.personal-study.com/", image: "/data/images/projects/personal-study.webp", tech: ["WordPress", "PHP", "JavaScript"], year: 2026, featured: false },
-    { name: "TNS Global Car Dealer", type: "Web application", role: "Used car export platform for overseas buyers, with user registration and login, vehicle search by make, body type, steering, price, year, mileage, and engine size, plus listings and a buying guide", url: "https://overseas-tns.jp/", image: "/data/images/projects/overseas-tns.webp", tech: ["PHP", "MySQL", "JavaScript"], year: 2021, featured: false },
     { name: "Tammy Mat", type: "Product website", role: "Product site for a denim tatami mat, with separate pages for nurseries and households, six-reason feature sections, color variations, care guide, brand story, news, and links to their online shop", url: "https://tammy-mat.co.jp/", image: "/data/images/projects/tammy-mat.webp", tech: ["WordPress", "PHP", "JavaScript"], year: 2025, featured: false },
     { name: "PLUST", type: "Corporate website", role: "Interior construction company site with a video hero, business, message, and values pages, company info, and a recruitment section with staff interviews and company data", url: "https://plust-n.co.jp/", image: "/data/images/projects/plust.webp", tech: ["PHP", "JavaScript"], year: "", featured: false },
     { name: "Quhan", type: "Corporate website", role: "Garden and landscape design company site with a hero slider, image dropdown menu, works gallery filtered by region and budget, separate garden and community design sections, staff slider, blog, and product page", url: "https://quhan.jp/", image: "/data/images/projects/quhan.webp", tech: ["WordPress", "PHP", "JavaScript"], year: 2025, featured: false },
@@ -88,7 +87,6 @@ var projects = [
     { name: "NISIKI Taxi", type: "Corporate website", role: "Taxi company site (could not load the page to check its features; please describe your work here)", url: "https://www.nisiki-taxi.co.jp/", image: "/data/images/projects/nisiki-taxi.webp", tech: ["PHP", "JavaScript"], year: "", featured: false },
     { name: "Norimono Honpo", type: "Service landing page", role: "Model car and RC buyback site (sister site of Tetsudo Honpo) with a hero, purchase records, scrolling vehicle banners, home visit and mail-in flows with FAQs, five reasons, brand list, column, and three request forms including a free packing kit order", url: "https://www.norimonohonpo.com/", image: "/data/images/projects/norimonohonpo.webp", tech: ["WordPress", "PHP", "JavaScript"], year: 2026, featured: false },
     { name: "NBrows Academy", type: "Service landing page", role: "One-page landing page for a permanent makeup school, with promotion banners, news linked to the blog, about and six-feature sections, design case examples, student voices, principal message, FAQ, and Instagram contact", url: "https://www.nbrows.jp/", image: "/data/images/projects/nbrows.webp", tech: ["PHP", "JavaScript"], year: 2019, featured: false },
-    { name: "Natural Medicine", type: "Web application", role: "Supplement company site with a member login area and online sign-up, image slider, product and delivery pages, seminar calendar and seminar list, FAQ, support, news, and contact form", url: "https://www.natural-medicine.co.jp/", image: "/data/images/projects/natural-medicine.webp", tech: ["PHP", "MySQL", "JavaScript"], year: "", featured: false },
     { name: "Nakano Kiko", type: "Corporate website", role: "Heavy equipment moving and installation company site with an illustrated hero, explainer page on the trade, three service pages, construction records blog, company info, recruitment with staff interviews, and contractor recruiting", url: "https://www.nakanokiko.co.jp/", image: "/data/images/projects/nakanokiko.webp", tech: ["WordPress", "PHP", "JavaScript"], year: 2022, featured: false },
     { name: "Nakamura Komuten", type: "Corporate website", role: "General contractor site with an animated hero, strengths, nine business area links, construction case studies filterable by category, Instagram feed, special landing pages for renovation and partners, recruitment, and contact form", url: "https://www.nakakou.com/", image: "/data/images/projects/nakakou.webp", tech: ["PHP", "JavaScript", "Instagram API"], year: 2023, featured: false },
     { name: "NAGOYA LINKS", type: "Corporate website", role: "Electrical contractor group site backed by a bank group, with an animated intro, photo hero, three LINK themes, mission diagram, company and message pages, recruitment with company data and hiring company list, partner recruiting, news, and contact form", url: "https://www.nagoya-links.com/", image: "/data/images/projects/nagoya-links.webp", tech: ["PHP", "JavaScript"], year: 2026, featured: false },
@@ -169,3 +167,111 @@ function renderProjects(container, list, compact) {
     else img.addEventListener("error", fallback);
   });
 }
+
+// Contact form: floating labels, live checks, topic chips, character count, and send animation.
+  (function () {
+    var form = document.getElementById("contact-form");
+    if (!form) return;
+
+        // Sends the message to Formspree, which emails it to me
+    function sendForm(data) {
+      // Combine the picked topics into one line, like "New website, PHP upgrade"
+      var topics = data.getAll("topics");
+      data.delete("topics");
+      data.set("topics", topics.length ? topics.join(", ") : "Not specified");
+
+      return fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      }).then(function (res) {
+        if (!res.ok) throw new Error("Formspree returned " + res.status);
+        return res;
+      });
+    }
+
+    var fields = {
+      name:    { el: form.querySelector("#cf-name"),    check: function (v) { return v.trim().length >= 2 ? "" : "Please enter your name."; } },
+      email:   { el: form.querySelector("#cf-email"),   check: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "Please enter a valid email address, like name@company.com."; } },
+      message: { el: form.querySelector("#cf-message"), check: function (v) { return v.trim().length >= 10 ? "" : "Please write a little more about your project (at least 10 characters)."; } }
+    };
+
+    function validate(key, show) {
+      var f = fields[key], msg = f.check(f.el.value), wrap = f.el.closest(".cf-field");
+      var err = wrap.querySelector(".cf-error");
+      wrap.classList.toggle("is-valid", !msg);
+      if (show) {
+        wrap.classList.toggle("is-invalid", !!msg);
+        err.textContent = msg;
+        f.el.setAttribute("aria-invalid", msg ? "true" : "false");
+        if (msg) f.el.setAttribute("aria-describedby", err.id); else f.el.removeAttribute("aria-describedby");
+      } else if (!msg) {
+        wrap.classList.remove("is-invalid"); err.textContent = ""; f.el.removeAttribute("aria-invalid");
+      }
+      return !msg;
+    }
+
+    Object.keys(fields).forEach(function (key) {
+      var el = fields[key].el, touched = false;
+      el.addEventListener("blur", function () { if (el.value.trim()) { touched = true; validate(key, true); } });
+      el.addEventListener("input", function () { validate(key, touched); });
+    });
+
+    // Optional company field just gets the check mark when filled
+    var company = form.querySelector("#cf-company");
+    company.addEventListener("input", function () { company.closest(".cf-field").classList.toggle("is-valid", company.value.trim().length > 1); });
+
+    // Textarea grows with its text, and shows a character count
+    var msg = fields.message.el, count = document.getElementById("cf-count");
+    function grow() {
+      msg.style.height = "auto";
+      msg.style.height = Math.min(msg.scrollHeight, 360) + "px";
+      count.textContent = msg.value.length;
+      count.parentNode.classList.toggle("is-near", msg.value.length > 1800);
+    }
+    msg.addEventListener("input", grow);
+
+    // Topic chips get a little pop when picked
+    form.querySelectorAll(".cf-topics input").forEach(function (box) {
+      box.addEventListener("change", function () {
+        var chip = box.nextElementSibling;
+        chip.classList.remove("pop"); void chip.offsetWidth; chip.classList.add("pop");
+      });
+    });
+
+    var btn = form.querySelector(".cf-submit"), label = form.querySelector(".cf-submit-label");
+    var fieldsBox = form.querySelector(".cf-fields"), success = form.querySelector(".cf-success");
+    var formError = document.getElementById("cf-form-error");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      formError.textContent = "";
+      var ok = ["name", "email", "message"].map(function (k) { return validate(k, true); }).every(Boolean);
+      if (!ok) {
+        var first = form.querySelector(".cf-field.is-invalid input, .cf-field.is-invalid textarea");
+        if (first) first.focus();
+        form.classList.remove("shake"); void form.offsetWidth; form.classList.add("shake");
+        return;
+      }
+      if (form.querySelector("#cf-website").value) return; // spam trap filled: quietly stop
+
+      var data = new FormData(form);
+      btn.disabled = true; btn.classList.add("is-sending"); label.textContent = "Sending…";
+      sendForm(data).then(function () {
+        btn.classList.remove("is-sending"); btn.classList.add("is-sent"); label.textContent = "Sent";
+        setTimeout(function () {
+          fieldsBox.hidden = true; success.hidden = false; success.focus();
+        }, 450);
+      }).catch(function () {
+        btn.disabled = false; btn.classList.remove("is-sending"); label.textContent = "Send message";
+        formError.textContent = "Sorry, your message couldn’t be sent. Please try again, or email me at jcapiraldev@gmail.com.";
+      });
+    });
+
+    form.querySelector(".cf-again").addEventListener("click", function () {
+      form.reset(); grow();
+      form.querySelectorAll(".cf-field").forEach(function (f) { f.classList.remove("is-valid", "is-invalid"); });
+      btn.disabled = false; btn.classList.remove("is-sent"); label.textContent = "Send message";
+      success.hidden = true; fieldsBox.hidden = false; fields.name.el.focus();
+    });
+  })();

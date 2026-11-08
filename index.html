@@ -382,13 +382,89 @@
     </section>
 
     <section id="contact">
-      <h2>Let’s work together</h2>
-      <p>Need a new website, a CMS your team can update, or an older site brought up to date? Send me a message and I’ll reply within a day.</p>
-      <div class="actions">
-        <!-- EDIT: your email and profile links -->
-        <a class="btn primary" href="mailto:jcapiraldev@gmail.com">Email me</a>
-        <a class="btn secondary" href="https://github.com/jcapiraldev-design" target="_blank">GitHub</a>
-        <a class="btn secondary" href="/data/files/jasper-capiral-resume.pdf" download><img src="/data/images/icons/resume.svg" alt="" width="18" height="18" class="dark-invert">Download résumé</a>
+      <div class="contact-grid">
+        <div class="contact-intro">
+          <h2>Let’s work together</h2>
+          <p>Need a new website, a CMS your team can update, or an older site brought up to date? Send me a message and I’ll reply within one business day.</p>
+          <ul class="contact-points">
+            <li><span class="cp-ico" data-ico="clock" aria-hidden="true"></span>Reply within one business day</li>
+            <li><span class="cp-ico" data-ico="globe" aria-hidden="true"></span>Working with clients in Japan, the Netherlands, and Australia</li>
+            <li><span class="cp-ico" data-ico="chat" aria-hidden="true"></span>Email, Chatwork, or the tool your team uses</li>
+          </ul>
+          <p class="contact-or">Prefer email or want the details first?</p>
+          <div class="actions">
+            <!-- EDIT: your email and profile links -->
+            <a class="btn secondary" href="mailto:jcapiraldev@gmail.com"><img src="/data/images/icons/gmail.svg" alt="" width="18" height="18">Email me</a>
+            <a class="btn secondary" href="https://github.com/jcapiraldev-design" target="_blank"><img src="/data/images/icons/github.svg" alt="" width="18" height="18" class="dark-invert">GitHub</a>
+            <a class="btn secondary" href="/data/files/jasper-capiral-resume.pdf" download><img src="/data/images/icons/resume.svg" alt="" width="18" height="18" class="dark-invert">Résumé</a>
+          </div>
+        </div>
+
+        <!-- Contact form. Sending is connected later (see sendForm in the script). -->
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqppowlk" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New message from your portfolio">
+          <div class="cf-state cf-fields">
+            <div class="cf-row">
+              <div class="cf-field" data-ico="user">
+                <input type="text" id="cf-name" name="name" autocomplete="name" placeholder=" " required maxlength="80">
+                <label for="cf-name">Your name</label>
+                <span class="cf-ok" aria-hidden="true"></span>
+                <p class="cf-error" id="cf-name-error"></p>
+              </div>
+              <div class="cf-field" data-ico="mail">
+                <input type="email" id="cf-email" name="email" autocomplete="email" placeholder=" " required maxlength="120">
+                <label for="cf-email">Email address</label>
+                <span class="cf-ok" aria-hidden="true"></span>
+                <p class="cf-error" id="cf-email-error"></p>
+              </div>
+            </div>
+
+            <div class="cf-field" data-ico="company">
+              <input type="text" id="cf-company" name="company" autocomplete="organization" placeholder=" " maxlength="120">
+              <label for="cf-company">Company <span class="cf-optional">(optional)</span></label>
+              <span class="cf-ok" aria-hidden="true"></span>
+            </div>
+
+            <fieldset class="cf-topics">
+              <legend>What can I help with? <span class="cf-optional">Pick any</span></legend>
+              <label><input type="checkbox" name="topics" value="New website"><span>New website</span></label>
+              <label><input type="checkbox" name="topics" value="WordPress / CMS"><span>WordPress / CMS</span></label>
+              <label><input type="checkbox" name="topics" value="PHP upgrade"><span>PHP upgrade</span></label>
+              <label><input type="checkbox" name="topics" value="Updates and support"><span>Updates and support</span></label>
+              <label><input type="checkbox" name="topics" value="Something else"><span>Something else</span></label>
+            </fieldset>
+
+            <div class="cf-field cf-textarea" data-ico="message">
+              <textarea id="cf-message" name="message" rows="4" placeholder=" " required minlength="10" maxlength="2000"></textarea>
+              <label for="cf-message">Tell me about your project</label>
+              <span class="cf-ok" aria-hidden="true"></span>
+              <p class="cf-error" id="cf-message-error"></p>
+              <p class="cf-count" aria-live="polite"><span id="cf-count">0</span> / 2000</p>
+            </div>
+
+            <!-- Spam trap: hidden from people, bots fill it in -->
+            <div class="cf-trap" aria-hidden="true">
+              <label for="cf-website">Leave this empty</label>
+              <input type="text" id="cf-website" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="cf-submit-row">
+              <button type="submit" class="btn primary cf-submit">
+                <span class="cf-submit-label">Send message</span>
+                <span class="cf-send-ico" aria-hidden="true"></span>
+              </button>
+              <p class="cf-note">I’ll only use your details to reply to you.</p>
+            </div>
+            <p class="cf-form-error" id="cf-form-error" role="alert"></p>
+          </div>
+
+          <div class="cf-state cf-success" hidden tabindex="-1">
+            <svg class="cf-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg>
+            <h3>Thanks, your message is on its way!</h3>
+            <p>I’ll get back to you within one business day.</p>
+            <button type="button" class="btn secondary cf-again">Send another message</button>
+          </div>
+        </form>
       </div>
     </section>
 
