@@ -1,46 +1,111 @@
 /* Profile photo and cartoon swap */
 
-.about-photo { margin: 0; justify-self: start; width: 100%; max-width: 300px; }
-
-.portrait {
-  position: relative; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden;
-  border: 1px solid var(--line); background: var(--paper);
-  box-shadow: 0 24px 48px -28px rgba(30, 42, 90, .55);
+.about-photo {
+  margin: 0;
+  justify-self: start;
+  width: 100%;
+  max-width: 300px;
 }
 
-.about-photo figcaption { margin-top: 12px; font-weight: 500; color: var(--ink); font-size: 16px; }
+.portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  box-shadow: 0 24px 48px -28px rgba(30, 42, 90, 0.55);
+}
 
-.about-photo figcaption span { display: block; font-weight: 400; color: var(--muted); font-size: 14px; }
+.about-photo figcaption {
+  margin-top: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.about-photo figcaption span {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 14px;
+}
 
 @media (min-width: 1100px) {
-  .about-photo { max-width: none; position: sticky; top: 110px; }
+  .about-photo {
+    max-width: none;
+    position: sticky;
+    top: 110px;
+  }
 }
 
 /* Photo / cartoon swap: a circular wipe reveals the cartoon, holds, then wipes back */
 
-.photo-flip img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-flip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-.photo-flip .toon { clip-path: circle(0% at 50% 38%); animation: toon-swap 10s cubic-bezier(.65,0,.35,1) infinite; }
+.photo-flip .toon {
+  clip-path: circle(0% at 50% 38%);
+  animation: toon-swap 10s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
 
 @keyframes toon-swap {
-  0%, 42%   { clip-path: circle(0% at 50% 38%); }
-  50%, 92%  { clip-path: circle(80% at 50% 38%); }
-  100%      { clip-path: circle(0% at 50% 38%); }
+  0%,
+  42% {
+    clip-path: circle(0% at 50% 38%);
+  }
+  50%,
+  92% {
+    clip-path: circle(80% at 50% 38%);
+  }
+  100% {
+    clip-path: circle(0% at 50% 38%);
+  }
 }
 
 /* a small bounce each time it changes */
 
-.photo-flip { animation: photo-pop 5s ease-in-out infinite; }
+.photo-flip {
+  animation: photo-pop 5s ease-in-out infinite;
+}
 
-@keyframes photo-pop { 0%, 76%, 100% { transform: scale(1); } 84% { transform: scale(1.04); } 92% { transform: scale(.99); } }
+@keyframes photo-pop {
+  0%,
+  76%,
+  100% {
+    transform: scale(1);
+  }
+  84% {
+    transform: scale(1.04);
+  }
+  92% {
+    transform: scale(0.99);
+  }
+}
 
-.photo-flip:hover .toon, .photo-flip:hover { animation-play-state: paused; }
+.photo-flip:hover .toon,
+.photo-flip:hover {
+  animation-play-state: paused;
+}
 
 @media (max-width: 860px) {
-  .about-photo { display: none; }
+  .about-photo {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .photo-flip, .photo-flip .toon { animation: none; }
-  .photo-flip .toon { clip-path: circle(0% at 50% 38%); }
+  .photo-flip,
+  .photo-flip .toon {
+    animation: none;
+  }
+  .photo-flip .toon {
+    clip-path: circle(0% at 50% 38%);
+  }
 }

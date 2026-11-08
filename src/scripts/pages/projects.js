@@ -15,7 +15,12 @@ function initProjectsPage() {
   var moreWrap = document.getElementById("load-more");
 
   var params = new URLSearchParams(location.search);
-  var state = { type: params.get("type") || "All", q: params.get("q") || "", sort: params.get("sort") || "new", shown: PAGE };
+  var state = {
+    type: params.get("type") || "All",
+    q: params.get("q") || "",
+    sort: params.get("sort") || "new",
+    shown: PAGE,
+  };
   q.value = state.q;
   sortEl.value = state.sort;
 
@@ -24,25 +29,43 @@ function initProjectsPage() {
 
   // Filter buttons, built from the "type" of each project
   var counts = {};
-  projects.forEach(function (p) { counts[p.type] = (counts[p.type] || 0) + 1; });
+  projects.forEach(function (p) {
+    counts[p.type] = (counts[p.type] || 0) + 1;
+  });
   var types = ["All"].concat(Object.keys(counts).sort());
-  chipsEl.innerHTML = types.map(function (t) {
-    var n = t === "All" ? projects.length : counts[t];
-    return '<li><button type="button" class="chip" data-type="' + t.replace(/"/g, "&quot;") + '">' + t + '<span>' + n + '</span></button></li>';
-  }).join("");
+  chipsEl.innerHTML = types
+    .map(function (t) {
+      var n = t === "All" ? projects.length : counts[t];
+      return (
+        '<li><button type="button" class="chip" data-type="' +
+        t.replace(/"/g, "&quot;") +
+        '">' +
+        t +
+        "<span>" +
+        n +
+        "</span></button></li>"
+      );
+    })
+    .join("");
   if (types.indexOf(state.type) === -1) state.type = "All";
 
   function matches(p) {
     if (state.type !== "All" && p.type !== state.type) return false;
     if (!state.q) return true;
     var hay = [p.name, p.type, p.role, (p.tech || []).join(" "), p.url, p.year].join(" ").toLowerCase();
-    return state.q.toLowerCase().split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
+    return state.q
+      .toLowerCase()
+      .split(/\s+/)
+      .every(function (w) {
+        return hay.indexOf(w) !== -1;
+      });
   }
 
   function sorted(list) {
     return list.slice().sort(function (a, b) {
       if (state.sort === "name") return a.name.localeCompare(b.name);
-      var ya = Number(a.year) || 0, yb = Number(b.year) || 0;
+      var ya = Number(a.year) || 0,
+        yb = Number(b.year) || 0;
       return yb - ya || a.name.localeCompare(b.name);
     });
   }
@@ -53,7 +76,9 @@ function initProjectsPage() {
     if (state.q) p.set("q", state.q);
     if (state.sort !== "new") p.set("sort", state.sort);
     var qs = p.toString();
-    try { history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "")); } catch (e) {}
+    try {
+      history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
+    } catch (e) {}
   }
 
   var prevShown = 0;
@@ -83,7 +108,11 @@ function initProjectsPage() {
     });
     prevShown = Math.min(state.shown, list.length);
     countEl.textContent = list.length
-      ? "Showing " + Math.min(state.shown, list.length) + " of " + list.length + (list.length === 1 ? " project" : " projects")
+      ? "Showing " +
+        Math.min(state.shown, list.length) +
+        " of " +
+        list.length +
+        (list.length === 1 ? " project" : " projects")
       : "";
     emptyEl.hidden = list.length !== 0;
     moreWrap.hidden = state.shown >= list.length;
@@ -97,8 +126,15 @@ function initProjectsPage() {
     state.shown = PAGE;
     render("all");
   });
-  q.addEventListener("input", function () { state.q = q.value.trim(); state.shown = PAGE; render("all"); });
-  sortEl.addEventListener("change", function () { state.sort = sortEl.value; render("all"); });
+  q.addEventListener("input", function () {
+    state.q = q.value.trim();
+    state.shown = PAGE;
+    render("all");
+  });
+  sortEl.addEventListener("change", function () {
+    state.sort = sortEl.value;
+    render("all");
+  });
   var moreBtn = document.getElementById("more-btn");
   moreBtn.addEventListener("click", function () {
     if (moreBtn.classList.contains("is-loading")) return;
@@ -113,7 +149,12 @@ function initProjectsPage() {
     }, 450);
   });
   document.getElementById("clear").addEventListener("click", function () {
-    state.type = "All"; state.q = ""; q.value = ""; state.shown = PAGE; render("all"); q.focus();
+    state.type = "All";
+    state.q = "";
+    q.value = "";
+    state.shown = PAGE;
+    render("all");
+    q.focus();
   });
 
   render("all");

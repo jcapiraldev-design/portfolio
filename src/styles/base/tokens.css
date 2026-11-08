@@ -1,35 +1,46 @@
 /* Design tokens: colors, fonts, and theme variables (light and dark) */
 
 :root {
-    --ink: #1E2A5A;
-    --text: #2B3145;
-    --muted: #5A6278;
-    --bg: #FFFFFF;
-    --side: #F3F5FA;
-    --surface: #EEF1F7;
-    --line: #D9DEE9;
-    --del-bg: #FBE9E7; --del-text: #A3352D;
-    --add-bg: #E5F3EA; --add-text: #22663F;
-    --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-    color-scheme: light;
-  }
+  --ink: #1e2a5a;
+  --text: #2b3145;
+  --muted: #5a6278;
+  --bg: #ffffff;
+  --side: #f3f5fa;
+  --surface: #eef1f7;
+  --line: #d9dee9;
+  --del-bg: #fbe9e7;
+  --del-text: #a3352d;
+  --add-bg: #e5f3ea;
+  --add-text: #22663f;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
 
 @media (prefers-color-scheme: dark) {
-    :root {
-      --ink: #C9D4FF; --text: #DDE1EC; --muted: #9AA2B8;
-      --bg: #12172A; --side: #161C31; --surface: #1B2238; --line: #2C3550;
-      --del-bg: #3A1F24; --del-text: #F2A49C;
-      --add-bg: #17332A; --add-text: #8FD9AE;
-      color-scheme: dark;
-    }
+  :root {
+    --ink: #c9d4ff;
+    --text: #dde1ec;
+    --muted: #9aa2b8;
+    --bg: #12172a;
+    --side: #161c31;
+    --surface: #1b2238;
+    --line: #2c3550;
+    --del-bg: #3a1f24;
+    --del-text: #f2a49c;
+    --add-bg: #17332a;
+    --add-text: #8fd9ae;
+    color-scheme: dark;
   }
+}
 
 /* Phones and small tablets: sidebar becomes a fixed header on top */
 
 @media (max-width: 860px) {
-    :root { --hh: 104px; }
+  :root {
+    --hh: 104px;
   }
+}
 
 /* =====================================================================
    Background theme: soft tinted page, dot grid, color glows,
@@ -37,27 +48,27 @@
    ===================================================================== */
 
 :root {
-  --page: #F5F7FD;
-  --paper: #FFFFFF;
-  --glow-1: rgba(120, 140, 255, 0.40);
+  --page: #f5f7fd;
+  --paper: #ffffff;
+  --glow-1: rgba(120, 140, 255, 0.4);
   --glow-2: rgba(80, 200, 160, 0.32);
   --glow-3: rgba(255, 170, 120, 0.24);
   --dots: rgba(30, 42, 90, 0.09);
-  --side-bg: linear-gradient(165deg, #E2E8FF 0%, #EBEFFF 45%, #DDF4EA 100%);
-  --side-line: rgba(30, 42, 90, 0.10);
+  --side-bg: linear-gradient(165deg, #e2e8ff 0%, #ebefff 45%, #ddf4ea 100%);
+  --side-line: rgba(30, 42, 90, 0.1);
   --nav-bg: rgba(255, 255, 255, 0.72);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: #12172A;
-    --paper: #1A2034;
+    --page: #12172a;
+    --paper: #1a2034;
     --glow-1: rgba(110, 130, 255, 0.22);
     --glow-2: rgba(60, 190, 150, 0.14);
     --glow-3: rgba(255, 150, 100, 0.08);
     --dots: rgba(200, 210, 255, 0.07);
-    --side-bg: linear-gradient(165deg, #1A2140 0%, #182039 50%, #142A2A 100%);
-    --side-line: rgba(200, 210, 255, 0.10);
+    --side-bg: linear-gradient(165deg, #1a2140 0%, #182039 50%, #142a2a 100%);
+    --side-line: rgba(200, 210, 255, 0.1);
     --nav-bg: rgba(18, 23, 42, 0.72);
   }
 }
@@ -66,16 +77,24 @@
    Large screens: wider content, bigger type, centered in the space
    ===================================================================== */
 
-:root { --side-w: 320px; }
+:root {
+  --side-w: 320px;
+}
 
 @media (min-width: 1440px) {
-  :root { --side-w: 340px; }
+  :root {
+    --side-w: 340px;
+  }
 }
 
 @media (min-width: 1680px) {
-  :root { --side-w: 380px; }
+  :root {
+    --side-w: 380px;
+  }
 }
 
 @media (min-width: 2000px) {
-  :root { --side-w: 420px; }
+  :root {
+    --side-w: 420px;
+  }
 }

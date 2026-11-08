@@ -2,21 +2,23 @@
 /*
  * Builds the site into dist/.
  *
- *   src/pages/*.html       page settings + content      ┐
- *   src/partials/*.html    head, header, sidebar, footer │  node scripts/build.js
- *   src/styles/            stylesheets (main.css order)  ├──────────────────────►  dist/
- *   src/scripts/           JavaScript                    │
- *   src/data/              project list (JSON)           │
- *   public/                files copied as they are      ┘
+ *   src/pages/*.html     page settings + content          ┐
+ *   src/partials/*.html  head, header, sidebar, footer     │
+ *   src/styles/          CSS (main.css lists the files)    │  npm run build
+ *   src/scripts/         JavaScript modules                ├────────────────►  dist/
+ *   src/data/            projects.json                     │
+ *   public/              files copied as they are          ┘
  *
- * Usage:
+ * CSS and JavaScript are bundled and minified with esbuild. Their file names include a
+ * content hash (for example style-3F2A9C1B.css), so browsers can cache them for a long
+ * time and still get the new version right after a change.
+ *
  *   node scripts/build.js           build once
  *   node scripts/build.js --watch   rebuild whenever a file in src/ or public/ changes
- *
- * No packages needed, just Node.js.
  */
 const fs = require("fs");
 const path = require("path");
+const esbuild = require("esbuild");
 
 const ROOT = path.resolve(__dirname, "..");
 const SRC = path.join(ROOT, "src");
@@ -32,18 +34,76 @@ const PAGES = {
   "404.html": "404.html",
 };
 
+// JavaScript entry points: main.js on every page, plus each page's own module
+const SCRIPT_ENTRIES = ["main.js", "pages/home.js", "pages/projects.js"];
+
 const read = (p) => fs.readFileSync(p, "utf8");
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function copyDir(from, to) {
   if (!fs.existsSync(from)) return;
   fs.mkdirSync(to, { recursive: true });
   for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
     if (entry.name === ".DS_Store") continue;
-    const a = path.join(from, entry.name), b = path.join(to, entry.name);
+    const a = path.join(from, entry.name),
+      b = path.join(to, entry.name);
     entry.isDirectory() ? copyDir(a, b) : fs.copyFileSync(a, b);
   }
 }
+
+/* ---------- assets ---------- */
+
+// Bundles CSS and JS, and returns a map from the public path (/assets/css/style.css)
+// to the hashed file that was written (/assets/css/style-3F2A9C1B.css)
+async function buildAssets() {
+  const manifest = {};
+  const record = (result, publicName) => {
+    for (const [outFile, info] of Object.entries(result.metafile.outputs)) {
+      if (!info.entryPoint) continue;
+      const hashed = "/" + path.relative(DIST, path.join(ROOT, outFile)).split(path.sep).join("/");
+      manifest[publicName(info.entryPoint)] = hashed;
+    }
+  };
+
+  const css = await esbuild.build({
+    entryPoints: { style: path.join(SRC, "styles/main.css") },
+    bundle: true,
+    minify: true,
+    metafile: true,
+    logLevel: "error",
+    outdir: path.join(DIST, "assets/css"),
+    entryNames: "[name]-[hash]",
+    external: ["/assets/*"],
+  });
+  record(css, () => "/assets/css/style.css");
+
+  const js = await esbuild.build({
+    entryPoints: SCRIPT_ENTRIES.map((e) => path.join(SRC, "scripts", e)),
+    outbase: path.join(SRC, "scripts"),
+    bundle: true,
+    splitting: true,
+    format: "esm",
+    minify: true,
+    metafile: true,
+    sourcemap: "linked",
+    target: ["es2020"],
+    logLevel: "error",
+    outdir: path.join(DIST, "assets/js"),
+    entryNames: "[dir]/[name]-[hash]",
+    chunkNames: "chunks/[name]-[hash]",
+  });
+  record(
+    js,
+    (entry) =>
+      "/assets/js/" +
+      path.relative(path.join(SRC, "scripts"), path.join(ROOT, entry)).split(path.sep).join("/"),
+  );
+
+  return manifest;
+}
+
+/* ---------- pages ---------- */
 
 // Settings comment at the top of a page:  key: value
 function readSettings(src) {
@@ -60,7 +120,9 @@ function readSettings(src) {
 
 // {{name}} values and {{#flag}} ... {{/flag}} blocks
 function fill(template, values, flags) {
-  const out = template.replace(/\{\{#(\w+)\}\}([\s\S]*?)\{\{\/\1\}\}/g, (_, name, inner) => (flags[name] ? inner : ""));
+  const out = template.replace(/\{\{#(\w+)\}\}([\s\S]*?)\{\{\/\1\}\}/g, (_, name, inner) =>
+    flags[name] ? inner : "",
+  );
   return out.replace(/\{\{(\w+)\}\}/g, (_, name) => (name in values ? values[name] : ""));
 }
 
@@ -69,7 +131,8 @@ function markCurrent(html, pagePath) {
   const target = new RegExp(`<a href="${pagePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`, "g");
   html = html.replace(target, (m) => `${m} aria-current="page"`);
   return html.replace(/(<ul class="menu">[\s\S]*?<\/ul>)/g, (menu) =>
-    menu.replace(/<a href="([^"]+)" aria-current="page"/g, '<a href="$1" class="active" aria-current="page"'));
+    menu.replace(/<a href="([^"]+)" aria-current="page"/g, '<a href="$1" class="active" aria-current="page"'),
+  );
 }
 
 function partial(name, page) {
@@ -77,23 +140,33 @@ function partial(name, page) {
   if (name === "sidebar") {
     // The homepage gets the section menu; other pages get the site menu
     const drop = page.key === "home" ? "site" : "home";
-    html = html.replace(new RegExp(`\\n<!--[^>]*-->\\n<nav[^>]*data-menu="${drop}">[\\s\\S]*?<\\/nav>\\n`), "\n");
+    html = html.replace(
+      new RegExp(`\\n<!--[^>]*-->\\n<nav[^>]*data-menu="${drop}">[\\s\\S]*?<\\/nav>\\n`),
+      "\n",
+    );
   }
   return markCurrent(html, page.path).trim();
 }
 
 function indent(text, spaces) {
   const pad = " ".repeat(spaces);
-  return text.split("\n").map((l) => (l ? pad + l : l)).join("\n");
+  return text
+    .split("\n")
+    .map((l) => (l ? pad + l : l))
+    .join("\n");
 }
 
-function buildPage(srcName, outName) {
+function buildPage(srcName, outName, manifest) {
   const { settings: s, rest } = readSettings(read(path.join(SRC, "pages", srcName)));
   const pageKey = (rest.match(/<body data-page="([^"]+)"/) || [])[1] || "home";
   const page = { key: pageKey, path: s.path || "/" };
 
-  let body = rest, extra = "";
-  body = body.replace(/<head-extra>([\s\S]*?)<\/head-extra>\s*/, (_, inner) => { extra = inner.trim() + "\n"; return ""; });
+  let body = rest,
+    extra = "";
+  body = body.replace(/<head-extra>([\s\S]*?)<\/head-extra>\s*/, (_, inner) => {
+    extra = inner.trim() + "\n";
+    return "";
+  });
 
   // Shared parts written straight into the page
   body = body
@@ -101,8 +174,12 @@ function buildPage(srcName, outName) {
     .replace("{{> header}}", indent(partial("header", page), 6))
     .replace("{{> footer}}", indent(partial("footer", page), 4));
 
-  const scripts = (s.scripts || "").split(",").map((x) => x.trim()).filter(Boolean)
-    .map((file) => `<script type="module" src="/assets/js/${file}"></script>\n`).join("");
+  const scripts = (s.scripts || "")
+    .split(",")
+    .map((x) => x.trim())
+    .filter(Boolean)
+    .map((file) => `<script type="module" src="/assets/js/${file}"></script>\n`)
+    .join("");
 
   const isPublic = !/noindex/i.test(s.robots || "");
   const head = fill(
@@ -116,55 +193,51 @@ function buildPage(srcName, outName) {
       scripts,
       extra,
     },
-    { canonical: isPublic, robots: !!s.robots, social: isPublic && s.social !== "no" }
+    { canonical: isPublic, robots: !!s.robots, social: isPublic && s.social !== "no" },
   );
 
-  const html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n${head.trim()}\n</head>\n${body.trim()}\n</html>\n`;
+  let html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n${head.trim()}\n</head>\n${body.trim()}\n</html>\n`;
+  // Point to the hashed CSS and JS files
+  for (const [plain, hashed] of Object.entries(manifest)) html = html.split(`"${plain}"`).join(`"${hashed}"`);
+
   const outPath = path.join(DIST, outName);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, html);
-  console.log(`  ✓ ${outName}`);
 }
 
-// src/styles/main.css lists the style files in order; they are combined into one stylesheet
-function buildStyles() {
-  const dir = path.join(SRC, "styles");
-  const css = read(path.join(dir, "main.css")).replace(/@import\s+"([^"]+)";/g, (_, file) =>
-    `/* ---- ${file} ---- */\n` + read(path.join(dir, file)).trim() + "\n");
-  const out = path.join(DIST, "assets/css/style.css");
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, css);
-}
+/* ---------- build ---------- */
 
-// src/data/projects.json -> /assets/js/data/projects.js (an ES module), without offline projects
-function buildData() {
-  const list = JSON.parse(read(path.join(SRC, "data/projects.json"))).filter((p) => !p.offline);
-  const out = path.join(DIST, "assets/js/data/projects.js");
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, `// Generated from src/data/projects.json by scripts/build.js\nexport const projects = ${JSON.stringify(list)};\n`);
-}
-
-function build() {
+async function build() {
   const started = Date.now();
   fs.rmSync(DIST, { recursive: true, force: true });
   copyDir(PUBLIC, DIST);
-  buildStyles();
-  copyDir(path.join(SRC, "scripts"), path.join(DIST, "assets/js"));
-  buildData();
-  for (const [src, out] of Object.entries(PAGES)) {
-    try { buildPage(src, out); } catch (err) { console.error(`  ✗ ${src}: ${err.message}`); process.exitCode = 1; }
-  }
+  const manifest = await buildAssets();
+  for (const [src, out] of Object.entries(PAGES)) buildPage(src, out, manifest);
   console.log(`Built dist/ in ${Date.now() - started} ms`);
 }
 
-module.exports = { build, DIST };
+async function safeBuild() {
+  try {
+    await build();
+    return true;
+  } catch (err) {
+    console.error("Build failed:", err.message);
+    process.exitCode = 1;
+    return false;
+  }
+}
+
+module.exports = { build: safeBuild, DIST };
 
 if (require.main === module) {
-  build();
-  if (process.argv.includes("--watch")) {
+  safeBuild().then(() => {
+    if (!process.argv.includes("--watch")) return;
     console.log("Watching src/ and public/ for changes. Press Ctrl + C to stop.");
     let timer;
-    const rebuild = () => { clearTimeout(timer); timer = setTimeout(build, 150); };
+    const rebuild = () => {
+      clearTimeout(timer);
+      timer = setTimeout(safeBuild, 150);
+    };
     for (const dir of [SRC, PUBLIC]) fs.watch(dir, { recursive: true }, rebuild);
-  }
+  });
 }

@@ -10,19 +10,23 @@
  *   - the current year in the footer
  */
 export function initLayout() {
-  function page() { return document.body.getAttribute("data-page") || "home"; }
+  function page() {
+    return document.body.getAttribute("data-page") || "home";
+  }
 
   // Phones: measure the fixed header so the page content starts right below it (CSS reads --hh)
   function headerHeight() {
     var side = document.querySelector(".side");
     if (!side) return;
-    if (window.innerWidth <= 860) document.documentElement.style.setProperty("--hh", side.offsetHeight + "px");
+    if (window.innerWidth <= 860)
+      document.documentElement.style.setProperty("--hh", side.offsetHeight + "px");
     else document.documentElement.style.removeProperty("--hh");
   }
 
   // Phones: hamburger menu
   function mobileNav() {
-    var btn = document.querySelector(".nav-toggle"), nav = document.getElementById("mobile-nav");
+    var btn = document.querySelector(".nav-toggle"),
+      nav = document.getElementById("mobile-nav");
     if (!btn || !nav) return;
     function set(open) {
       btn.setAttribute("aria-expanded", open ? "true" : "false");
@@ -30,21 +34,32 @@ export function initLayout() {
       nav.classList.toggle("is-open", open);
       document.documentElement.classList.toggle("nav-open", open);
     }
-    btn.addEventListener("click", function () { set(btn.getAttribute("aria-expanded") !== "true"); });
-    nav.addEventListener("click", function (e) { if (e.target.closest("a")) set(false); });
+    btn.addEventListener("click", function () {
+      set(btn.getAttribute("aria-expanded") !== "true");
+    });
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) set(false);
+    });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { set(false); btn.focus(); }
+      if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") {
+        set(false);
+        btn.focus();
+      }
     });
     document.addEventListener("click", function (e) {
-      if (btn.getAttribute("aria-expanded") === "true" && !nav.contains(e.target) && !btn.contains(e.target)) set(false);
+      if (btn.getAttribute("aria-expanded") === "true" && !nav.contains(e.target) && !btn.contains(e.target))
+        set(false);
     });
-    window.addEventListener("resize", function () { if (window.innerWidth > 860) set(false); });
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 860) set(false);
+    });
   }
 
   // Pages other than home: place the sliding menu marker next to the current page
   function menuMarker() {
     if (page() === "home") return;
-    var menu = document.querySelector(".menu"), active = menu && menu.querySelector("a.active");
+    var menu = document.querySelector(".menu"),
+      active = menu && menu.querySelector("a.active");
     if (!active) return;
     function mark() {
       menu.style.setProperty("--h", active.offsetHeight + "px");

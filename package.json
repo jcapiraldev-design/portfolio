@@ -6,9 +6,17 @@
   "scripts": {
     "build": "node scripts/build.js",
     "watch": "node scripts/build.js --watch",
-    "dev": "node scripts/dev.js"
+    "dev": "node scripts/dev.js",
+    "check": "node scripts/check.js",
+    "format": "prettier --write \"src/**/*.{js,css,json}\" \"scripts/**/*.js\"",
+    "format:check": "prettier --check \"src/**/*.{js,css,json}\" \"scripts/**/*.js\"",
+    "thumbnails": "node scripts/thumbnails.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "prettier": "3.9.10"
   }
 }

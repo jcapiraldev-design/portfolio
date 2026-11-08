@@ -11,10 +11,16 @@ export function initSkillsReveal() {
       li.style.setProperty("--i", Math.min(i, 24));
     });
   });
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { groups.classList.add("is-visible"); io.disconnect(); }
-    });
-  }, { threshold: 0.15 });
+  var io = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          groups.classList.add("is-visible");
+          io.disconnect();
+        }
+      });
+    },
+    { threshold: 0.15 },
+  );
   io.observe(groups);
 }

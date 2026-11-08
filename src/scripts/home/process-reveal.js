@@ -9,8 +9,14 @@ export function initProcessReveal() {
     li.style.setProperty("--i", i);
   });
   process.classList.add("will-animate");
-  var io = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) { process.classList.add("is-visible"); io.disconnect(); }
-  }, { threshold: 0.25 });
+  var io = new IntersectionObserver(
+    function (entries) {
+      if (entries[0].isIntersecting) {
+        process.classList.add("is-visible");
+        io.disconnect();
+      }
+    },
+    { threshold: 0.25 },
+  );
   io.observe(process);
 }

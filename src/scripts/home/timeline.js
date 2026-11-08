@@ -5,7 +5,9 @@
 export function initTimeline() {
   var list = document.querySelector("#experience .timeline");
   if (!list) return;
-  var items = Array.prototype.filter.call(list.children, function (li) { return li.tagName === "LI"; });
+  var items = Array.prototype.filter.call(list.children, function (li) {
+    return li.tagName === "LI";
+  });
   var splitQuery = window.matchMedia("(min-width: 1100px) and (hover: hover) and (pointer: fine)");
 
   // Wrap the list so a details panel can sit next to it
@@ -48,12 +50,18 @@ export function initTimeline() {
     li._inner = inner;
   });
 
-  var selected = items[0], shown = null;
+  var selected = items[0],
+    shown = null;
 
   function showInPanel(li) {
     if (shown === li) return;
     shown = li;
-    panel.innerHTML = '<div class="tl-panel-body"><p class="tl-panel-year">' + li._year + '</p><h3>' + li._title + '</h3></div>';
+    panel.innerHTML =
+      '<div class="tl-panel-body"><p class="tl-panel-year">' +
+      li._year +
+      "</p><h3>" +
+      li._title +
+      "</h3></div>";
     panel.firstChild.appendChild(li._inner.cloneNode(true));
   }
   function mark(active) {
@@ -74,9 +82,14 @@ export function initTimeline() {
     wrap.classList.toggle("is-split", split);
     list.classList.add("is-interactive");
     list.classList.toggle("is-accordion", !split);
-    hint.textContent = split ? "Hover over a role to preview it, or click to keep it in view." : "Tap a year to see the details.";
+    hint.textContent = split
+      ? "Hover over a role to preview it, or click to keep it in view."
+      : "Tap a year to see the details.";
     shown = null;
-    if (split) { if (!selected) selected = items[0]; showInPanel(selected); }
+    if (split) {
+      if (!selected) selected = items[0];
+      showInPanel(selected);
+    }
     mark(selected);
   }
 
@@ -85,20 +98,30 @@ export function initTimeline() {
     if (!btn) return;
     btn.addEventListener("click", function (e) {
       e.stopPropagation();
-      if (!wrap.classList.contains("is-split") && selected === li) { selected = null; mark(null); return; }
+      if (!wrap.classList.contains("is-split") && selected === li) {
+        selected = null;
+        mark(null);
+        return;
+      }
       select(li);
     });
-    li.addEventListener("click", function () { if (wrap.classList.contains("is-split")) select(li); });
+    li.addEventListener("click", function () {
+      if (wrap.classList.contains("is-split")) select(li);
+    });
     li.addEventListener("mouseenter", function () {
       if (!wrap.classList.contains("is-split")) return;
-      mark(li); showInPanel(li);
+      mark(li);
+      showInPanel(li);
     });
   });
   list.addEventListener("mouseleave", function () {
     if (!wrap.classList.contains("is-split")) return;
-    mark(selected); showInPanel(selected);
+    mark(selected);
+    showInPanel(selected);
   });
 
   setMode();
-  (splitQuery.addEventListener ? splitQuery.addEventListener("change", setMode) : splitQuery.addListener(setMode));
+  splitQuery.addEventListener
+    ? splitQuery.addEventListener("change", setMode)
+    : splitQuery.addListener(setMode);
 }

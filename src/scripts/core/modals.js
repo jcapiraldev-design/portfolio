@@ -4,7 +4,10 @@
 export function initModals() {
   function closeModal(dialog) {
     dialog.classList.add("is-closing");
-    setTimeout(function () { dialog.classList.remove("is-closing"); dialog.close(); }, 180);
+    setTimeout(function () {
+      dialog.classList.remove("is-closing");
+      dialog.close();
+    }, 180);
   }
   Array.prototype.forEach.call(document.querySelectorAll("[data-open-modal]"), function (btn) {
     var dialog = document.getElementById(btn.getAttribute("data-open-modal"));

@@ -18,9 +18,16 @@ export function initEffects() {
       bar.style.setProperty("--p", max > 0 ? Math.min(window.scrollY / max, 1) : 0);
       ticking = false;
     }
-    window.addEventListener("scroll", function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(progress); }
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(progress);
+        }
+      },
+      { passive: true },
+    );
     progress();
   }
 
@@ -31,9 +38,11 @@ export function initEffects() {
     var shot = e.target.closest && e.target.closest(".card .shot");
     if (!shot) return;
     var r = shot.getBoundingClientRect();
-    var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    var x = (e.clientX - r.left) / r.width - 0.5,
+      y = (e.clientY - r.top) / r.height - 0.5;
     shot.classList.add("is-tilting");
-    shot.style.transform = "perspective(800px) rotateY(" + (x * 6) + "deg) rotateX(" + (-y * 6) + "deg) translateY(-3px)";
+    shot.style.transform =
+      "perspective(800px) rotateY(" + x * 6 + "deg) rotateX(" + -y * 6 + "deg) translateY(-3px)";
   });
   document.addEventListener("pointerout", function (e) {
     var shot = e.target.closest && e.target.closest(".card .shot");
@@ -47,7 +56,7 @@ export function initEffects() {
     var card = e.target.closest && e.target.closest(".service");
     if (!card) return;
     var r = card.getBoundingClientRect();
-    card.style.setProperty("--mx", (e.clientX - r.left) + "px");
-    card.style.setProperty("--my", (e.clientY - r.top) + "px");
+    card.style.setProperty("--mx", e.clientX - r.left + "px");
+    card.style.setProperty("--my", e.clientY - r.top + "px");
   });
 }

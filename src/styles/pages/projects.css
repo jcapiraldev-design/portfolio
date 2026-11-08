@@ -1,75 +1,210 @@
 /* All projects page: search, sort, filters, and Show more */
 
 /* ===== Projects page ===== */
-.page-head { padding: 96px 0 32px; }
-.page-head h1 { font-size: clamp(2rem, 3.6vw, 2.8rem); margin: 0 0 12px; }
-.page-head p { color: var(--muted); margin: 0; }
-.tools-bar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin: 0 0 20px; }
-.search { flex: 1 1 260px; position: relative; }
+.page-head {
+  padding: 96px 0 32px;
+}
+.page-head h1 {
+  font-size: clamp(2rem, 3.6vw, 2.8rem);
+  margin: 0 0 12px;
+}
+.page-head p {
+  color: var(--muted);
+  margin: 0;
+}
+.tools-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: center;
+  margin: 0 0 20px;
+}
+.search {
+  flex: 1 1 260px;
+  position: relative;
+}
 .search input {
-  width: 100%; font: inherit; font-size: 16px; color: var(--text);
-  padding: 11px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg);
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
 }
-.search input:focus-visible, .sort select:focus-visible, .chip:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-.sort select { font: inherit; font-size: 15px; color: var(--text); border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; padding: 0; list-style: none; }
+.search input:focus-visible,
+.sort select:focus-visible,
+.chip:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+.sort select {
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
 .chip {
-  font: inherit; font-size: 15px; cursor: pointer;
-  padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line);
-  background: var(--bg); color: var(--muted);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--muted);
 }
-.chip:hover { color: var(--ink); border-color: var(--ink); }
-.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
-.chip span { opacity: .7; margin-left: 4px; }
-.result-count { color: var(--muted); font-size: 15px; margin: 0 0 20px; }
-.empty-state { padding: 48px 0; color: var(--muted); }
-.empty-state button { font: inherit; font-size: 16px; color: var(--ink); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
-.load-more { margin: 40px 0 96px; }
-.load-more button { font: inherit; cursor: pointer; }
-.load-more[hidden] { display: none; }
+.chip:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+.chip span {
+  opacity: 0.7;
+  margin-left: 4px;
+}
+.result-count {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 0 0 20px;
+}
+.empty-state {
+  padding: 48px 0;
+  color: var(--muted);
+}
+.empty-state button {
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.load-more {
+  margin: 40px 0 96px;
+}
+.load-more button {
+  font: inherit;
+  cursor: pointer;
+}
+.load-more[hidden] {
+  display: none;
+}
 @media (max-width: 860px) {
-  .page-head { padding: 40px 0 24px; }
-  .chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -24px 24px; padding: 0 24px; scrollbar-width: none; }
-  .chips::-webkit-scrollbar { display: none; }
-  .chip { white-space: nowrap; }
+  .page-head {
+    padding: 40px 0 24px;
+  }
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0 -24px 24px;
+    padding: 0 24px;
+    scrollbar-width: none;
+  }
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+  .chip {
+    white-space: nowrap;
+  }
 }
-.page-head { padding-top: 64px; }
+.page-head {
+  padding-top: 64px;
+}
 @media (max-width: 860px) {
-  .page-head { padding-top: 40px; }
+  .page-head {
+    padding-top: 40px;
+  }
 }
-.search input, .sort select, .chip { background: var(--paper); }
+.search input,
+.sort select,
+.chip {
+  background: var(--paper);
+}
 /* "Show more projects" loading state */
-.load-more button { position: relative; transition: transform .15s ease, opacity .2s ease; }
-.load-more button:active { transform: scale(.97); }
-.load-more button.is-loading { color: transparent; pointer-events: none; }
+.load-more button {
+  position: relative;
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+.load-more button:active {
+  transform: scale(0.97);
+}
+.load-more button.is-loading {
+  color: transparent;
+  pointer-events: none;
+}
 .load-more button.is-loading::after {
-  content: ""; position: absolute; inset: 0; margin: auto;
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 2px solid var(--line); border-top-color: var(--ink);
-  animation: spin .7s linear infinite;
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  border-top-color: var(--ink);
+  animation: spin 0.7s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .load-more button.is-loading::after { animation-duration: 1.5s; }
+  .load-more button.is-loading::after {
+    animation-duration: 1.5s;
+  }
 }
 @media (max-width: 600px) {
-  .page-head h1 { font-size: clamp(1.8rem, 8vw, 2.2rem); }
-  .page-head p { font-size: 15px; }
-  .chip { font-size: 14px; }
+  .page-head h1 {
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+  }
+  .page-head p {
+    font-size: 15px;
+  }
+  .chip {
+    font-size: 14px;
+  }
 }
 /* =====================================================================
    Fixes: custom sort dropdown arrow, phone tools bar, phone header menu
    ===================================================================== */
-.sort { position: relative; }
+.sort {
+  position: relative;
+}
 .sort select {
-  -webkit-appearance: none; appearance: none;
-  height: 46px; padding: 0 44px 0 16px; cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 46px;
+  padding: 0 44px 0 16px;
+  cursor: pointer;
   background-color: var(--paper);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231E2A5A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 16px center; background-size: 12px 8px;
-  transition: border-color .2s;
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  transition: border-color 0.2s;
 }
-.sort select:hover { border-color: var(--ink); }
-.search input { height: 46px; }
+.sort select:hover {
+  border-color: var(--ink);
+}
+.search input {
+  height: 46px;
+}
 @media (prefers-color-scheme: dark) {
   .sort select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23C9D4FF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -77,8 +212,23 @@
 }
 /* Phones: search and sort side by side */
 @media (max-width: 600px) {
-  .tools-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
-  .search { flex: none; }
-  .search input { font-size: 16px; padding: 0 12px; height: 44px; }
-  .sort select { height: 44px; font-size: 14px; padding: 0 34px 0 12px; background-position: right 12px center; }
+  .tools-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  .search {
+    flex: none;
+  }
+  .search input {
+    font-size: 16px;
+    padding: 0 12px;
+    height: 44px;
+  }
+  .sort select {
+    height: 44px;
+    font-size: 14px;
+    padding: 0 34px 0 12px;
+    background-position: right 12px center;
+  }
 }
