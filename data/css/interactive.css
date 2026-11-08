@@ -483,3 +483,54 @@ html.lenis, html.lenis body { scroll-behavior: auto !important; }
   .cf-check circle, .cf-check path { stroke-dashoffset: 0; }
   .cf-field label, .cf-ok, .cf-topics label > span, .cf-send-ico { transition: none; }
 }
+
+
+/* =====================================================================
+   How I work: an icon for each step, with a small hover animation
+   ===================================================================== */
+.step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.step-top .step-no { margin-bottom: 0; }
+.step-ico {
+  position: relative; width: 46px; height: 46px; border-radius: 12px; flex: none;
+  background: var(--surface); border: 1px solid var(--line);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.step-ico::before {
+  content: ""; position: absolute; inset: 0; margin: auto; width: 24px; height: 24px; background-color: var(--ink);
+  -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat;
+  transition: background-color .25s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.step-ico[data-ico="kickoff"] { --ico: url(/data/images/icons/step-kickoff.svg); }
+.step-ico[data-ico="build"]   { --ico: url(/data/images/icons/step-build.svg); }
+.step-ico[data-ico="test"]    { --ico: url(/data/images/icons/step-test.svg); }
+.step-ico[data-ico="launch"]  { --ico: url(/data/images/icons/step-launch.svg); }
+
+/* Hover: the tile fills navy, and each icon does its own little move */
+.process-steps li { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.process-steps li:hover { border-color: var(--ink); box-shadow: 0 16px 32px -22px rgba(30, 42, 90, .5); transform: translateY(-3px); }
+.process-steps li:hover .step-ico { background: var(--ink); border-color: var(--ink); }
+.process-steps li:hover .step-ico::before { background-color: var(--bg); }
+.process-steps li:hover .step-ico[data-ico="kickoff"]::before { transform: scale(1.12) rotate(-6deg); }
+.process-steps li:hover .step-ico[data-ico="build"]::before   { transform: scale(1.12); }
+.process-steps li:hover .step-ico[data-ico="test"]::before    { transform: scale(1.12) translateY(-1px); }
+.process-steps li:hover .step-ico[data-ico="launch"]::before  { transform: translate(3px, -3px) rotate(8deg); }
+
+/* The icons pop in with each step when the section scrolls into view */
+.process.will-animate .process-steps li .step-ico { opacity: 0; transform: scale(.6) rotate(-10deg); }
+.process.is-visible .process-steps li .step-ico {
+  opacity: 1; transform: none;
+  transition: opacity .4s ease, transform .5s cubic-bezier(.34,1.56,.64,1), background .25s ease, border-color .25s ease;
+  transition-delay: calc(var(--i, 0) * 180ms + 160ms), calc(var(--i, 0) * 180ms + 160ms), 0s, 0s;
+}
+.process.is-visible .process-steps li:hover .step-ico { transition-delay: 0s; }
+
+@media (max-width: 600px) {
+  .step-ico { width: 40px; height: 40px; border-radius: 10px; }
+  .step-ico::before { width: 21px; height: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step-ico, .step-ico::before, .process-steps li { transition: none; }
+  .process.will-animate .process-steps li .step-ico { opacity: 1; transform: none; }
+  .process-steps li:hover { transform: none; }
+  .process-steps li:hover .step-ico::before { transform: none; }
+}
