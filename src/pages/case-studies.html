@@ -1,0 +1,253 @@
+<!--
+  Page settings (used by build.js to write the <head>)
+  title: Case Studies – Jasper Capiral, Senior Web Developer
+  description: How I upgrade and rescue legacy PHP websites: three in-depth case studies with the problem, the fix, and how each change was tested and proven.
+  path: /case-studies/
+-->
+
+<body data-page="case-studies">
+<div class="layout">
+
+  <!-- Sidebar is loaded from /template/sidebar.html -->
+  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+
+  <main>
+    <!-- Top navigation is loaded from /template/header.html -->
+    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+    <header class="page-head">
+      <h1>Case studies</h1>
+      <p>A closer look at how I work: what was broken, what I changed, and how I proved it works. Each one has a detailed change log.</p>
+      <nav class="cs-jump" aria-label="Case studies on this page">
+        <a href="#cs-migration"><span>01</span>PHP 7.4 to 8.5 migration</a>
+        <a href="#cs-security"><span>02</span>PHP 8.4 and security hardening</a>
+        <a href="#cs-framework"><span>03</span>Legacy framework rescue</a>
+      </nav>
+    </header>
+
+    <section class="cs-list" aria-label="Case studies">
+      <article class="project cs-card" id="cs-migration">
+        <p class="cs-kicker">Case study 01</p>
+        <h3>Legacy PHP 7.4 to 8.5 migration</h3>
+        <p class="tools">PHP 8.5, Docker, Git, MariaDB</p>
+        <ul class="cs-metrics"><li><b>7.4 → 8.5</b><span>PHP version upgrade</span></li><li><b>0</b><span>changes in behavior</span></li><li><b>Docker</b><span>local test environment</span></li></ul>
+        <dl>
+          <dt>Problem</dt><dd>A recruitment website built on an older PHP framework threw dozens of errors on PHP 8.5.</dd>
+          <dt>What I did</dt><dd>Declared dynamic properties, replaced deprecated casts, and added safe checks for missing data in templates.</dd>
+          <dt>Result</dt><dd>The site runs cleanly on PHP 8.5 with no change in behavior.</dd>
+        </dl>
+        <div class="plinks"><button type="button" class="link-btn" data-open-modal="migration-modal" aria-haspopup="dialog">View code changes</button></div>
+      </article>
+
+      <!-- Code changes modal for project 1 (opened by the "View code changes" button) -->
+      <dialog class="modal modal-sm" id="migration-modal" aria-labelledby="migration-title">
+        <div class="modal-head">
+          <div>
+            <p class="modal-kicker">Case study</p>
+            <h3 id="migration-title">Code changes</h3>
+            <p class="modal-sub">Legacy PHP 7.4 to 8.5 migration</p>
+          </div>
+          <button type="button" class="modal-close" data-close-modal aria-label="Close code changes">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-note">Two examples of the fixes: a deprecated cast and a template check for missing data. Red lines are the old code, green lines the new code.</p>
+          <div class="diff" aria-label="Example of a PHP 8.5 compatibility fix">
+            <div class="file">Model.php · PHP 7.4 to 8.5 upgrade</div>
+            <code class="del">- $this-&gt;_is_admin = (boolean)$is_admin;</code>
+            <code class="add">+ $this-&gt;_is_admin = (bool)$is_admin;</code>
+            <code> </code>
+            <code class="del">- {{ if $post.salary_min != "" }}</code>
+            <code class="add">+ {{ if isset($post.salary_min) &amp;&amp; $post.salary_min != "" }}</code>
+            <p class="result">Deprecation warnings cleared, same behavior, ready for PHP 8.5.</p>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- Project 3 -->
+      <article class="project cs-card" id="cs-security">
+        <p class="cs-kicker">Case study 02</p>
+        <h3>PHP 8.4 upgrade and security hardening for two legacy sites</h3>
+        <p class="tools">PHP 8.4, Fegg framework, SQLite, PHPCompatibility, Git</p>
+        <ul class="cs-metrics"><li><b>2</b><span>legacy sites upgraded</span></li><li><b>~190</b><span>pages tested on one site</span></li><li><b>0</b><span>password resets needed</span></li></ul>
+        <dl>
+          <dt>Problem</dt><dd>Two websites for a Japanese welfare organization, a corporate and recruitment site and an internal file portal, had to move to PHP 8.4. Several admin screens and upload forms crashed with fatal errors, and the login still used outdated sha1 password hashing.</dd>
+          <dt>What I did</dt><dd>Scanned both codebases with PHPCompatibility, then ran each site locally and tested every page, contact and recruitment form, and CMS screen. Fixed PHP 8 errors in the admin and upload code, replaced deprecated functions, removed an outdated library, tightened server access rules, and moved logins to <code>password_hash()</code> with an automatic upgrade for existing users.</dd>
+          <dt>Result</dt><dd>Both sites run on PHP 8.4 with their existing behavior intact, and admin accounts use modern password hashing without anyone having to reset their password.</dd>
+        </dl>
+        <div class="plinks"><button type="button" class="link-btn" data-open-modal="changelog-modal" aria-haspopup="dialog">View change log</button></div>
+      </article>
+
+      <!-- Change log modal for project 3 (opened by the "View change log" button) -->
+      <dialog class="modal" id="changelog-modal" aria-labelledby="changelog-title">
+        <div class="modal-head">
+          <div>
+            <p class="modal-kicker">Case study</p>
+            <h3 id="changelog-title">Detailed change log</h3>
+            <p class="modal-sub">PHP 8.4 upgrade and security hardening for two legacy sites</p>
+          </div>
+          <button type="button" class="modal-close" data-close-modal aria-label="Close change log">&times;</button>
+        </div>
+
+        <div class="modal-body changelog">
+          <h4>Site 1: Internal file portal</h4>
+
+          <p class="cl-label">PHP 8 fatal error fixes</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Line</th><th>Change</th></tr></thead>
+              <tbody>
+                <tr><td><code>code/application/admin/Icon.php</code></td><td>45–47</td><td>Replaced the outdated <code>Services_JSON</code> library with native <code>json_decode()</code></td></tr>
+                <tr><td><code>code/lib/JSON.php</code></td><td>–</td><td>Removed: <code>$str{$i}</code> string access can't be loaded on PHP 8</td></tr>
+                <tr><td><code>code/lib/Tool/File.php</code></td><td>490</td><td><code>count()</code> on a string → <code>!empty()</code>, fixing uploads submitted without a file</td></tr>
+                <tr><td><code>code/application/admin/</code> (8 controllers)</td><td>various</td><td><code>array_merge()</code> with <code>(array)</code> casts, fixing a crash on edit forms</td></tr>
+                <tr><td><code>fegg/Application.php</code></td><td>50, 867</td><td>Restored the production error-display setting and reverted an unneeded change to request handling</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="cl-label">Deprecation fixes (PHP 8.1 / 8.2)</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Line</th><th>Change</th></tr></thead>
+              <tbody>
+                <tr><td><code>code/lib/Tool/Date.php</code></td><td>28, 55, 81, 111, 121, 237</td><td><code>strptime()</code> → <code>date_parse_from_format()</code> helper</td></tr>
+                <tr><td><code>code/lib/Tool/File.php</code></td><td>236</td><td><code>strptime()</code> → the same helper</td></tr>
+                <tr><td><code>fegg/Application.php</code>, <code>LH_FW.php</code>, <code>Page/Tree.php</code></td><td>13, 15, 3</td><td>Added <code>#[\AllowDynamicProperties]</code></td></tr>
+                <tr><td><code>code/lib/DB_pdo.back*.php</code></td><td>–</td><td>Removed unused backup files that still used <code>each()</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="cl-label">Security hardening</p>
+          <ul>
+            <li>Added <code>.htaccess</code> rules blocking web access to application and framework folders</li>
+            <li>Identified unused legacy features for removal</li>
+          </ul>
+
+          <h4>Site 2: Corporate and recruitment site</h4>
+
+          <p class="cl-label">PHP 8 fixes</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Line</th><th>Change</th></tr></thead>
+              <tbody>
+                <tr><td><code>code/application/cms/</code> (7 controllers)</td><td>various</td><td><code>array_merge()</code> with <code>(array)</code> casts, fixing a crash on CMS edit forms</td></tr>
+                <tr><td><code>code/application/cms/Multi.php</code></td><td>197</td><td>Default parameter value, preventing an <code>ArgumentCountError</code></td></tr>
+                <tr><td><code>code/lib/Tool/Date.php</code>, <code>Tool/File.php</code></td><td>various</td><td><code>strptime()</code> → <code>date_parse_from_format()</code> helper</td></tr>
+                <tr><td><code>code/lib/JSON.php</code></td><td>–</td><td>Removed the unused library that can't be loaded on PHP 8</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="cl-label">Password security upgrade (sha1 → <code>password_hash()</code>)</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Line</th><th>Change</th></tr></thead>
+              <tbody>
+                <tr><td><code>code/application/cms/Login.php</code></td><td>69–86</td><td><code>password_verify()</code>; old hashes checked with <code>hash_equals()</code> and upgraded automatically on next login</td></tr>
+                <tr><td><code>code/application/cms/Login.php</code></td><td>104–110</td><td>New users get <code>password_hash()</code></td></tr>
+                <tr><td><code>code/application/cms/Register.php</code></td><td>70–77</td><td>New users get <code>password_hash()</code></td></tr>
+                <tr><td><code>code/application/cms/Facility.php</code></td><td>487–488</td><td>Facility accounts get <code>password_hash()</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Testing</h4>
+          <ul>
+            <li>Static scan of both codebases with PHP_CodeSniffer + PHPCompatibility, targeting PHP 8.4</li>
+            <li>Site 1: about 190 pages, admin screens, form saves and uploads tested on a copy of the database</li>
+            <li>Site 2: built a test database from the YAML schemas, then tested every public page, the contact form and 3 recruitment forms end to end, plus all CMS screens</li>
+            <li>Login upgrade: tested old-hash users, upgraded hashes, wrong passwords, empty input and malformed input</li>
+          </ul>
+        </div>
+      </dialog>
+
+            <!-- Project: PHP 8.4 framework rescue -->
+            <article class="project cs-card" id="cs-framework">
+        <p class="cs-kicker">Case study 03</p>
+        <h3>Bringing a legacy PHP framework back to life on PHP 8.4</h3>
+        <p class="tools">PHP 8.4, Fegg framework, SQLite, PHPCompatibility, Git</p>
+        <ul class="cs-metrics"><li><b>73 / 73</b><span>templates identical</span></li><li><b>0</b><span>errors, warnings, or deprecations</span></li><li><b>100%</b><span>pages, CMS screens, and forms</span></li></ul>
+        <dl>
+          <dt>Problem</dt><dd>A Japanese company's corporate and recruitment website returned a fatal error on every page under PHP 8. Its template engine was built on <code>create_function()</code>, which PHP 8 removed, and local testing also showed dozens of deprecation warnings that broke sessions.</dd>
+          <dt>What I did</dt><dd>Rewrote the template compiler's dynamic functions as native closures, then proved they behave exactly the same by rendering the full site with the old and new logic and comparing the output. Fixed PHP 8 errors in the CMS, file uploads and the job application form, and cleared every deprecation warning by declaring each class property explicitly, without falling back on <code>#[\AllowDynamicProperties]</code> to silence them. I also repaired a broken gallery uploader and tightened server access rules.</dd>
+          <dt>Result</dt><dd>Every page, CMS screen and form runs on PHP 8.4. All 73 compiled templates came out identical to the original, and a full test run with every warning switched on produced zero errors, warnings or deprecations.</dd>
+        </dl>
+        <div class="plinks"><button type="button" class="link-btn" data-open-modal="framework-modal" aria-haspopup="dialog">View change log</button></div>
+      </article>
+
+      <!-- Change log modal for the framework rescue (opened by the "View change log" button) -->
+      <dialog class="modal" id="framework-modal" aria-labelledby="framework-title">
+        <div class="modal-head">
+          <div>
+            <p class="modal-kicker">Case study</p>
+            <h3 id="framework-title">Detailed change log</h3>
+            <p class="modal-sub">Bringing a legacy PHP framework back to life on PHP 8.4</p>
+          </div>
+          <button type="button" class="modal-close" data-close-modal aria-label="Close change log">&times;</button>
+        </div>
+
+        <div class="modal-body changelog">
+          <p class="cl-label">Fatal error fixes (PHP 8)</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Line</th><th>Change</th></tr></thead>
+              <tbody>
+                <tr><td><code>fegg/Application.php</code></td><td>350–379, 502–512</td><td>Replaced both <code>create_function()</code> calls in the template compiler with native closures, verified by comparing all 73 compiled templates</td></tr>
+                <tr><td><code>code/application/cms/</code> (3 controllers)</td><td>various</td><td><code>array_merge()</code> with <code>(array)</code> casts, fixing a crash on CMS edit forms</td></tr>
+                <tr><td><code>code/lib/Tool/Upload.php</code></td><td>165, 183</td><td>Guarded missing upload fields; PHP 8 turned "undefined array key" into a warning that blanked the application form</td></tr>
+                <tr><td><code>code/lib/JSON.php</code></td><td>–</td><td>Removed an unused library that PHP 8 can't load</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="cl-label">Deprecation fixes (PHP 8.1 / 8.2)</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Line</th><th>Change</th></tr></thead>
+              <tbody>
+                <tr><td><code>fegg/MyApplication.php</code></td><td>14</td><td>Declared <code>$_lh</code> once in the base controller class, covering every controller through inheritance</td></tr>
+                <tr><td><code>fegg/Model.php</code>, <code>code/lib/LH_FW.php</code></td><td>29, 17</td><td>Declared the five query-builder properties and the application reference</td></tr>
+                <tr><td><code>Contact.php</code>, <code>recruit/Entry.php</code>, <code>cms/Lab.php</code>, <code>Up_dir.php</code>, <code>Migration/Util/Yaml.php</code>, <code>CommandApplication.php</code></td><td>various</td><td>Declared the remaining properties found by a code scan of every class, including the CLI tools</td></tr>
+                <tr><td><code>code/lib/DB_pdo.php</code></td><td>1459</td><td>Null-safe <code>strlen()</code> check</td></tr>
+                <tr><td><code>fegg/Modifire.php</code></td><td>87</td><td><code>feggCheck()</code> returns an empty string instead of <code>null</code></td></tr>
+                <tr><td><code>code/lib/Validation.php</code></td><td>47</td><td>Error list starts as an array, not <code>false</code></td></tr>
+                <tr><td><code>code/lib/LH_FW/modifire.php</code></td><td>byteConvert / byteDecode</td><td>Handles an unlimited <code>memory_limit = -1</code>, fixing a broken max-upload-size display</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="cl-label">Bug fixes and hardening</p>
+          <ul>
+            <li>Repaired the CMS gallery uploader (<code>cms/Multi.php</code>), which called upload methods on the wrong class</li>
+            <li>Fixed a property name mismatch in the migration tool (<code>$schemaFile</code> was declared, but <code>$schemaDir</code> was used)</li>
+            <li>Found a duplicate column definition in a database schema file</li>
+            <li>Added <code>.htaccess</code> rules blocking web access to application and framework folders</li>
+          </ul>
+
+          <h4>Testing</h4>
+          <ul>
+            <li>Static scan with PHP_CodeSniffer + PHPCompatibility, targeting PHP 8.4</li>
+            <li>Built a test database from the project's YAML schemas, then tested every public page, every CMS screen, form saves, uploads, and the contact and job application forms end to end</li>
+            <li>Compared the compiled output of the old and new template compilers: all 73 templates identical</li>
+            <li>Scanned every class for undeclared properties: none remain, with no <code>#[\AllowDynamicProperties]</code> anywhere</li>
+            <li>Ran the full test again with every error type switched on: zero errors, warnings or deprecations, and pages render cleanly with errors displayed, so the <code>session_start()</code> failure is gone</li>
+          </ul>
+        </div>
+      </dialog>
+    </section>
+
+    <section class="cs-cta">
+      <h2>Have an older site that needs the same care?</h2>
+      <p>Tell me about it, and I’ll reply within one business day with what I’d check first.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:jcapiraldev@gmail.com">Email me</a>
+        <a class="btn secondary" href="/projects/">See all projects</a>
+      </div>
+    </section>
+
+    <!-- Footer is loaded from /template/footer.html -->
+    <div data-include="/template/footer.html"></div>
+  </main>
+</div>
+
+</body>

@@ -51,6 +51,20 @@
     window.addEventListener("resize", function () { if (window.innerWidth > 860) set(false); });
   }
 
+
+  // Pages other than home: place the sliding menu marker next to the current page
+  function menuMarker() {
+    if (page() === "home") return;
+    var menu = document.querySelector(".menu"), active = menu && menu.querySelector("a.active");
+    if (!active) return;
+    function mark() {
+      menu.style.setProperty("--h", active.offsetHeight + "px");
+      menu.style.setProperty("--y", active.parentElement.offsetTop + "px");
+    }
+    mark();
+    window.addEventListener("resize", mark);
+  }
+
   function finish() {
     var here = cleanPath(location.pathname);
 
@@ -77,6 +91,7 @@
 
     mobileNav();
     headerHeight();
+    menuMarker();
     ready = true;
     queue.forEach(function (fn) { fn(); });
     queue = [];

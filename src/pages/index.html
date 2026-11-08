@@ -1,0 +1,447 @@
+<!--
+  Page settings (used by build.js to write the <head>)
+  title: Jasper Capiral – PHP Developer | Websites from Design to Deployment
+  description: PHP developer with 14 years of experience and 100+ live websites for clients in Japan, the Netherlands, and Australia. WordPress, Laravel, and custom PHP, from Figma design to launch.
+  path: /
+  scripts: projects.js, home.js
+-->
+
+<head-extra>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jasper Capiral",
+  "jobTitle": "PHP Developer",
+  "url": "https://jaspercapiral-dev.vercel.app/",
+  "image": "https://jaspercapiral-dev.vercel.app/data/images/site/icon-512.png",
+  "address": { "@type": "PostalAddress", "addressCountry": "PH" },
+  "knowsAbout": ["PHP", "Laravel", "WordPress", "JavaScript", "MySQL", "Responsive web design"]
+}
+</script>
+</head-extra>
+
+<body data-page="home">
+<div class="layout">
+
+  <!-- Sidebar is loaded from /template/sidebar.html -->
+  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+
+  <main>
+    <!-- Top navigation is loaded from /template/header.html -->
+    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+    <section class="intro" id="intro">
+      <div class="intro-grid">
+        <div class="intro-copy">
+          <p class="intro-eyebrow"><span class="pulse" aria-hidden="true"></span>Available for freelance projects</p>
+          <h1 class="hero-title">I build websites end to end, from design to deployment.</h1>
+          <p class="lead">PHP developer with 14 years of experience and 100+ live websites for clients in Japan, the Netherlands, and Australia.</p>
+          <div class="actions intro-actions">
+            <a class="btn primary" href="#work">See my projects</a>
+            <a class="btn secondary" href="#contact">Work with me</a>
+          </div>
+          <dl class="hero-stats">
+            <div><dt>Years building websites</dt><dd data-count="14">14</dd></div>
+            <div><dt>Live websites delivered</dt><dd data-count="100" data-suffix="+">100+</dd></div>
+            <div><dt>Client countries</dt><dd data-count="3">3</dd></div>
+          </dl>
+        </div>
+
+        <!-- Animated stack of real project screenshots (filled in from projects.js) -->
+        <div class="intro-visual" aria-hidden="true">
+          <div class="hero-stack" id="hero-stack"></div>
+          <ol class="hero-steps">
+            <li>Design</li>
+            <li>Build</li>
+            <li>Deploy</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+        <section id="about">
+      <h2>About me</h2>
+      <div class="about-grid">
+        <div class="about-text" data-reveal-words>
+          <p>I started as a web developer in Manila in 2012. Through <a href="#experience" class="kw">MicroSourcing</a>, I worked remotely with agencies in the <a href="#experience" class="kw">Netherlands and Australia</a>, and since 2016 I’ve been with <a href="#experience" class="kw">LH Creatives</a>, building websites for Japanese companies, from small brand sites to large corporate and recruitment sites.</p>
+          <p>I handle projects from start to finish: joining kickoff meetings, planning schedules, turning <a href="#skills" class="kw">Figma and Adobe XD</a> designs into responsive sites, building <a href="/projects/?q=wordpress" class="kw">custom WordPress themes</a> and PHP systems, testing everything before launch, and deploying to live servers.</p>
+          <p>Also giving older websites a second life by <a href="/case-studies/" class="kw">upgrading them to modern PHP</a>.</p>
+          <p class="availability">Currently available for freelance projects.</p>
+        </div>
+
+        <!-- Quick facts: the clock and the "working hours" status update live -->
+        <aside class="about-facts" aria-label="Quick facts">
+          <div class="fact fact-clock">
+            <p class="fact-label">My local time</p>
+            <p class="fact-value"><span id="local-time">–</span></p>
+            <p class="fact-note"><span class="dot" id="work-dot"></span><span id="work-status">Makati City, Philippines (UTC+8)</span></p>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Building websites since</p>
+            <p class="fact-value">2012</p>
+            <p class="fact-note"><span id="years-exp">14</span> years of experience</p>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Clients in</p>
+            <ul class="fact-flags">
+              <li><span aria-hidden="true">🇯🇵</span>Japan</li>
+              <li><span aria-hidden="true">🇳🇱</span>Netherlands</li>
+              <li><span aria-hidden="true">🇦🇺</span>Australia</li>
+            </ul>
+          </div>
+          <div class="fact">
+            <p class="fact-label">Reply time</p>
+            <p class="fact-value">1 day</p>
+            <p class="fact-note">Within one business day</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <!-- EDIT: add your job title for each role -->
+      <ol class="timeline">
+        <li>
+          <p class="when">2016 – Present</p>
+          <div>
+            <h3>LH Creatives Philippines</h3>
+            <p class="where">Makati City, Philippines</p>
+            <p class="what">Sr. Web Developer / Team Leader</p>
+          </div>
+        </li>
+        <li>
+          <p class="when">2014 – 2015</p>
+          <div>
+            <h3>MicroSourcing</h3>
+            <p class="where">Pasay City, Philippines</p>
+            <p class="what">Web Developer</p>
+            <ul class="accounts">
+              <li>
+                <p class="when">2015</p>
+                <h4>YP Digital</h4>
+                <p class="where">Collingwood, Victoria, Australia</p>
+                <p class="what">Web Developer</p>
+              </li>
+              <li>
+                <p class="when">2014 – 2015</p>
+                <h4>The Webmen</h4>
+                <p class="where">Apeldoorn, Netherlands</p>
+                <p class="what">Web Developer</p>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <p class="when">2012 – 2014</p>
+          <div>
+            <h3>Lifedata Systems, Inc.</h3>
+            <p class="where">Pasig City, Philippines</p>
+            <p class="what">Jr. Web Developer</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="services">
+      <h2>What I can help with</h2>
+      <p class="section-intro">Pick what fits your project, or combine them. Most clients start with one and come back for another.</p>
+      <div class="service-grid">
+
+                <article class="service">
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/services/build.svg" alt="" width="28" height="28">
+            <h3>New website builds</h3>
+          </div>
+          <p>Your Figma or Adobe XD design, turned into a fast, responsive site that looks right on every screen and is ready for launch.</p>
+          <ul class="service-tags">
+            <li>Pixel-accurate layouts</li>
+            <li>Contact and entry forms</li>
+            <li>Animations and sliders</li>
+            <li>Launch and server setup</li>
+          </ul>
+          <p class="service-fit"><span>Good for</span> corporate, recruitment, brand, and service sites</p>
+        </article>
+
+        <article class="service">
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/services/cms.svg" alt="" width="28" height="28">
+            <h3>WordPress and CMS development</h3>
+          </div>
+          <p>Custom themes and editing screens your staff can use without touching code, so news, jobs, and works stay up to date.</p>
+          <ul class="service-tags">
+            <li>Custom WordPress themes</li>
+            <li>News, jobs, and works listings</li>
+            <li>Search and filters</li>
+            <li>Laravel and CodeIgniter</li>
+          </ul>
+          <p class="service-fit"><span>Good for</span> teams that update their own content</p>
+        </article>
+
+        <article class="service">
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/services/upgrade.svg" alt="" width="28" height="28">
+            <h3>PHP upgrades and security fixes</h3>
+          </div>
+          <p>Older PHP 5 and 7 sites moved to PHP 8.x without breaking what already works, with every page and form tested before going live.</p>
+          <ul class="service-tags">
+            <li>PHP 8.x compatibility</li>
+            <li>Error and deprecation fixes</li>
+            <li>Modern password hashing</li>
+            <li>Full page and form testing</li>
+          </ul>
+          <p class="service-fit"><span>Good for</span> sites on an outdated PHP version or framework</p>
+        </article>
+
+        <article class="service">
+          <div class="service-head">
+            <img class="service-icon dark-invert" src="/data/images/icons/services/care.svg" alt="" width="28" height="28">
+            <h3>Updates and ongoing support</h3>
+          </div>
+          <p>A reliable developer to call when your site needs new pages, layout changes, bug fixes, or a move to a new server.</p>
+          <ul class="service-tags">
+            <li>New pages and sections</li>
+            <li>Bug fixes</li>
+            <li>Server moves</li>
+            <li>Regular check-ups</li>
+          </ul>
+          <p class="service-fit"><span>Good for</span> businesses without an in-house developer</p>
+        </article>
+
+      </div>
+
+      <div class="process">
+        <h3 class="process-title">How I work</h3>
+        <ol class="process-steps">
+          <li>
+            <div class="step-top">
+              <span class="step-ico" data-ico="kickoff" aria-hidden="true"></span>
+              <h4>Kickoff</h4>
+              <span class="step-no">01</span>
+            </div>
+            <p>We go over your goals, pages, and deadline. You get a clear plan, schedule, and quote before any work starts.</p>
+          </li>
+          <li>
+            <div class="step-top">
+              <span class="step-ico" data-ico="build" aria-hidden="true"></span>
+              <h4>Build</h4>
+              <span class="step-no">02</span>
+            </div>
+            <p>I build from your design and share progress links, so you can review pages as they come together.</p>
+          </li>
+          <li>
+            <div class="step-top">
+              <span class="step-ico" data-ico="test" aria-hidden="true"></span>
+              <h4>Test</h4>
+              <span class="step-no">03</span>
+            </div>
+            <p>Every page and form is checked on desktop, tablet, and phone, and fixed before anything goes live.</p>
+          </li>
+          <li>
+            <div class="step-top">
+              <span class="step-ico" data-ico="launch" aria-hidden="true"></span>
+              <h4>Launch</h4>
+              <span class="step-no">04</span>
+            </div>
+            <p>I deploy the site, check it on the live server, and stay available for fixes and updates afterward.</p>
+          </li>
+        </ol>
+        <p class="process-note">I reply within one business day and keep you updated by email, Chatwork, or whatever tool your team uses. Based in the Philippines (UTC+8), with working hours that overlap Japan and Australia.</p>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="work-head">
+        <h2>Projects</h2>
+        <!-- EDIT: your real number of live sites -->
+        <p class="count"><strong>100+</strong> live websites delivered</p>
+      </div>
+      <!-- Cards are built automatically from projects.js -->
+      <ul class="grid" id="project-grid"></ul>
+      <div class="more">
+        <a class="btn secondary" href="/projects/">View all projects</a>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="work-head">
+        <h2>Case studies</h2>
+        <p class="count"><strong>3</strong> in-depth write-ups</p>
+      </div>
+      <ul class="cs-teasers">
+        <li>
+          <a class="cs-teaser" href="/case-studies/#cs-migration">
+            <span class="cs-no">01</span>
+            <h3>Legacy PHP 7.4 to 8.5 migration</h3>
+            <p>A recruitment site on an older framework, brought to PHP 8.5 without changing how it behaves.</p>
+            <p class="cs-stat"><b>0</b> changes in behavior</p>
+            <span class="cs-more">Read case study</span>
+          </a>
+        </li>
+        <li>
+          <a class="cs-teaser" href="/case-studies/#cs-security">
+            <span class="cs-no">02</span>
+            <h3>PHP 8.4 upgrade and security hardening</h3>
+            <p>Two sites for a welfare organization moved to PHP 8.4, with logins upgraded to modern password hashing.</p>
+            <p class="cs-stat"><b>~190</b> pages tested</p>
+            <span class="cs-more">Read case study</span>
+          </a>
+        </li>
+        <li>
+          <a class="cs-teaser" href="/case-studies/#cs-framework">
+            <span class="cs-no">03</span>
+            <h3>Bringing a legacy framework back to life</h3>
+            <p>A template engine built on a removed PHP feature, rewritten and proven identical to the original.</p>
+            <p class="cs-stat"><b>73 / 73</b> templates identical</p>
+            <span class="cs-more">Read case study</span>
+          </a>
+        </li>
+      </ul>
+      <div class="more">
+        <a class="btn secondary" href="/case-studies/">View all case studies</a>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skill-groups">
+        <div>
+          <h3>Development</h3>
+          <ul class="skills">
+            <li><img src="/data/images/icons/brands/php.svg" alt="" width="18" height="18">PHP 7 / 8.x</li>
+            <li><img src="/data/images/icons/brands/laravel.svg" alt="" width="18" height="18">Laravel</li>
+            <li><img src="/data/images/icons/brands/codeigniter.svg" alt="" width="18" height="18">CodeIgniter</li>
+            <li><img src="/data/images/icons/brands/fegg.svg" alt="" width="18" height="18">Fegg (in-house PHP framework)</li>
+            <li><img src="/data/images/icons/brands/javascript.svg" alt="" width="18" height="18">JavaScript (ES6+)</li>
+            <li><img src="/data/images/icons/brands/typescript.svg" alt="" width="18" height="18">TypeScript</li>
+            <li><img src="/data/images/icons/brands/react.svg" alt="" width="18" height="18">React</li>
+            <li><img src="/data/images/icons/brands/vue.svg" alt="" width="18" height="18">Vue.js</li>
+            <li><img src="/data/images/icons/brands/html5.svg" alt="" width="18" height="18"><img src="/data/images/icons/brands/css3.svg" alt="" width="18" height="18">HTML &amp; CSS</li>
+            <li><img src="/data/images/icons/brands/scss.svg" alt="" width="18" height="18">SCSS</li>
+            <li><img src="/data/images/icons/brands/responsive.svg" alt="" width="18" height="18" class="dark-invert">Responsive design</li>
+            <li><img src="/data/images/icons/brands/wordpress.svg" alt="" width="18" height="18">WordPress</li>
+            <li><img src="/data/images/icons/brands/silverstripe.svg" alt="" width="18" height="18" class="dark-invert">Silverstripe</li>
+            <li><img src="/data/images/icons/brands/magento.svg" alt="" width="18" height="18">Magento</li>
+            <li><img src="/data/images/icons/brands/mysql.svg" alt="" width="18" height="18"><img src="/data/images/icons/brands/mariadb.svg" alt="" width="18" height="18" class="dark-invert">MySQL / MariaDB</li>
+            <li><img src="/data/images/icons/brands/sqlite.svg" alt="" width="18" height="18" class="dark-invert">SQLite</li>
+            <li><img src="/data/images/icons/brands/docker.svg" alt="" width="18" height="18">Docker</li>
+            <li><img src="/data/images/icons/brands/git.svg" alt="" width="18" height="18"><img src="/data/images/icons/brands/github.svg" alt="" width="18" height="18" class="dark-invert">Git &amp; GitHub</li>
+            <li><img src="/data/images/icons/brands/api.svg" alt="" width="18" height="18" class="dark-invert">REST APIs</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Tools &amp; Collaboration</h3>
+          <!-- EDIT: keep only the tools you actually use at work.
+               To use a tool's official logo, save it in data/images/icons/
+               with the same file name (for example chatwork.svg). -->
+          <ul class="skills">
+            <li><img src="/data/images/icons/brands/chatwork.svg" alt="" width="18" height="18" class="dark-invert">Chatwork</li>
+            <li><img src="/data/images/icons/brands/piquet.svg" alt="" width="18" height="18">Piquet</li>
+            <li><img src="/data/images/icons/brands/prophit.svg" alt="" width="18" height="18">ProPhit</li>
+            <li><img src="/data/images/icons/brands/monday.svg" alt="" width="18" height="18" class="dark-invert">Monday</li>
+            <li><img src="/data/images/icons/brands/googlesheets.svg" alt="" width="18" height="18">Google Sheets</li>
+            <li><img src="/data/images/icons/brands/figma.svg" alt="" width="18" height="18">Figma</li>
+            <li><img src="/data/images/icons/brands/adobexd.svg" alt="" width="18" height="18">Adobe XD</li>
+            <li><img src="/data/images/icons/brands/vscode.svg" alt="" width="18" height="18">VS Code</li>
+            <li><img src="/data/images/icons/brands/chatgpt.svg" alt="" width="18" height="18" class="dark-invert">ChatGPT</li>
+            <li><img src="/data/images/icons/brands/claude.svg" alt="" width="18" height="18">Claude</li>
+            <li><img src="/data/images/icons/brands/filezilla.svg" alt="" width="18" height="18">FileZilla</li>
+            <li><img src="/data/images/icons/brands/forklift.svg" alt="" width="18" height="18" class="dark-invert">ForkLift</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-grid">
+        <div class="contact-intro">
+          <h2>Let’s work together</h2>
+          <p>Need a new website, a CMS your team can update, or an older site brought up to date? Send me a message and I’ll reply within one business day.</p>
+          <ul class="contact-points">
+            <li><span class="cp-ico" data-ico="clock" aria-hidden="true"></span>Reply within one business day</li>
+            <li><span class="cp-ico" data-ico="globe" aria-hidden="true"></span>Working with clients in Japan, the Netherlands, and Australia</li>
+            <li><span class="cp-ico" data-ico="chat" aria-hidden="true"></span>Email, Chatwork, or the tool your team uses</li>
+          </ul>
+          <p class="contact-or">Prefer email or want the details first?</p>
+          <div class="actions">
+            <!-- EDIT: your email and profile links -->
+            <a class="btn secondary" href="mailto:jcapiraldev@gmail.com"><img src="/data/images/icons/brands/gmail.svg" alt="" width="18" height="18">Email me</a>
+            <a class="btn secondary" href="https://github.com/jcapiraldev-design" target="_blank"><img src="/data/images/icons/brands/github.svg" alt="" width="18" height="18" class="dark-invert">GitHub</a>
+            <a class="btn secondary" href="/data/files/jasper-capiral-resume.pdf" download><img src="/data/images/icons/ui/resume.svg" alt="" width="18" height="18" class="dark-invert">Résumé</a>
+          </div>
+        </div>
+
+        <!-- Contact form. Sending is connected later (see sendForm in the script). -->
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqppowlk" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New message from your portfolio">
+          <div class="cf-state cf-fields">
+            <div class="cf-row">
+              <div class="cf-field" data-ico="user">
+                <input type="text" id="cf-name" name="name" autocomplete="name" placeholder=" " required maxlength="80">
+                <label for="cf-name">Your name</label>
+                <span class="cf-ok" aria-hidden="true"></span>
+                <p class="cf-error" id="cf-name-error"></p>
+              </div>
+              <div class="cf-field" data-ico="mail">
+                <input type="email" id="cf-email" name="email" autocomplete="email" placeholder=" " required maxlength="120">
+                <label for="cf-email">Email address</label>
+                <span class="cf-ok" aria-hidden="true"></span>
+                <p class="cf-error" id="cf-email-error"></p>
+              </div>
+            </div>
+
+            <div class="cf-field" data-ico="company">
+              <input type="text" id="cf-company" name="company" autocomplete="organization" placeholder=" " maxlength="120">
+              <label for="cf-company">Company <span class="cf-optional">(optional)</span></label>
+              <span class="cf-ok" aria-hidden="true"></span>
+            </div>
+
+            <fieldset class="cf-topics">
+              <legend>What can I help with? <span class="cf-optional">Pick any</span></legend>
+              <label><input type="checkbox" name="topics" value="New website"><span>New website</span></label>
+              <label><input type="checkbox" name="topics" value="WordPress / CMS"><span>WordPress / CMS</span></label>
+              <label><input type="checkbox" name="topics" value="PHP upgrade"><span>PHP upgrade</span></label>
+              <label><input type="checkbox" name="topics" value="Updates and support"><span>Updates and support</span></label>
+              <label><input type="checkbox" name="topics" value="Something else"><span>Something else</span></label>
+            </fieldset>
+
+            <div class="cf-field cf-textarea" data-ico="message">
+              <textarea id="cf-message" name="message" rows="4" placeholder=" " required minlength="10" maxlength="2000"></textarea>
+              <label for="cf-message">Tell me about your project</label>
+              <span class="cf-ok" aria-hidden="true"></span>
+              <p class="cf-error" id="cf-message-error"></p>
+              <p class="cf-count" aria-live="polite"><span id="cf-count">0</span> / 2000</p>
+            </div>
+
+            <!-- Spam trap: hidden from people, bots fill it in -->
+            <div class="cf-trap" aria-hidden="true">
+              <label for="cf-website">Leave this empty</label>
+              <input type="text" id="cf-website" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="cf-submit-row">
+              <button type="submit" class="btn primary cf-submit">
+                <span class="cf-submit-label">Send message</span>
+                <span class="cf-send-ico" aria-hidden="true"></span>
+              </button>
+              <p class="cf-note">I’ll only use your details to reply to you.</p>
+            </div>
+            <p class="cf-form-error" id="cf-form-error" role="alert"></p>
+          </div>
+
+          <div class="cf-state cf-success" hidden tabindex="-1">
+            <svg class="cf-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg>
+            <h3>Thanks, your message is on its way!</h3>
+            <p>I’ll get back to you within one business day.</p>
+            <button type="button" class="btn secondary cf-again">Send another message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer is loaded from /template/footer.html -->
+    <div data-include="/template/footer.html"></div>
+  </main>
+</div>
+
+</body>

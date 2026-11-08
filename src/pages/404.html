@@ -1,0 +1,45 @@
+<!--
+  Page settings (used by build.js to write the <head>)
+  title: Page not found – Jasper Capiral
+  description: This page could not be found.
+  path: /404.html
+  robots: noindex
+  social: no
+-->
+
+<body data-page="404">
+<div class="layout">
+
+  <!-- Sidebar is loaded from /template/sidebar.html -->
+  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+
+  <main>
+    <!-- Top navigation is loaded from /template/header.html -->
+    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+
+    <section class="nf">
+      <p class="nf-code" aria-hidden="true"><span>4</span><span class="nf-zero"></span><span>4</span></p>
+      <h1>This page took a wrong turn.</h1>
+      <p class="lead">The link may be old, or the address may have a typo. Here are some good places to go instead.</p>
+
+      <form class="nf-search" action="/projects/" method="get" role="search">
+        <label class="sr-only" for="nf-q">Search projects</label>
+        <input id="nf-q" name="q" type="search" placeholder="Search 100+ projects">
+        <button class="btn primary" type="submit">Search</button>
+      </form>
+
+      <div class="actions">
+        <a class="btn secondary" href="/">Home</a>
+        <a class="btn secondary" href="/projects/">All projects</a>
+        <a class="btn secondary" href="/case-studies/">Case studies</a>
+        <a class="btn secondary" href="/#contact">Contact</a>
+      </div>
+      <p class="nf-path">Requested address: <code id="nf-path"></code></p>
+    </section>
+
+    <!-- Footer is loaded from /template/footer.html -->
+    <div data-include="/template/footer.html"></div>
+  </main>
+</div>
+
+</body>

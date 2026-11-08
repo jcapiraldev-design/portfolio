@@ -1,0 +1,55 @@
+<!--
+  Page settings (used by build.js to write the <head>)
+  title: All Projects – Jasper Capiral, PHP Developer
+  description: Browse 100+ live websites built by Jasper Capiral: corporate, recruitment, brand, and service sites in WordPress, Laravel, and custom PHP. Search by name, type, or tool.
+  path: /projects/
+  scripts: projects.js, projects-page.js
+-->
+
+<body data-page="projects">
+<div class="layout">
+
+  <!-- Sidebar is loaded from /template/sidebar.html -->
+  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+
+  <main>
+    <!-- Top navigation is loaded from /template/header.html -->
+    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+    <header class="page-head">
+      <h1>All projects</h1>
+      <p id="total-line">Every live website I’ve built or worked on.</p>
+    </header>
+
+    <div class="tools-bar">
+      <div class="search">
+        <label class="sr-only" for="q">Search projects</label>
+        <input id="q" type="search" placeholder="Search by name, type, or tool" autocomplete="off">
+      </div>
+      <div class="sort">
+        <label class="sr-only" for="sort">Sort projects</label>
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="name">Name A to Z</option>
+        </select>
+      </div>
+    </div>
+
+    <ul class="chips" id="chips" aria-label="Filter by type"></ul>
+
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+    <ul class="grid small" id="all-grid"></ul>
+
+    <div class="empty-state" id="empty" hidden>
+      <p>No projects match your search. <button type="button" id="clear">Show all projects</button></p>
+    </div>
+
+    <div class="load-more" id="load-more" hidden>
+      <button type="button" class="btn secondary" id="more-btn">Show more projects</button>
+    </div>
+
+    <!-- Footer is loaded from /template/footer.html -->
+    <div data-include="/template/footer.html"></div>
+  </main>
+</div>
+
+</body>
