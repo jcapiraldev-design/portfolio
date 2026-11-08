@@ -173,6 +173,8 @@ function renderProjects(container, list, compact) {
     var form = document.getElementById("contact-form");
     if (!form) return;
 
+      var loadedAt = Date.now();
+
         // Sends the message to Formspree, which emails it to me
     function sendForm(data) {
       // Combine the picked topics into one line, like "New website, PHP upgrade"
@@ -253,7 +255,12 @@ function renderProjects(container, list, compact) {
         form.classList.remove("shake"); void form.offsetWidth; form.classList.add("shake");
         return;
       }
-      if (form.querySelector("#cf-website").value) return; // spam trap filled: quietly stop
+            // Spam checks: the hidden field was filled in, or the form was sent too quickly.
+      // Show the normal success message without sending, so bots don't know they were caught.
+      if (form.querySelector("#cf-website").value || Date.now() - loadedAt < 3000) {
+        fieldsBox.hidden = true; success.hidden = false;
+        return;
+      }
 
       var data = new FormData(form);
       btn.disabled = true; btn.classList.add("is-sending"); label.textContent = "Sending…";
