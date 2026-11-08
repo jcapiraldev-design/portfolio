@@ -8,12 +8,14 @@
 <body data-page="case-studies">
 <div class="layout">
 
-  <!-- Sidebar is loaded from /template/sidebar.html -->
-  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+  <aside class="side">
+{{> sidebar}}
+  </aside>
 
   <main>
-    <!-- Top navigation is loaded from /template/header.html -->
-    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+    <nav class="topnav" aria-label="Pages">
+{{> header}}
+    </nav>
     <header class="page-head">
       <h1>Case studies</h1>
       <p>A closer look at how I work: what was broken, what I changed, and how I proved it works. Each one has a detailed change log.</p>
@@ -245,8 +247,7 @@
       </div>
     </section>
 
-    <!-- Footer is loaded from /template/footer.html -->
-    <div data-include="/template/footer.html"></div>
+    {{> footer}}
   </main>
 </div>
 

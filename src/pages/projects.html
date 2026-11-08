@@ -3,18 +3,20 @@
   title: All Projects – Jasper Capiral, PHP Developer
   description: Browse 100+ live websites built by Jasper Capiral: corporate, recruitment, brand, and service sites in WordPress, Laravel, and custom PHP. Search by name, type, or tool.
   path: /projects/
-  scripts: projects.js, projects-page.js
+  scripts: pages/projects.js
 -->
 
 <body data-page="projects">
 <div class="layout">
 
-  <!-- Sidebar is loaded from /template/sidebar.html -->
-  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+  <aside class="side">
+{{> sidebar}}
+  </aside>
 
   <main>
-    <!-- Top navigation is loaded from /template/header.html -->
-    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+    <nav class="topnav" aria-label="Pages">
+{{> header}}
+    </nav>
     <header class="page-head">
       <h1>All projects</h1>
       <p id="total-line">Every live website I’ve built or worked on.</p>
@@ -47,8 +49,7 @@
       <button type="button" class="btn secondary" id="more-btn">Show more projects</button>
     </div>
 
-    <!-- Footer is loaded from /template/footer.html -->
-    <div data-include="/template/footer.html"></div>
+    {{> footer}}
   </main>
 </div>
 

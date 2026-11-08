@@ -1,0 +1,14 @@
+{
+  "name": "jasper-capiral-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio of Jasper Capiral, Senior Web Developer",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "watch": "node scripts/build.js --watch",
+    "dev": "node scripts/dev.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

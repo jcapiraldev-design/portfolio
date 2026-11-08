@@ -1,0 +1,111 @@
+/* Project cards and grids (homepage and projects page) */
+
+/* Projects grid */
+.work-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 32px; }
+.work-head h2 { margin: 0; }
+.count { color: var(--muted); font-size: 16px; margin: 0; }
+.count strong { color: var(--ink); font-size: 22px; font-weight: 700; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; list-style: none; margin: 0; padding: 0; }
+.card { display: flex; flex-direction: column; }
+.shot { display: block; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-decoration: none; }
+.shot .bar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.shot .bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shot .frame { aspect-ratio: 16 / 10; display: block; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; transition: transform .4s ease; }
+.shot:hover img { transform: scale(1.02); }
+@media (prefers-reduced-motion: reduce) { .shot img { transition: none; } .shot:hover img { transform: none; } }
+.shot .empty { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--muted); font-size: 14px; }
+.shot .empty b { font-size: 40px; color: var(--ink); opacity: .35; line-height: 1; }
+.card .type { color: var(--muted); font-size: 14px; margin: 16px 0 2px; }
+.card h3 { margin: 0 0 6px; }
+.card .role { margin: 0 0 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0 0 12px; padding: 0; }
+.tags li { background: var(--surface); padding: 2px 10px; border-radius: 5px; font-size: 13px; color: var(--muted); }
+.card .visit { margin-top: auto; font-size: 15px; font-weight: 500; }
+.card h3 { font-size: 18px; }
+.card .role { font-size: 15px; }
+@media (max-width: 1200px) and (min-width: 861px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 28px; }
+  }
+@media (max-width: 860px) {
+    .grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  }
+/* "View all projects" under the homepage grid */
+.more { margin-top: 48px; }
+.grid.small { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 18px; }
+.card.compact h3 { font-size: 16px; margin: 12px 0 2px; }
+.card.compact .type { margin: 0; font-size: 14px; }
+.card.compact .shot .bar { padding: 6px 10px; font-size: 11px; }
+@media (max-width: 1300px) and (min-width: 1061px) {
+  .grid.small { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1060px) and (min-width: 861px) {
+  .grid.small { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .grid.small { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+}
+/* Keep content surfaces crisp on the tinted page */
+.shot { background: var(--paper); box-shadow: 0 1px 2px rgba(30, 42, 90, 0.06), 0 8px 24px -12px rgba(30, 42, 90, 0.18); }
+.shot .bar { background: var(--paper); }
+.tags li { background: var(--paper); border: 1px solid var(--line); }
+@media (min-width: 600px) and (max-width: 860px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+  .grid.small { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 16px; }
+}
+@media (min-width: 1680px) {
+  .grid { gap: 48px 32px; }
+  .card h3 { font-size: 20px; }
+  .card .role { font-size: 16px; }
+  .grid.small { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px; }
+}
+@media (min-width: 2000px) {
+  .grid.small { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+/* ===== Projects page: card animations ===== */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(16px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes card-more {
+  0%   { opacity: 0; transform: translateY(32px); filter: blur(6px); }
+  60%  { filter: blur(0); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+.card.reveal      { animation: card-in .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 45ms); }
+.card.reveal-more { animation: card-more .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 60ms); }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .card.reveal, .card.reveal-more { animation: none; }
+}
+@media (max-width: 600px) {
+  .work-head h2 { font-size: 23px; }
+  .count { font-size: 14px; }
+  .count strong { font-size: 19px; }
+  .card h3 { font-size: 17px; }
+  .card .role { font-size: 15px; }
+  .card .type { font-size: 13px; }
+  .card.compact h3 { font-size: 15px; }
+  .card.compact .type { font-size: 12px; }
+}
+/* =====================================================================
+   Project cards: "Visit site" overlay on hover (mouse devices only)
+   ===================================================================== */
+.shot .frame { position: relative; overflow: hidden; }
+.shot .frame::after {
+  content: "Visit site \2197"; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: 15px; font-weight: 500; color: #fff; letter-spacing: .01em;
+  background: rgba(18, 23, 42, .55); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+  opacity: 0; transition: opacity .25s ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .shot:hover .frame::after, .shot:focus-visible .frame::after { opacity: 1; }
+}
+.card.compact .shot .frame::after { font-size: 13px; }
+/* Project screenshots tilt slightly toward the mouse */
+@media (hover: hover) and (pointer: fine) {
+  .card .shot { transition: transform .25s ease, box-shadow .25s ease; transform-style: preserve-3d; }
+  .card .shot.is-tilting { transition: transform .08s linear, box-shadow .25s ease; box-shadow: 0 22px 40px -22px rgba(30, 42, 90, .55); }
+}

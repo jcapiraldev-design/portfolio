@@ -1,0 +1,74 @@
+/* Skill tags, icons, links, and scroll reveal */
+
+.skills { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0; }
+
+.skills li { background: var(--surface); padding: 6px 14px; border-radius: 6px; font-size: 16px; }
+
+.skills li { background: var(--paper); border: 1px solid var(--line); }
+
+/* Skills split into groups */
+
+.skill-groups { display: grid; gap: 36px; }
+
+.skill-groups h3 { font-size: 18px; margin: 0 0 14px; }
+
+/* Skill icons */
+
+.skills li { display: inline-flex; align-items: center; gap: 8px; }
+
+.skills li img { width: 18px; height: 18px; flex: none; display: block; }
+
+.skills li img + img { margin-left: -2px; }
+
+@media (prefers-color-scheme: dark) {
+  .skills li img.dark-invert { filter: invert(1) brightness(1.5); }
+}
+
+/* ===== Skills scroll reveal + hover ===== */
+
+.skills li { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+
+.skills li:hover { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 6px 16px -10px rgba(30, 42, 90, .45); }
+
+.skill-groups.will-reveal h3,
+.skill-groups.will-reveal .skills li { opacity: 0; transform: translateY(14px); }
+
+.skill-groups.will-reveal.is-visible h3 { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+
+.skill-groups.will-reveal.is-visible .skills li {
+  opacity: 1; transform: none;
+  transition: opacity .45s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .2s ease, box-shadow .2s ease;
+  transition-delay: calc(var(--i, 0) * 28ms), calc(var(--i, 0) * 28ms), 0s, 0s;
+}
+
+.skill-groups.will-reveal.is-visible .skills li:hover { transform: translateY(-2px); transition-delay: 0s; }
+
+.skills li:hover { cursor: pointer; }
+
+@media (max-width: 600px) {
+  .skill-groups h3 { font-size: 16px; }
+  .skills li { font-size: 14px; padding: 5px 11px; }
+  .skills { gap: 8px; }
+}
+
+/* Skills that link to matching projects */
+
+.skills li.has-link { padding: 0; }
+
+.skill-link {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px 6px 14px;
+  color: inherit; text-decoration: none; border-radius: inherit;
+}
+
+.skill-count {
+  min-width: 22px; height: 20px; padding: 0 6px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500; background: var(--surface); color: var(--ink);
+  transition: background .2s, color .2s;
+}
+
+.skills li.has-link:hover .skill-count { background: var(--ink); color: var(--bg); }
+
+.skills li.has-link:hover { cursor: pointer; }
+
+@media (max-width: 600px) { .skill-link { padding: 5px 8px 5px 11px; } }

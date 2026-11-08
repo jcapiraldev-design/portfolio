@@ -10,12 +10,14 @@
 <body data-page="404">
 <div class="layout">
 
-  <!-- Sidebar is loaded from /template/sidebar.html -->
-  <aside class="side" data-include-inner="/template/sidebar.html"></aside>
+  <aside class="side">
+{{> sidebar}}
+  </aside>
 
   <main>
-    <!-- Top navigation is loaded from /template/header.html -->
-    <nav class="topnav" aria-label="Pages" data-include-inner="/template/header.html"></nav>
+    <nav class="topnav" aria-label="Pages">
+{{> header}}
+    </nav>
 
     <section class="nf">
       <p class="nf-code" aria-hidden="true"><span>4</span><span class="nf-zero"></span><span>4</span></p>
@@ -37,8 +39,7 @@
       <p class="nf-path">Requested address: <code id="nf-path"></code></p>
     </section>
 
-    <!-- Footer is loaded from /template/footer.html -->
-    <div data-include="/template/footer.html"></div>
+    {{> footer}}
   </main>
 </div>
 

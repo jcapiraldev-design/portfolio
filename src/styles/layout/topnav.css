@@ -1,0 +1,30 @@
+/* Top navigation bar (computers and tablets) */
+
+/* ===== Top navigation (computers and tablets) ===== */
+.topnav {
+  position: fixed; top: 0; left: 320px; right: 0; z-index: 5;
+  display: flex; justify-content: flex-end; gap: 32px;
+  padding: calc(18px + env(safe-area-inset-top, 0px)) 48px 18px; border-bottom: 1px solid var(--line);
+}
+.topnav a { text-decoration: none; color: var(--muted); font-size: 16px; padding: 4px 0; border-bottom: 2px solid transparent; }
+.topnav a:hover { color: var(--ink); }
+.topnav a[aria-current="page"] { color: var(--ink); font-weight: 500; border-bottom-color: var(--ink); }
+@media (max-width: 860px) {
+  .topnav { display: none; }
+}
+/* Top navigation: frosted glass so the background shows through */
+.topnav {
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  border-bottom-color: var(--side-line);
+}
+@media (min-width: 861px) {
+  .topnav { left: var(--side-w); }
+}
+@media (min-width: 1440px) {
+  .topnav { padding-right: 64px; }
+}
+@media (min-width: 1680px) {
+  .topnav a { font-size: 17px; }
+}
