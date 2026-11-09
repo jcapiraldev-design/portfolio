@@ -37,7 +37,7 @@
     "image": "/assets/images/projects/gardenpeaks.webp",
     "tech": ["WordPress", "PHP", "JavaScript"],
     "year": "",
-    "featured": true
+    "featured": false
   },
   {
     "name": "SAIZ",
@@ -1008,5 +1008,14 @@
     "tech": ["WordPress", "PHP", "JavaScript"],
     "year": 2023,
     "featured": false
+  },
+  {
+      "name": "Wonder Care", 
+      "type": "Healthcare website", 
+      "role": "One-page site for a psychiatric home-visit nursing station, with a hero, three reasons, service area map, six services, conditions supported, a four-step flow, insurance and pricing, staff profiles, company info with map, FAQ, and a contact form", 
+      "url": "https://www.wonder-g.jp/wondercare/", 
+      "image": "/assets/images/projects/wondercare.webp", 
+      "tech": ["React", "TypeScript", "Vite"], 
+      "year": 2026, "featured": true
   }
 ]
