@@ -35,7 +35,7 @@ const PAGES = {
 };
 
 // JavaScript entry points: main.js on every page, plus each page's own module
-const SCRIPT_ENTRIES = ["main.js", "pages/home.js", "pages/projects.js"];
+const SCRIPT_ENTRIES = ["main.js", "pages/home.js", "pages/projects.js", "pages/case-studies.js"];
 
 const read = (p) => fs.readFileSync(p, "utf8");
 const esc = (s) =>

@@ -244,7 +244,15 @@
 }
 
 .modal-body li {
-  margin: 0.25rem 0;
+  margin: 0.3rem 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+@media (max-width: 600px) {
+  .modal-body li {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 600px) {

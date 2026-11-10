@@ -295,3 +295,505 @@
     transform: none;
   }
 }
+
+/* Case studies page: easier-to-read text sizes */
+
+.cs-card dt {
+  font-size: 15px;
+}
+
+.cs-card dd {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+@media (max-width: 600px) {
+  .cs-card dt {
+    font-size: 13px;
+  }
+  .cs-card dd {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+/* Case studies page: animations */
+
+/* Page heading, intro, and jump buttons rise in on load */
+body[data-page="case-studies"] .page-head > * {
+  animation: cs-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+body[data-page="case-studies"] .page-head > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+body[data-page="case-studies"] .page-head > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+@keyframes cs-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Cards: parts are hidden until the card scrolls into view, then arrive one after another */
+.cs-card.will-reveal .cs-anim {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.cs-card.is-revealed .cs-anim {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--d, 0) * 60ms);
+}
+
+.cs-card.is-revealed .cs-ba-arrow.cs-anim {
+  transform: none;
+}
+
+/* Metric tiles lift slightly on hover */
+.cs-metrics li {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cs-card.is-revealed .cs-metrics li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -16px rgba(30, 42, 90, 0.55);
+}
+
+.cs-metrics b {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Card border warms up while you read it */
+.cs-card {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.cs-card:hover {
+  border-color: color-mix(in srgb, var(--ink) 45%, var(--line)) !important;
+  box-shadow: 0 24px 48px -36px rgba(30, 42, 90, 0.55);
+}
+
+/* "View change log" gets a small arrow that slides on hover */
+.cs-card .link-btn::after {
+  content: " →";
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.cs-card .link-btn:hover::after {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="case-studies"] .page-head > * {
+    animation: none;
+  }
+  .cs-card.will-reveal .cs-anim {
+    opacity: 1;
+    transform: none;
+  }
+  .cs-metrics li,
+  .cs-card .link-btn::after {
+    transition: none;
+  }
+}
+
+/* Case study cards: result first, before and after, process steps, tool chips, full story */
+
+.cs-lead {
+  margin: 0 0 18px;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 46em;
+}
+
+.cs-ba {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  margin: 0 0 16px;
+}
+
+.cs-before,
+.cs-after {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cs-before b,
+.cs-after b {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cs-before {
+  background: var(--del-bg);
+  color: var(--del-text);
+}
+
+.cs-after {
+  background: var(--add-bg);
+  color: var(--add-text);
+}
+
+.cs-ba-arrow {
+  align-self: center;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.cs-steps {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  counter-reset: step;
+}
+
+.cs-steps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cs-steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: -9px;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid var(--muted);
+  border-right: 2px solid var(--muted);
+  transform: rotate(45deg);
+  opacity: 0.45;
+}
+
+.cs-steps b {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.cs-step-ico {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 4px;
+  background-color: var(--ink);
+  -webkit-mask: var(--ico) center / contain no-repeat;
+  mask: var(--ico) center / contain no-repeat;
+}
+
+.cs-step-ico[data-ico="scan"] {
+  --ico: url(/assets/images/icons/case/scan.svg);
+}
+.cs-step-ico[data-ico="database"] {
+  --ico: url(/assets/images/icons/case/database.svg);
+}
+.cs-step-ico[data-ico="mail"] {
+  --ico: url(/assets/images/icons/case/mail.svg);
+}
+.cs-step-ico[data-ico="circle-check"] {
+  --ico: url(/assets/images/icons/case/circle-check.svg);
+}
+.cs-step-ico[data-ico="test-pipe"] {
+  --ico: url(/assets/images/icons/case/test-pipe.svg);
+}
+.cs-step-ico[data-ico="tool"] {
+  --ico: url(/assets/images/icons/case/tool.svg);
+}
+.cs-step-ico[data-ico="lock"] {
+  --ico: url(/assets/images/icons/case/lock.svg);
+}
+.cs-step-ico[data-ico="code"] {
+  --ico: url(/assets/images/icons/case/code.svg);
+}
+.cs-step-ico[data-ico="git-compare"] {
+  --ico: url(/assets/images/icons/case/git-compare.svg);
+}
+
+.cs-tools {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cs-tools li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 13px;
+  color: var(--text);
+}
+
+.cs-tools img {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cs-tools img.dark-invert {
+    filter: invert(1) brightness(1.5);
+  }
+}
+
+/* The full story opens and closes smoothly */
+.cs-card .cs-story-toggle::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 8px;
+  vertical-align: 2px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.cs-card .cs-story-toggle:hover::after {
+  transform: rotate(45deg);
+}
+
+.cs-card .cs-story-toggle[aria-expanded="true"]::after,
+.cs-card .cs-story-toggle[aria-expanded="true"]:hover::after {
+  transform: rotate(225deg);
+  vertical-align: -1px;
+}
+
+.cs-story {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.cs-story.is-closed {
+  grid-template-rows: 0fr;
+}
+
+.cs-story-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cs-story-inner dl {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+  transition: opacity 0.35s ease;
+}
+
+.cs-story.is-closed .cs-story-inner dl {
+  opacity: 0;
+}
+
+/* Case study tabs: one case study at a time, with a sliding highlight */
+.cs-tabs {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  margin: 0 0 24px;
+  padding: 5px;
+  max-width: 100%;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cs-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.cs-tabs a {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  white-space: nowrap;
+  background: transparent;
+  border-color: transparent;
+  transition: color 0.3s ease;
+}
+
+.cs-tabs a:hover {
+  transform: none;
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.cs-tabs a[aria-selected="true"] {
+  color: var(--bg);
+}
+
+.cs-tabs a[aria-selected="true"] span {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.cs-tabs a:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* The navy pill that slides behind the selected tab */
+.cs-tab-ind {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  width: var(--w, 0);
+  border-radius: 999px;
+  background: var(--ink);
+  transform: translateX(var(--x, 0));
+  transition:
+    transform 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    width 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  box-shadow: 0 6px 16px -8px rgba(30, 42, 90, 0.6);
+}
+
+.cs-tabs:not(.is-ready) .cs-tab-ind {
+  display: none;
+}
+
+/* Panels: the new case study slides in from the side you're moving toward */
+.cs-list.has-tabs .cs-card[hidden] {
+  display: none;
+}
+
+.cs-card.is-entering {
+  animation: cs-panel-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.cs-card.is-entering.from-left {
+  animation-name: cs-panel-in-left;
+}
+
+@keyframes cs-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cs-panel-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .cs-tabs {
+    display: flex;
+  }
+  .cs-tabs a {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-tab-ind,
+  .cs-tabs a {
+    transition: none;
+  }
+  .cs-card.is-entering {
+    animation: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .cs-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cs-steps li::after {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .cs-lead {
+    font-size: 16px;
+  }
+  .cs-ba {
+    grid-template-columns: 1fr;
+  }
+  .cs-ba-arrow {
+    justify-self: center;
+    font-size: 0;
+    line-height: 1;
+  }
+  .cs-ba-arrow::before {
+    content: "↓";
+    font-size: 18px;
+  }
+  .cs-steps li {
+    padding: 10px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-story,
+  .cs-story-inner dl,
+  .cs-card .cs-story-toggle::after {
+    transition: none;
+  }
+}
+
+.cs-card .plinks {
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+
+.cs-card .plinks .link-btn {
+  white-space: nowrap;
+}
