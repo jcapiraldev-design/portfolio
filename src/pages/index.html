@@ -61,88 +61,71 @@
       </div>
     </section>
 
-        <section id="about">
+    <section id="about">
       <h2>About me</h2>
       <div class="about-grid">
-        <div class="about-text" data-reveal-words>
-          <p>I started as a web developer in Manila in 2012. Through <a href="#experience" class="kw">MicroSourcing</a>, I worked remotely with agencies in the <a href="#experience" class="kw">Netherlands and Australia</a>, and since 2016 I’ve been with <a href="#experience" class="kw">LH Creatives</a>, building websites for Japanese companies, from small brand sites to large corporate and recruitment sites.</p>
-          <p>I handle projects from start to finish: joining kickoff meetings, planning schedules, turning <a href="#skills" class="kw">Figma and Adobe XD</a> designs into responsive sites, building <a href="/projects/?q=wordpress" class="kw">custom WordPress themes</a> and PHP systems, testing everything before launch, and deploying to live servers.</p>
-          <p>Also giving older websites a second life by <a href="/case-studies/" class="kw">upgrading them to modern PHP</a>.</p>
+        <div class="about-main">
+          <div class="about-text" data-reveal-words>
+            <p>I started as a web developer in Manila in 2012. Through <a href="#experience" class="kw">MicroSourcing</a>, I worked remotely with agencies in the <a href="#experience" class="kw">Netherlands and Australia</a>, and since 2016 I’ve been with <a href="#experience" class="kw">LH Creatives</a>, building websites for Japanese companies, from small brand sites to large corporate and recruitment sites.</p>
+            <p>I handle projects from start to finish: joining kickoff meetings, planning schedules, turning <a href="#skills" class="kw">Figma and Adobe XD</a> designs into responsive sites, building <a href="/projects/?q=wordpress" class="kw">custom WordPress themes</a> and PHP systems, testing everything before launch, and deploying to live servers.</p>
+            <p>Also giving older websites a second life by <a href="/case-studies/" class="kw">upgrading them to modern PHP</a>.</p>
+          </div>
           <p class="availability">Currently available for freelance projects.</p>
+
+          <!-- Quick facts: the clock and the "working hours" status update live -->
+          <aside class="about-facts" aria-label="Quick facts">
+            <div class="fact fact-clock">
+              <p class="fact-label">My local time</p>
+              <p class="fact-value"><span id="local-time">–</span></p>
+              <p class="fact-note"><span class="dot" id="work-dot"></span><span id="work-status">Makati City, Philippines (UTC+8)</span></p>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Building websites since</p>
+              <p class="fact-value">2012</p>
+              <p class="fact-note"><span id="years-exp">14</span> years of experience</p>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Clients in</p>
+              <ul class="fact-flags">
+                <li><span aria-hidden="true">🇯🇵</span>Japan</li>
+                <li><span aria-hidden="true">🇳🇱</span>Netherlands</li>
+                <li><span aria-hidden="true">🇦🇺</span>Australia</li>
+              </ul>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Reply time</p>
+              <p class="fact-value">1 day</p>
+              <p class="fact-note">Within one business day</p>
+            </div>
+          </aside>
         </div>
 
-        <!-- Quick facts: the clock and the "working hours" status update live -->
-        <aside class="about-facts" aria-label="Quick facts">
-          <div class="fact fact-clock">
-            <p class="fact-label">My local time</p>
-            <p class="fact-value"><span id="local-time">–</span></p>
-            <p class="fact-note"><span class="dot" id="work-dot"></span><span id="work-status">Makati City, Philippines (UTC+8)</span></p>
-          </div>
-          <div class="fact">
-            <p class="fact-label">Building websites since</p>
-            <p class="fact-value">2012</p>
-            <p class="fact-note"><span id="years-exp">14</span> years of experience</p>
-          </div>
-          <div class="fact">
-            <p class="fact-label">Clients in</p>
-            <ul class="fact-flags">
-              <li><span aria-hidden="true">🇯🇵</span>Japan</li>
-              <li><span aria-hidden="true">🇳🇱</span>Netherlands</li>
-              <li><span aria-hidden="true">🇦🇺</span>Australia</li>
-            </ul>
-          </div>
-          <div class="fact">
-            <p class="fact-label">Reply time</p>
-            <p class="fact-value">1 day</p>
-            <p class="fact-note">Within one business day</p>
-          </div>
-        </aside>
+        <!-- Career: every role at a glance (the menu's "Experience" link points here) -->
+        <div class="career-card" id="experience">
+          <h3 class="career-title">Career</h3>
+          <ol class="career">
+            <li class="is-now">
+              <p class="career-when">2016 – Present</p>
+              <h4>LH Creatives Philippines</h4>
+              <p class="career-role">Sr. Web Developer / Team Leader <span>Makati City, Philippines</span></p>
+            </li>
+            <li>
+              <p class="career-when">2014 – 2015</p>
+              <h4>MicroSourcing</h4>
+              <p class="career-role">Web Developer <span>Pasay City, Philippines</span></p>
+              <ul class="career-accounts" aria-label="Client accounts">
+                <li><b>YP Digital</b> 2015 · Collingwood, Australia</li>
+                <li><b>The Webmen</b> 2014 – 2015 · Apeldoorn, Netherlands</li>
+              </ul>
+            </li>
+            <li>
+              <p class="career-when">2012 – 2014</p>
+              <h4>Lifedata Systems, Inc.</h4>
+              <p class="career-role">Jr. Web Developer <span>Pasig City, Philippines</span></p>
+            </li>
+          </ol>
+        </div>
       </div>
-    </section>
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <!-- EDIT: add your job title for each role -->
-      <ol class="timeline">
-        <li>
-          <p class="when">2016 – Present</p>
-          <div>
-            <h3>LH Creatives Philippines</h3>
-            <p class="where">Makati City, Philippines</p>
-            <p class="what">Sr. Web Developer / Team Leader</p>
-          </div>
-        </li>
-        <li>
-          <p class="when">2014 – 2015</p>
-          <div>
-            <h3>MicroSourcing</h3>
-            <p class="where">Pasay City, Philippines</p>
-            <p class="what">Web Developer</p>
-            <ul class="accounts">
-              <li>
-                <p class="when">2015</p>
-                <h4>YP Digital</h4>
-                <p class="where">Collingwood, Victoria, Australia</p>
-                <p class="what">Web Developer</p>
-              </li>
-              <li>
-                <p class="when">2014 – 2015</p>
-                <h4>The Webmen</h4>
-                <p class="where">Apeldoorn, Netherlands</p>
-                <p class="what">Web Developer</p>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <p class="when">2012 – 2014</p>
-          <div>
-            <h3>Lifedata Systems, Inc.</h3>
-            <p class="where">Pasig City, Philippines</p>
-            <p class="what">Jr. Web Developer</p>
-          </div>
-        </li>
-      </ol>
     </section>
 
     <section id="services">

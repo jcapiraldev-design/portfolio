@@ -220,3 +220,226 @@
     transform: none;
   }
 }
+
+/* About and career side by side: the story and quick facts on the left,
+   every role at a glance on the right */
+
+@media (min-width: 1100px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (min-width: 1680px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+}
+
+.about-main .availability {
+  margin: 4px 0 22px;
+}
+
+/* Quick facts become a compact row under the story */
+.about-facts,
+.about-facts:is(*) {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  position: static;
+}
+
+.about-facts .fact {
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.about-facts .fact-clock {
+  grid-column: auto;
+}
+
+.about-facts .fact-value {
+  font-size: 20px;
+}
+
+.about-facts .fact-note {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.about-facts .fact-flags {
+  gap: 4px;
+}
+
+.about-facts .fact-flags li {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+@media (min-width: 1100px) and (max-width: 1679px) {
+  .about-facts,
+  .about-facts:is(*) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .about-facts,
+  .about-facts:is(*) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Career card */
+.career-card {
+  scroll-margin-top: 100px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 48px -36px rgba(30, 42, 90, 0.5);
+}
+
+.career-title {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.career {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 22px;
+  position: relative;
+}
+
+.career::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.career > li {
+  position: relative;
+  padding: 0 0 20px;
+}
+
+.career > li:last-child {
+  padding-bottom: 0;
+}
+
+.career > li::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  transition: transform 0.25s ease;
+}
+
+.career > li.is-now::before {
+  background: var(--ink);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.career > li.is-edu::before {
+  border-style: dashed;
+}
+
+.career > li:hover::before {
+  transform: scale(1.2);
+}
+
+.career-when {
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.career h4 {
+  margin: 0 0 2px;
+  font-size: 17px;
+  color: var(--ink);
+}
+
+.career-role {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.career-role span {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.career-accounts {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.career-accounts li {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.career-accounts b {
+  display: block;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* The career card's roles arrive one after another when it scrolls into view */
+.career-card.will-reveal .career > li {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.career-card.is-revealed .career > li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+
+@media (max-width: 600px) {
+  .career-card {
+    padding: 18px;
+  }
+  .career h4 {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .career > li::before {
+    transition: none;
+  }
+  .career-card.will-reveal .career > li {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -98,4 +98,23 @@ export function initAbout() {
   );
   window.addEventListener("resize", update);
   update();
+
+  // 3. Career card: roles arrive one after another when it scrolls into view
+  var career = document.querySelector(".career-card");
+  if (career && !reduce && "IntersectionObserver" in window) {
+    Array.prototype.forEach.call(career.querySelectorAll(".career > li"), function (li, i) {
+      li.style.setProperty("--i", i);
+    });
+    career.classList.add("will-reveal");
+    var cio = new IntersectionObserver(
+      function (entries) {
+        if (entries[0].isIntersecting) {
+          career.classList.add("is-revealed");
+          cio.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    cio.observe(career);
+  }
 }
