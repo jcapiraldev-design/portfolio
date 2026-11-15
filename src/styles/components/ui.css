@@ -75,3 +75,82 @@
     display: none;
   }
 }
+
+/* =====================================================================
+   Homepage section switching (see scripts/home/section-switch.js)
+   ===================================================================== */
+
+/* The sidebar, top bar, and floating UI stay still while the content changes */
+.side {
+  view-transition-name: side;
+}
+.topnav {
+  view-transition-name: topnav;
+}
+.read-progress {
+  view-transition-name: read-progress;
+}
+.to-top {
+  view-transition-name: to-top;
+}
+
+::view-transition-group(side),
+::view-transition-group(topnav),
+::view-transition-group(read-progress),
+::view-transition-group(to-top) {
+  animation: none;
+}
+
+::view-transition-old(side),
+::view-transition-new(side),
+::view-transition-old(topnav),
+::view-transition-new(topnav),
+::view-transition-old(to-top),
+::view-transition-new(to-top) {
+  animation: none;
+}
+
+/* The content: the old screen fades out, the new one fades and rises in */
+::view-transition-old(root) {
+  animation: section-out 0.22s ease both;
+}
+
+::view-transition-new(root) {
+  animation: section-in 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes section-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes section-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* Fallback for browsers without view transitions (the top bar stays visible) */
+main.is-switching-out > :not(.topnav) {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+main.is-switching-in > :not(.topnav) {
+  animation: section-in 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Sections get keyboard focus after a switch; no outline box around a whole section */
+main section:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
