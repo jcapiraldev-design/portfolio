@@ -3,8 +3,9 @@
  * and in-page links like "See my projects") switches to that section like changing
  * screens, instead of scrolling through everything in between.
  *
- * The current view fades out, the page jumps straight to the section, and the new
- * view fades and rises in. The sidebar and top bar stay perfectly still.
+ * The current view slides up and fades away, the page jumps straight to the section,
+ * and the new view is wiped in from top to bottom with a glowing scan line riding the
+ * edge. The sidebar and top bar stay perfectly still.
  * Browsers with the View Transitions API get a true crossfade; others get a quick
  * fade. With "reduce motion" on, it simply jumps.
  */
@@ -50,11 +51,20 @@ export function initSectionSwitch() {
       return;
     }
 
-    // True crossfade where supported
+    // Full effect where view transitions are supported
     if (document.startViewTransition) {
       busy = true;
-      const transition = document.startViewTransition(() => jumpTo(target, hash));
+      let scan = null;
+      const transition = document.startViewTransition(() => {
+        jumpTo(target, hash);
+        // The scan line exists only in the new view, so it sweeps in with it
+        scan = document.createElement("div");
+        scan.className = "switch-scan";
+        scan.setAttribute("aria-hidden", "true");
+        document.body.appendChild(scan);
+      });
       transition.finished.finally(() => {
+        if (scan) scan.remove();
         busy = false;
       });
       return;

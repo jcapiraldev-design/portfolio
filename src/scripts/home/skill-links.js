@@ -4,6 +4,16 @@
 import { projects } from "../data/projects.js";
 
 export function initSkillLinks() {
+  // Core tiles: live project counts
+  function count(term) {
+    return projects.filter(function (p) {
+      return (p.tech || []).join(" ").toLowerCase().indexOf(term) !== -1;
+    }).length;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("#skills [data-tech-count]"), function (el) {
+    el.textContent = count(el.getAttribute("data-tech-count"));
+  });
+
   var alias = {
     php: "php",
     laravel: "laravel",
