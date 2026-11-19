@@ -88,9 +88,14 @@
   transition: background-size 0.45s ease;
 }
 
-.about-text .kw:hover,
 .about-text .kw:focus-visible {
   background-size: 100% 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-text .kw:hover {
+    background-size: 100% 100%;
+  }
 }
 
 .about-text.is-revealing .kw .rw.on {
@@ -130,10 +135,12 @@
     box-shadow 0.2s ease;
 }
 
-.fact:hover {
-  transform: translateY(-3px);
-  border-color: var(--ink);
-  box-shadow: 0 14px 28px -20px rgba(30, 42, 90, 0.5);
+@media (hover: hover) and (pointer: fine) {
+  .fact:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+    box-shadow: 0 14px 28px -20px rgba(30, 42, 90, 0.5);
+  }
 }
 
 .fact-label {
@@ -216,8 +223,10 @@
   .about-text .kw {
     transition: none;
   }
-  .fact:hover {
-    transform: none;
+  @media (hover: hover) and (pointer: fine) {
+    .fact:hover {
+      transform: none;
+    }
   }
 }
 
@@ -358,8 +367,10 @@
   border-style: dashed;
 }
 
-.career > li:hover::before {
-  transform: scale(1.2);
+@media (hover: hover) and (pointer: fine) {
+  .career > li:hover::before {
+    transform: scale(1.2);
+  }
 }
 
 .career-when {

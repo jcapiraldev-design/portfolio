@@ -67,15 +67,19 @@
   display: block;
   transition: transform 0.4s ease;
 }
-.shot:hover img {
-  transform: scale(1.02);
+@media (hover: hover) and (pointer: fine) {
+  .shot:hover img {
+    transform: scale(1.02);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .shot img {
     transition: none;
   }
-  .shot:hover img {
-    transform: none;
+  @media (hover: hover) and (pointer: fine) {
+    .shot:hover img {
+      transform: none;
+    }
   }
 }
 .shot .empty {
@@ -343,5 +347,31 @@
       transform 0.08s linear,
       box-shadow 0.25s ease;
     box-shadow: 0 22px 40px -22px rgba(30, 42, 90, 0.55);
+  }
+}
+
+/* "Visit site" link under each card */
+.card .visit {
+  text-underline-offset: 3px;
+  transition:
+    text-underline-offset 0.2s ease,
+    color 0.2s ease;
+}
+
+.card .visit::after {
+  content: " ↗";
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card .visit:hover {
+    text-underline-offset: 6px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card .visit:hover::after {
+    transform: translate(2px, -2px);
   }
 }

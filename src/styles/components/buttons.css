@@ -55,3 +55,71 @@
     padding: 11px 18px;
   }
 }
+
+/* Hover and press feedback for every button */
+.btn {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn.primary:hover {
+    background: color-mix(in srgb, var(--ink) 86%, #5b6cff);
+    box-shadow: 0 12px 24px -12px rgba(30, 42, 90, 0.6);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn.secondary:hover {
+    border-color: var(--ink);
+    box-shadow: 0 10px 22px -16px rgba(30, 42, 90, 0.55);
+  }
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.link-btn {
+  transition:
+    text-underline-offset 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-btn:hover {
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .link-btn {
+    transition: none;
+  }
+  .btn:active {
+    transform: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover {
+      transform: none;
+    }
+  }
+}

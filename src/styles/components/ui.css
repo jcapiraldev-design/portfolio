@@ -33,8 +33,10 @@
   visibility: visible;
   transform: none;
 }
-.to-top:hover {
-  border-color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover {
+    border-color: var(--ink);
+  }
 }
 .to-top:focus-visible {
   outline: 3px solid var(--ink);

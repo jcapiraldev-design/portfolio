@@ -176,9 +176,11 @@
   display: block;
 }
 
-.cf-field input:hover,
-.cf-field textarea:hover {
-  border-color: color-mix(in srgb, var(--ink) 40%, var(--line));
+@media (hover: hover) and (pointer: fine) {
+  .cf-field input:hover,
+  .cf-field textarea:hover {
+    border-color: color-mix(in srgb, var(--ink) 40%, var(--line));
+  }
 }
 
 .cf-field input:focus,
@@ -386,9 +388,11 @@
   mask: url(/assets/images/icons/form/check.svg) center / contain no-repeat;
 }
 
-.cf-topics label:hover > span {
-  border-color: var(--ink);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .cf-topics label:hover > span {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
 }
 
 .cf-topics label > input:checked + span {
@@ -465,8 +469,10 @@
     background 0.3s ease;
 }
 
-.cf-submit:hover {
-  box-shadow: 0 12px 24px -12px rgba(30, 42, 90, 0.7);
+@media (hover: hover) and (pointer: fine) {
+  .cf-submit:hover {
+    box-shadow: 0 12px 24px -12px rgba(30, 42, 90, 0.7);
+  }
 }
 
 .cf-submit:active {
@@ -482,8 +488,10 @@
   mask: url(/assets/images/icons/form/send.svg) center / contain no-repeat;
 }
 
-.cf-submit:hover .cf-send-ico {
-  transform: translate(3px, -3px) rotate(-8deg);
+@media (hover: hover) and (pointer: fine) {
+  .cf-submit:hover .cf-send-ico {
+    transform: translate(3px, -3px) rotate(-8deg);
+  }
 }
 
 .cf-submit.is-sending {

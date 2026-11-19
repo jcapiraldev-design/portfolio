@@ -20,8 +20,10 @@
   padding: 4px 0;
   border-bottom: 2px solid transparent;
 }
-.topnav a:hover {
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .topnav a:hover {
+    color: var(--ink);
+  }
 }
 .topnav a[aria-current="page"] {
   color: var(--ink);

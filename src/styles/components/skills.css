@@ -67,10 +67,12 @@
     box-shadow 0.2s ease;
 }
 
-.skills li:hover {
-  transform: translateY(-2px);
-  border-color: var(--ink);
-  box-shadow: 0 6px 16px -10px rgba(30, 42, 90, 0.45);
+@media (hover: hover) and (pointer: fine) {
+  .skills li:hover {
+    transform: translateY(-2px);
+    border-color: var(--ink);
+    box-shadow: 0 6px 16px -10px rgba(30, 42, 90, 0.45);
+  }
 }
 
 .skill-groups.will-reveal h3,
@@ -98,13 +100,17 @@
   transition-delay: calc(var(--i, 0) * 28ms), calc(var(--i, 0) * 28ms), 0s, 0s;
 }
 
-.skill-groups.will-reveal.is-visible .skills li:hover {
-  transform: translateY(-2px);
-  transition-delay: 0s;
+@media (hover: hover) and (pointer: fine) {
+  .skill-groups.will-reveal.is-visible .skills li:hover {
+    transform: translateY(-2px);
+    transition-delay: 0s;
+  }
 }
 
-.skills li:hover {
-  cursor: pointer;
+@media (hover: hover) and (pointer: fine) {
+  .skills li:hover {
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 600px) {
@@ -153,13 +159,17 @@
     color 0.2s;
 }
 
-.skills li.has-link:hover .skill-count {
-  background: var(--ink);
-  color: var(--bg);
+@media (hover: hover) and (pointer: fine) {
+  .skills li.has-link:hover .skill-count {
+    background: var(--ink);
+    color: var(--bg);
+  }
 }
 
-.skills li.has-link:hover {
-  cursor: pointer;
+@media (hover: hover) and (pointer: fine) {
+  .skills li.has-link:hover {
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 600px) {
@@ -212,10 +222,12 @@
     box-shadow 0.2s ease;
 }
 
-a.core-tile:hover {
-  transform: translateY(-3px);
-  border-color: var(--ink);
-  box-shadow: 0 16px 32px -22px rgba(30, 42, 90, 0.55);
+@media (hover: hover) and (pointer: fine) {
+  a.core-tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+    box-shadow: 0 16px 32px -22px rgba(30, 42, 90, 0.55);
+  }
 }
 
 .core-logos {
@@ -256,9 +268,11 @@ a.core-tile:hover {
     color 0.2s ease;
 }
 
-a.core-tile:hover .core-more {
-  transform: translateX(3px);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  a.core-tile:hover .core-more {
+    transform: translateX(3px);
+    color: var(--ink);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -342,8 +356,10 @@ a.core-tile:hover .core-more {
   .core-more {
     transition: none;
   }
-  a.core-tile:hover {
-    transform: none;
+  @media (hover: hover) and (pointer: fine) {
+    a.core-tile:hover {
+      transform: none;
+    }
   }
   .skill-groups.will-reveal .skills-core > li,
   .skill-groups.will-reveal .skill-row-label,

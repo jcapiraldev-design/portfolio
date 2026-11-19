@@ -65,9 +65,11 @@
   background: var(--bg);
   color: var(--muted);
 }
-.chip:hover {
-  color: var(--ink);
-  border-color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
 }
 .chip[aria-pressed="true"] {
   background: var(--ink);
@@ -199,8 +201,10 @@
   background-size: 12px 8px;
   transition: border-color 0.2s;
 }
-.sort select:hover {
-  border-color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .sort select:hover {
+    border-color: var(--ink);
+  }
 }
 .search input {
   height: 46px;
@@ -230,5 +234,29 @@
     font-size: 14px;
     padding: 0 34px 0 12px;
     background-position: right 12px center;
+  }
+}
+
+.sort select {
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sort select:hover,
+  .search input:hover {
+    border-color: color-mix(in srgb, var(--ink) 45%, var(--line));
+  }
+}
+
+/* Once every project is shown and "Show more" disappears, keep the same
+   breathing room above the footer */
+#load-more[hidden] + .site-footer {
+  margin-top: 96px;
+}
+
+@media (max-width: 600px) {
+  #load-more[hidden] + .site-footer {
+    margin-top: 72px;
   }
 }

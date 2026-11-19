@@ -65,8 +65,10 @@
   font-size: 17px;
   transition: color 0.2s;
 }
-.menu a:hover {
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .menu a:hover {
+    color: var(--ink);
+  }
 }
 .menu a.active {
   color: var(--ink);
@@ -83,9 +85,11 @@
   text-decoration: none;
   color: var(--muted);
 }
-.side .links a:hover {
-  color: var(--ink);
-  text-decoration: underline;
+@media (hover: hover) and (pointer: fine) {
+  .side .links a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
 }
 @media (max-width: 860px) {
   .side {
@@ -300,9 +304,11 @@
     transform 0.2s ease,
     opacity 0.2s ease;
 }
-.menu a:hover::before {
-  transform: translateX(2px);
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .menu a:hover::before {
+    transform: translateX(2px);
+    opacity: 1;
+  }
 }
 .menu a.active::before {
   opacity: 1;

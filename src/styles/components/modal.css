@@ -214,8 +214,10 @@
     border-color 0.2s;
 }
 
-.modal-close:hover {
-  border-color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .modal-close:hover {
+    border-color: var(--ink);
+  }
 }
 
 .modal-close:focus-visible {
