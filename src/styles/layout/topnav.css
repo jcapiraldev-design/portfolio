@@ -57,3 +57,17 @@
     font-size: 17px;
   }
 }
+
+/* Keep each page link on one line; tighter spacing on narrower screens */
+.topnav a {
+  white-space: nowrap;
+}
+
+@media (max-width: 1199px) {
+  .topnav {
+    gap: 20px;
+  }
+  .topnav a {
+    font-size: 14.5px;
+  }
+}

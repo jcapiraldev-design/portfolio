@@ -368,3 +368,13 @@
     transform: none;
   }
 }
+
+/* Homepage: the Skills heading row with a "See all skills" button */
+#skills .work-head .btn {
+  flex: none;
+}
+
+/* Skills page */
+.skills-page {
+  padding-top: 8px;
+}

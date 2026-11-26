@@ -22,16 +22,38 @@
       <p>A closer look at how I work: what was broken, what I changed, and how I proved it works. Each one has a detailed change log.</p>
     </header>
 
-    <nav class="cs-jump cs-tabs" aria-label="Case studies on this page">
-      <a href="#cs-contact"><span>01</span>PHP 8.4 contact form rescue</a>
-      <a href="#cs-security"><span>02</span>PHP 8.4 and security hardening</a>
-      <a href="#cs-framework"><span>03</span>Legacy framework rescue</a>
-      <span class="cs-tab-ind" aria-hidden="true"></span>
-    </nav>
+    <!-- Overview: the three results at a glance, each jumping to its full story -->
+    <ol class="cs-overview" aria-label="Case studies on this page">
+      <li>
+        <a href="#cs-contact">
+          <span class="cs-ov-no">01</span>
+          <b class="cs-ov-metric">0 → 2</b>
+          <span class="cs-ov-label">emails delivered per inquiry</span>
+          <span class="cs-ov-title">PHP 8.4 contact form rescue</span>
+        </a>
+      </li>
+      <li>
+        <a href="#cs-security">
+          <span class="cs-ov-no">02</span>
+          <b class="cs-ov-metric">~190</b>
+          <span class="cs-ov-label">pages tested on one site</span>
+          <span class="cs-ov-title">PHP 8.4 and security hardening</span>
+        </a>
+      </li>
+      <li>
+        <a href="#cs-framework">
+          <span class="cs-ov-no">03</span>
+          <b class="cs-ov-metric">73 / 73</b>
+          <span class="cs-ov-label">templates identical</span>
+          <span class="cs-ov-title">Legacy framework rescue</span>
+        </a>
+      </li>
+    </ol>
 
     <section class="cs-list" aria-label="Case studies">
       <!-- Case study 01: PHP 8.4 contact form rescue -->
       <article class="project cs-card" id="cs-contact">
+        <span class="cs-index" aria-hidden="true">01</span>
         <p class="cs-kicker">Case study 01 · Japanese manufacturer · 2 sites</p>
         <h3>Finding a silent contact-form failure before a PHP 8.4 launch</h3>
         <p class="cs-lead">Every inquiry would have vanished on PHP 8. I found the bug before launch, and both sites now deliver every email with zero errors.</p>
@@ -146,6 +168,7 @@
 
       <!-- Case study 02: PHP 8.4 upgrade and security hardening -->
       <article class="project cs-card" id="cs-security">
+        <span class="cs-index" aria-hidden="true">02</span>
         <p class="cs-kicker">Case study 02 · Welfare organization · 2 sites</p>
         <h3>PHP 8.4 upgrade and security hardening for two legacy sites</h3>
         <p class="cs-lead">Two sites moved to PHP 8.4 without breaking anything, and logins were upgraded to modern password hashing without a single password reset.</p>
@@ -259,6 +282,7 @@
 
       <!-- Case study 03: legacy PHP framework rescue -->
       <article class="project cs-card" id="cs-framework">
+        <span class="cs-index" aria-hidden="true">03</span>
         <p class="cs-kicker">Case study 03 · Japanese company · corporate and recruitment site</p>
         <h3>Bringing a legacy PHP framework back to life on PHP 8.4</h3>
         <p class="cs-lead">A site that failed on every page under PHP 8 now runs cleanly on PHP 8.4, with all 73 templates proven identical to the original.</p>
@@ -345,18 +369,9 @@
         </div>
       </dialog>
     </section>
-
-    <section class="cs-cta">
-      <h2>Have an older site that needs the same care?</h2>
-      <p>Tell me about it, and I’ll reply within one business day with what I’d check first.</p>
-      <div class="actions">
-        <a class="btn primary" href="mailto:jcapiraldev@gmail.com">Email me</a>
-        <a class="btn secondary" href="/projects/">See all projects</a>
-      </div>
-    </section>
-
-{{> footer}}
   </main>
+
+  {{> footer}}
 </div>
 
 </body>

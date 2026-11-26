@@ -1,0 +1,108 @@
+<!--
+  Page settings (used by build.js to write the <head>)
+  title: About – Jasper Capiral, Senior Web Developer
+  description: About Jasper Capiral: a web developer since 2012, working with agencies in the Netherlands and Australia and, since 2016, building websites for Japanese companies at LH Creatives.
+  path: /about/
+  scripts: pages/about.js
+-->
+
+<body data-page="about">
+<div class="layout">
+
+  <aside class="side">
+    {{> sidebar}}
+  </aside>
+
+  <main>
+    <nav class="topnav" aria-label="Pages">
+      {{> header}}
+    </nav>
+    <header class="page-head">
+      <h1>About me</h1>
+      <p>A web developer since 2012, building websites end to end for clients in Japan, the Netherlands, and Australia.</p>
+      <div class="actions">
+        <a class="btn primary" href="/#contact">Work with me</a>
+        <a class="btn secondary" href="/files/jasper-capiral-resume.pdf" download>Download résumé</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/jasper-capiral-44689172/" target="_blank" rel="noopener"><img src="/assets/images/icons/brands/linkedin.svg" alt="" width="18" height="18">LinkedIn</a>
+      </div>
+    </header>
+
+    <section id="about" class="about-page">
+      <div class="about-grid">
+        <div class="about-main">
+          <div class="about-text" data-reveal-words>
+            <p>I started as a web developer in Manila in 2012. Through <a href="#experience" class="kw">MicroSourcing</a>, I worked remotely with agencies in the <a href="#experience" class="kw">Netherlands and Australia</a>, and since 2016 I’ve been with <a href="#experience" class="kw">LH Creatives</a>, building websites for Japanese companies, from small brand sites to large corporate and recruitment sites.</p>
+            <p>I handle projects from start to finish: joining kickoff meetings, planning schedules, turning <a href="/skills/" class="kw">Figma and Adobe XD</a> designs into responsive sites, building <a href="/projects/?q=wordpress" class="kw">custom WordPress themes</a> and PHP systems, testing everything before launch, and deploying to live servers.</p>
+            <p>Also giving older websites a second life by <a href="/case-studies/" class="kw">upgrading them to modern PHP</a>.</p>
+          </div>
+          <p class="availability">Currently available for freelance projects.</p>
+
+          <!-- Quick facts: the clock and the "working hours" status update live -->
+          <aside class="about-facts" aria-label="Quick facts">
+            <div class="fact fact-clock">
+              <p class="fact-label">My local time</p>
+              <p class="fact-value"><span id="local-time">–</span></p>
+              <p class="fact-note"><span class="dot" id="work-dot"></span><span id="work-status">Makati City, Philippines (UTC+8)</span></p>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Building websites since</p>
+              <p class="fact-value">2012</p>
+              <p class="fact-note"><span id="years-exp">14</span> years of experience</p>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Clients in</p>
+              <ul class="fact-flags">
+                <li><span aria-hidden="true">🇯🇵</span>Japan</li>
+                <li><span aria-hidden="true">🇳🇱</span>Netherlands</li>
+                <li><span aria-hidden="true">🇦🇺</span>Australia</li>
+              </ul>
+            </div>
+            <div class="fact">
+              <p class="fact-label">Reply time</p>
+              <p class="fact-value">1 day</p>
+              <p class="fact-note">Within one business day</p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Career: every role at a glance (the keyword links in the text point here) -->
+        <div class="career-card" id="experience">
+          <h3 class="career-title">Career</h3>
+          <ol class="career">
+            <li class="is-now">
+              <p class="career-when">2016 – Present</p>
+              <h4>LH Creatives Philippines</h4>
+              <p class="career-role">Sr. Web Developer / Team Leader <span>Makati City, Philippines</span></p>
+            </li>
+            <li>
+              <p class="career-when">2014 – 2015</p>
+              <h4>MicroSourcing</h4>
+              <p class="career-role">Web Developer <span>Pasay City, Philippines</span></p>
+              <ul class="career-accounts" aria-label="Client accounts">
+                <li><b>YP Digital</b> 2015 · Collingwood, Australia</li>
+                <li><b>The Webmen</b> 2014 – 2015 · Apeldoorn, Netherlands</li>
+              </ul>
+            </li>
+            <li>
+              <p class="career-when">2012 – 2014</p>
+              <h4>Lifedata Systems, Inc.</h4>
+              <p class="career-role">Jr. Web Developer <span>Pasig City, Philippines</span></p>
+            </li>
+          </ol>
+          <p class="career-sub">Education</p>
+          <ol class="career career-edu">
+            <li class="is-edu">
+              <p class="career-when">2008 – 2012</p>
+              <h4>Asia Pacific College</h4>
+              <p class="career-role">Computer Science and Information Technology <span>System Software Engineering (CSIT-SSE)</span></p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {{> footer}}
+</div>
+
+</body>

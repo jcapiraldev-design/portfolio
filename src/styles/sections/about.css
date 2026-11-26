@@ -454,3 +454,35 @@
     transform: none;
   }
 }
+
+/* About page */
+.about-page {
+  padding-top: 8px;
+}
+
+.page-head .actions {
+  margin-top: 24px;
+}
+
+.page-head .actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-head .actions .btn img {
+  width: 18px;
+  height: 18px;
+}
+
+/* About page: "Education" separates the college from the jobs */
+.career-sub {
+  margin: 22px 0 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

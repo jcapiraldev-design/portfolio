@@ -656,3 +656,29 @@
     height: 16px;
   }
 }
+
+/* Phone menu: Skills icon, and an odd last item spans the full row */
+@media (max-width: 860px) {
+  .mobile-nav a[data-ico="skills"] {
+    --ico: url(/assets/images/icons/nav/skills.svg);
+  }
+  .mobile-nav ul li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Menu icon for the Skills page link */
+.menu a[href="/skills/"] {
+  --ico: url(/assets/images/icons/nav/skills.svg);
+}
+
+/* Menu icons for the About page link */
+.menu a[href="/about/"] {
+  --ico: url(/assets/images/icons/nav/about.svg);
+}
+
+@media (max-width: 860px) {
+  .mobile-nav a[data-ico="about"] {
+    --ico: url(/assets/images/icons/nav/about.svg);
+  }
+}

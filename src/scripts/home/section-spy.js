@@ -2,7 +2,8 @@
  * Highlights the current section in the left menu and slides the marker to it.
  */
 export function initSectionSpy() {
-  var links = Array.prototype.slice.call(document.querySelectorAll(".menu a"));
+  // Only links to sections on this page (like #about); links to other pages are skipped
+  var links = Array.prototype.slice.call(document.querySelectorAll('.menu a[href^="#"]'));
   var menu = document.querySelector(".menu");
   var sections = links.map(function (a) {
     return document.querySelector(a.getAttribute("href"));

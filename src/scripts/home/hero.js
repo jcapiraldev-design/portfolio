@@ -1,8 +1,7 @@
 /*
- * Intro: headline words rise in, stats count up, and project screenshots cycle
- * in a stacked window view.
+ * Intro: headline words rise in, and the stats count up.
+ * (The project screenshots are shown by the wall, see wall.js.)
  */
-import { projects } from "../data/projects.js";
 
 export function initHero() {
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -40,52 +39,4 @@ export function initHero() {
       }, 500);
     });
   }
-
-  // 3. Screenshot stack from featured projects
-  var stack = document.getElementById("hero-stack");
-  if (!stack) return;
-  var picks = projects
-    .filter(function (p) {
-      return p.featured && p.image;
-    })
-    .slice(0, 6);
-  if (picks.length < 3)
-    picks = projects
-      .filter(function (p) {
-        return p.image;
-      })
-      .slice(0, 6);
-  function host(u) {
-    try {
-      return new URL(u).hostname.replace(/^www\./, "");
-    } catch (e) {
-      return "";
-    }
-  }
-  stack.innerHTML = picks
-    .map(function (p) {
-      return (
-        '<figure class="hero-win"><div class="hero-bar"><i></i><i></i><i></i><span>' +
-        host(p.url) +
-        '</span></div><img src="' +
-        p.image +
-        '" alt="" loading="eager" decoding="async"></figure>'
-      );
-    })
-    .join("");
-  var wins = Array.prototype.slice.call(stack.children),
-    front = 0;
-  function place() {
-    wins.forEach(function (w, i) {
-      var pos = (i - front + wins.length) % wins.length;
-      w.setAttribute("data-pos", pos > 2 ? "hidden" : pos);
-    });
-  }
-  place();
-  if (reduce || wins.length < 2) return;
-  setInterval(function () {
-    if (document.hidden) return;
-    front = (front + 1) % wins.length;
-    place();
-  }, 3200);
 }

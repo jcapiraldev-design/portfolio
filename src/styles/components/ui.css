@@ -204,3 +204,15 @@ main section:focus {
     animation: none;
   }
 }
+
+/* =====================================================================
+   Page transitions: moving between pages (Home, About, Projects, and so on)
+   uses the same smooth screen change as the homepage menu, instead of a
+   white flash. The sidebar and top bar stay still. Browsers without support
+   simply load the page as usual.
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}

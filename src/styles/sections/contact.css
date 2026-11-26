@@ -635,3 +635,71 @@
     transition: none;
   }
 }
+
+/* =====================================================================
+   Phones: the form comes right after the intro text, and the three contact
+   buttons sit side by side in one row
+   ===================================================================== */
+@media (max-width: 860px) {
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .contact-intro {
+    display: contents;
+  }
+  .contact-intro > h2 {
+    margin-bottom: 16px;
+  }
+  .contact-intro > h2 {
+    order: 1;
+  }
+  .contact-intro > p:first-of-type {
+    order: 2;
+  }
+  .contact-grid > .contact-form {
+    order: 3;
+    margin-top: 24px;
+  }
+  .contact-points {
+    order: 4;
+    margin-top: 32px;
+  }
+  .contact-or {
+    order: 5;
+  }
+  .contact-intro > .actions {
+    order: 6;
+  }
+}
+
+@media (max-width: 600px) {
+  #contact .actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+  #contact .actions .btn {
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 11px 6px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  #contact .actions .btn img {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+}
+
+@media (max-width: 340px) {
+  #contact .actions .btn {
+    font-size: 13px;
+    gap: 5px;
+    padding: 10px 4px;
+  }
+}

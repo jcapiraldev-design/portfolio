@@ -52,6 +52,12 @@ build().then(() => {
   http
     .createServer((req, res) => {
       const url = decodeURIComponent(req.url.split("?")[0]);
+      // Vercel provides its analytics script only on the live site; locally, an empty
+      // stand-in avoids a console error (which would also lower the Lighthouse score)
+      if (url.startsWith("/_vercel/insights/")) {
+        res.writeHead(200, { "Content-Type": "text/javascript", ...headersFor(url) });
+        return res.end("");
+      }
       let file = path.join(DIST, url);
       if (!file.startsWith(DIST)) {
         res.writeHead(403);

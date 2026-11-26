@@ -1,7 +1,7 @@
 /*
  * Case studies page:
- *   - tabs show one case study at a time, with a sliding highlight
- *   - each case study plays its entrance when shown, and its key numbers count up
+ *   - all case studies are shown, with an overview at the top
+ *   - each case study plays its entrance as it scrolls into view, and its key numbers count up
  *   - "Read the full story" opens and closes the detailed write-up
  */
 
@@ -74,105 +74,24 @@ function initStories() {
   });
 }
 
-// Tabs: show one case study at a time. Without JavaScript, the tabs work as jump links
-// and all case studies stay visible.
-function initTabs() {
-  const nav = document.querySelector(".cs-tabs");
-  const list = document.querySelector(".cs-list");
-  if (!nav || !list) return;
-  const tabs = Array.from(nav.querySelectorAll('a[href^="#"]'));
-  const panels = tabs.map((a) => document.getElementById(a.getAttribute("href").slice(1)));
-  if (panels.some((p) => !p)) return;
-  const indicator = nav.querySelector(".cs-tab-ind");
-
-  nav.setAttribute("role", "tablist");
-  tabs.forEach((tab, i) => {
-    tab.setAttribute("role", "tab");
-    tab.id = "tab-" + panels[i].id;
-    tab.setAttribute("aria-controls", panels[i].id);
-    panels[i].setAttribute("role", "tabpanel");
-    panels[i].setAttribute("aria-labelledby", tab.id);
-    panels[i].setAttribute("tabindex", "-1");
-  });
-  list.classList.add("has-tabs");
-
-  let current = -1;
-
-  function moveIndicator(animate) {
-    const tab = tabs[current];
-    if (!indicator || !tab) return;
-    if (!animate) indicator.style.transition = "none";
-    indicator.style.setProperty("--x", tab.offsetLeft + "px");
-    indicator.style.setProperty("--w", tab.offsetWidth + "px");
-    if (!animate) {
-      indicator.getBoundingClientRect();
-      indicator.style.transition = "";
-    }
-  }
-
-  function select(index, { animate = true, focusPanel = false, updateUrl = true } = {}) {
-    if (index === current) return;
-    const previous = current;
-    current = index;
-    tabs.forEach((tab, i) => {
-      const on = i === index;
-      tab.setAttribute("aria-selected", String(on));
-      tab.setAttribute("tabindex", on ? "0" : "-1");
-    });
-    panels.forEach((panel, i) => {
-      panel.hidden = i !== index;
-    });
-
-    const panel = panels[index];
-    if (animate && !reduceMotion && previous !== -1) {
-      panel.classList.remove("is-entering", "from-left");
-      void panel.offsetWidth;
-      panel.classList.add("is-entering");
-      if (index < previous) panel.classList.add("from-left");
-    }
-    revealCard(panel);
-    moveIndicator(animate && previous !== -1);
-    tabs[index].scrollIntoView({
-      block: "nearest",
-      inline: "nearest",
-      behavior: reduceMotion ? "auto" : "smooth",
-    });
-    if (updateUrl) history.replaceState(null, "", "#" + panel.id);
-    if (focusPanel) panel.focus({ preventScroll: true });
-  }
-
-  tabs.forEach((tab, i) => {
-    tab.addEventListener("click", (e) => {
-      e.preventDefault();
-      select(i);
-    });
-    // Arrow keys move between tabs; Home and End jump to the first and last
-    tab.addEventListener("keydown", (e) => {
-      let next = null;
-      if (e.key === "ArrowRight") next = (i + 1) % tabs.length;
-      if (e.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
-      if (e.key === "Home") next = 0;
-      if (e.key === "End") next = tabs.length - 1;
-      if (next === null) return;
-      e.preventDefault();
-      select(next);
-      tabs[next].focus();
-    });
-  });
-
-  // Open the case study named in the address (links from the homepage use these)
-  const fromHash = panels.findIndex((p) => "#" + p.id === location.hash);
-  select(fromHash >= 0 ? fromHash : 0, { animate: false, updateUrl: false });
-  nav.classList.add("is-ready");
-  requestAnimationFrame(() => moveIndicator(false));
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => moveIndicator(false));
-  window.addEventListener("resize", () => moveIndicator(false));
-  window.addEventListener("hashchange", () => {
-    const i = panels.findIndex((p) => "#" + p.id === location.hash);
-    if (i >= 0) select(i, { updateUrl: false });
-  });
+// Each case study plays its entrance once, as it scrolls into view
+function initScrollReveal() {
+  const cards = document.querySelectorAll(".cs-card");
+  if (!cards.length) return;
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        revealCard(entry.target);
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12 },
+  );
+  cards.forEach((card) => io.observe(card));
 }
 
 prepareCards();
 initStories();
-initTabs();
+initScrollReveal();

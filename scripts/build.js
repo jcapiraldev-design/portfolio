@@ -29,13 +29,22 @@ const SITE = "https://jaspercapiral-dev.vercel.app";
 // Source page -> output file (folders give clean addresses like /projects/)
 const PAGES = {
   "index.html": "index.html",
+  "about.html": "about/index.html",
   "projects.html": "projects/index.html",
   "case-studies.html": "case-studies/index.html",
+  "skills.html": "skills/index.html",
   "404.html": "404.html",
 };
 
 // JavaScript entry points: main.js on every page, plus each page's own module
-const SCRIPT_ENTRIES = ["main.js", "pages/home.js", "pages/projects.js", "pages/case-studies.js"];
+const SCRIPT_ENTRIES = [
+  "main.js",
+  "pages/home.js",
+  "pages/projects.js",
+  "pages/case-studies.js",
+  "pages/skills.js",
+  "pages/about.js",
+];
 
 const read = (p) => fs.readFileSync(p, "utf8");
 const esc = (s) =>
@@ -135,7 +144,38 @@ function markCurrent(html, pagePath) {
   );
 }
 
+// Lighthouse scores for the footer, from "npm run scores" (optional)
+function lighthouseValues() {
+  const file = path.join(SRC, "data/lighthouse.json");
+  if (!fs.existsSync(file)) return null;
+  try {
+    const d = JSON.parse(read(file));
+    const date = new Date(d.date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    return {
+      "lh.performance": d.performance,
+      "lh.accessibility": d.accessibility,
+      "lh.bestPractices": d.bestPractices,
+      "lh.seo": d.seo,
+      "lh.date": date,
+      "lh.device": d.device === "mobile" ? "Mobile" : "Desktop",
+    };
+  } catch (err) {
+    return null;
+  }
+}
+
 function partial(name, page) {
+  if (name === "footer") {
+    const lh = lighthouseValues();
+    let src = read(path.join(SRC, "partials", name + ".html"));
+    src = src.replace(/\{\{#lighthouse\}\}([\s\S]*?)\{\{\/lighthouse\}\}/, (_, inner) => (lh ? inner : ""));
+    if (lh) src = src.replace(/\{\{(lh\.\w+)\}\}/g, (_, key) => (key in lh ? lh[key] : ""));
+    return markCurrent(src, page.path).trim();
+  }
   let html = read(path.join(SRC, "partials", name + ".html"));
   if (name === "sidebar") {
     // The homepage gets the section menu; other pages get the site menu
