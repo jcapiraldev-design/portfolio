@@ -87,3 +87,9 @@
     animation: none;
   }
 }
+
+@supports (height: 100svh) {
+  .nf {
+    min-height: calc(100svh - 160px);
+  }
+}

@@ -682,3 +682,20 @@
     --ico: url(/assets/images/icons/nav/about.svg);
   }
 }
+
+/* Phones turned sideways: the screen is short, so the fixed header drops its
+   section row (the menu button still opens every page and link) */
+@media (max-width: 860px) and (max-height: 500px) and (orientation: landscape) {
+  .side .menu,
+  .side nav[data-menu] {
+    display: none;
+  }
+}
+
+/* Short screens with the sidebar (for example large phones held sideways):
+   the sidebar scrolls if its content is taller than the screen */
+@media (min-width: 861px) and (max-height: 640px) {
+  .side {
+    overflow-y: auto;
+  }
+}

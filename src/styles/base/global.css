@@ -238,3 +238,22 @@ html.modal-open {
     padding-bottom: 12px;
   }
 }
+
+/* iPhone and iPad fixes
+   - Safari zooms the page in when a form field's text is smaller than 16px, so
+     fields use 16px on touch screens.
+   - On phones, 100vh includes the area behind Safari's address bar; svh is the
+     visible height, so screen-height sections fit exactly (older browsers keep 100vh). */
+@media (hover: none) and (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+@supports (height: 100svh) {
+  .intro {
+    min-height: 100svh;
+  }
+}
