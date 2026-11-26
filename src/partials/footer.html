@@ -1,6 +1,6 @@
 <footer class="site-footer">
   <div class="footer-panel">
-    <!-- Call to action (hidden on the homepage, which ends with the contact form) -->
+
     <div class="footer-cta">
       <div>
         <p class="footer-kicker"><span class="footer-dot" aria-hidden="true"></span>Available for freelance projects</p>
@@ -74,34 +74,15 @@
       </nav>
       <div class="footer-links">
         <p class="footer-label">Contact</p>
-        <!-- EDIT: your email and profile links -->
+
         <a href="mailto:jcapiraldev@gmail.com">jcapiraldev@gmail.com</a>
         <a href="https://www.linkedin.com/in/jasper-capiral-44689172/" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="/files/jasper-capiral-resume.pdf" download>Résumé (PDF)</a>
       </div>
     </div>
 
-    <!-- Lighthouse scores, measured with "npm run scores" (values come from src/data/lighthouse.json) -->
-    {{#lighthouse}}
-    <div class="footer-quality">
-      <div class="quality-head">
-        <p class="quality-title">This site’s Google Lighthouse scores</p>
-        <p class="quality-note">{{lh.device}}, measured {{lh.date}} · <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fjaspercapiral-dev.vercel.app%2F" target="_blank" rel="noopener">Test it yourself ↗</a></p>
-      </div>
-      <ul class="quality-scores">
-        <li><span class="gauge" style="--v: {{lh.performance}}">{{lh.performance}}</span>Performance</li>
-        <li><span class="gauge" style="--v: {{lh.accessibility}}">{{lh.accessibility}}</span>Accessibility</li>
-        <li><span class="gauge" style="--v: {{lh.bestPractices}}">{{lh.bestPractices}}</span>Best Practices</li>
-        <li><span class="gauge" style="--v: {{lh.seo}}">{{lh.seo}}</span>SEO</li>
-      </ul>
-    </div>
-    {{/lighthouse}}
-
     <div class="footer-bottom">
       <p class="footer-copy">© <span class="footer-year">2026</span> Jasper Capiral</p>
-      <p class="footer-made">Hand-built with HTML, CSS, and JavaScript</p>
     </div>
-
-    <p class="footer-wordmark" aria-hidden="true">Jasper Capiral</p>
   </div>
 </footer>

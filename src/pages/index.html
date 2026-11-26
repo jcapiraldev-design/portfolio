@@ -50,8 +50,6 @@
           </dl>
         </div>
 
-        <!-- A moving 3D wall of real project screenshots (filled in by home/wall.js).
-             On large screens it fills the top-right corner of the window. -->
         <div class="intro-visual">
           <div class="wall" aria-hidden="true">
             <div class="wall-plane" id="wall"></div>
@@ -60,7 +58,6 @@
         </div>
       </div>
 
-      <!-- Career at a glance; the full story is on the About page -->
       <div class="career-strip">
         <p class="career-label">Career at a glance</p>
         <ol class="career-roles">
@@ -83,6 +80,8 @@
         <a class="career-more" href="/about/">More about me<span aria-hidden="true">→</span></a>
       </div>
     </section>
+
+    <a class="side-badge" href="/projects/" tabindex="-1"><span class="side-badge-dot" aria-hidden="true"></span><b class="side-count">100+</b> live websites<span class="side-badge-arrow" aria-hidden="true">→</span></a>
 
     <section id="services">
       <h2>What I can help with</h2>
@@ -237,7 +236,6 @@
         <a class="btn secondary" href="/skills/">See all skills</a>
       </div>
       <div class="skill-groups">
-        <!-- Core stack: what I work with most. Project counts update from projects.json -->
         <ul class="skills-core">
           <li>
             <a class="core-tile" href="/projects/?q=php">
@@ -290,14 +288,12 @@
           </ul>
           <p class="contact-or">Prefer email or want the details first?</p>
           <div class="actions">
-            <!-- EDIT: your email and profile links -->
             <a class="btn secondary" href="mailto:jcapiraldev@gmail.com"><img src="/assets/images/icons/brands/gmail.svg" alt="" width="18" height="18">Email me</a>
             <a class="btn secondary" href="https://www.linkedin.com/in/jasper-capiral-44689172/" target="_blank" rel="noopener"><img src="/assets/images/icons/brands/linkedin.svg" alt="" width="18" height="18">LinkedIn</a>
             <a class="btn secondary" href="/files/jasper-capiral-resume.pdf" download><img src="/assets/images/icons/ui/resume.svg" alt="" width="18" height="18" class="dark-invert">Résumé</a>
           </div>
         </div>
 
-        <!-- Contact form. Sending is connected later (see sendForm in the script). -->
         <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqppowlk" method="POST" novalidate>
           <input type="hidden" name="_subject" value="New message from your portfolio">
           <div class="cf-state cf-fields">
@@ -339,7 +335,6 @@
               <p class="cf-count" aria-live="polite"><span id="cf-count">0</span> / 2000</p>
             </div>
 
-            <!-- Spam trap: hidden from people, bots fill it in -->
             <div class="cf-trap" aria-hidden="true">
               <label for="cf-website">Leave this empty</label>
               <input type="text" id="cf-website" name="_gotcha" tabindex="-1" autocomplete="off">

@@ -1,20 +1,48 @@
 /*
  * Intro: a slowly moving 3D wall of real project screenshots. Three columns drift
  * up and down at different speeds, so visitors instantly see the volume of work.
- * Uses the small card thumbnails to stay light. With "reduce motion" on, the wall
- * stays still.
+ * Uses small 360px wall images (public/assets/images/projects/wall/), and is built
+ * only after the page has loaded, so it never slows down the first view. With
+ * "reduce motion" on, the wall stays still.
  */
 import { projects } from "../data/projects.js";
 
-function thumb(src) {
-  return src.replace(/\/projects\/([^/]+)$/, "/projects/thumbs/$1");
+function wallImage(src) {
+  return src.replace(/\/projects\/([^/]+)$/, "/projects/wall/$1");
 }
 
 export function initWall() {
   var wall = document.getElementById("wall");
   var count = document.getElementById("wall-count");
   if (count) count.textContent = projects.length;
+  Array.prototype.forEach.call(document.querySelectorAll(".side-count"), function (el) {
+    el.textContent = projects.length;
+  });
+  watchIntro();
   if (!wall) return;
+
+  placeWall();
+  window.addEventListener("resize", placeWall);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeWall);
+
+  // Build the wall once the page has finished loading and the browser is idle
+  function start() {
+    var idle =
+      window.requestIdleCallback ||
+      function (fn) {
+        return setTimeout(fn, 200);
+      };
+    idle(function () {
+      buildWall(wall);
+    });
+  }
+  if (document.readyState === "complete") start();
+  else window.addEventListener("load", start, { once: true });
+}
+
+function buildWall(wall) {
+  // Phones show a shorter wall, so fewer images are needed
+  var total = window.matchMedia("(max-width: 860px)").matches ? 18 : 27;
 
   // Featured projects first, then the newest ones
   var list = projects
@@ -24,7 +52,7 @@ export function initWall() {
     .sort(function (a, b) {
       return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || (Number(b.year) || 0) - (Number(a.year) || 0);
     })
-    .slice(0, 27);
+    .slice(0, total);
 
   var columns = [[], [], []];
   list.forEach(function (p, i) {
@@ -37,7 +65,7 @@ export function initWall() {
         .map(function (p) {
           return (
             '<figure class="wall-item"><img src="' +
-            thumb(p.image) +
+            wallImage(p.image) +
             '" alt="" width="640" height="400" decoding="async"></figure>'
           );
         })
@@ -52,10 +80,6 @@ export function initWall() {
   requestAnimationFrame(function () {
     wall.classList.add("is-ready");
   });
-
-  placeWall();
-  window.addEventListener("resize", placeWall);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeWall);
 }
 
 // Large screens: the wall starts just after the intro text and runs to the right
@@ -76,4 +100,24 @@ function placeWall() {
   left = Math.min(left, box.width - 340);
   visual.style.left = left + "px";
   visual.style.width = box.width - left + "px";
+}
+
+// Large screens: the wall stays fixed behind every section. Once the intro has
+// scrolled away, the wall softens into a background and the side tab appears.
+function watchIntro() {
+  var intro = document.getElementById("intro");
+  var tab = document.querySelector(".side-badge");
+  if (!intro || !("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(
+    function (entries) {
+      var past = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+      document.documentElement.classList.toggle("past-intro", past);
+      if (tab) {
+        tab.tabIndex = past ? 0 : -1;
+        tab.setAttribute("aria-hidden", past ? "false" : "true");
+      }
+    },
+    { rootMargin: "-35% 0px 0px 0px" },
+  );
+  io.observe(intro);
 }

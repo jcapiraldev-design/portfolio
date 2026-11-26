@@ -1137,3 +1137,101 @@
     justify-self: start;
   }
 }
+
+/* =====================================================================
+   Large screens: the wall stays fixed in place and becomes the background
+   of every section. After the intro, it softens so text stays easy to read,
+   and a vertical "live websites" tab appears on the right edge.
+   ===================================================================== */
+.side-badge {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  body[data-page="home"] .intro-visual {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    min-height: 0;
+    max-height: none;
+    z-index: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  /* Page content sits above the wall */
+  body[data-page="home"] main > section:not(.intro),
+  body[data-page="home"] .site-footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  html.past-intro body[data-page="home"] .intro-visual {
+    opacity: 0.35;
+  }
+
+  /* The vertical tab */
+  .side-badge {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 12px;
+    writing-mode: vertical-rl;
+    border-radius: 14px 0 0 14px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 18px 40px -16px rgba(30, 42, 90, 0.6);
+    transform: translate(100%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 0.3s ease,
+      padding 0.2s ease;
+  }
+
+  html.past-intro .side-badge {
+    transform: translate(0, -50%);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .side-badge b {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .side-badge-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #5fd0a8;
+    box-shadow: 0 0 0 4px rgba(95, 208, 168, 0.25);
+  }
+
+  .side-badge-arrow {
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+}
+
+@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+  html.past-intro .side-badge:hover {
+    padding-right: 18px;
+    background: color-mix(in srgb, var(--ink) 86%, #5b6cff);
+  }
+}
+
+@media (min-width: 1200px) and (prefers-reduced-motion: reduce) {
+  body[data-page="home"] .intro-visual,
+  .side-badge {
+    transition: none;
+  }
+}

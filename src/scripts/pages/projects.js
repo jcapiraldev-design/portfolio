@@ -49,6 +49,23 @@ function initProjectsPage() {
     .join("");
   if (types.indexOf(state.type) === -1) state.type = "All";
 
+  // The same filter as a dropdown for phones and tablets
+  var typeSelect = document.getElementById("type-select");
+  if (typeSelect) {
+    typeSelect.innerHTML = types
+      .map(function (t) {
+        var n = t === "All" ? projects.length : counts[t];
+        var label = t === "All" ? "All types" : t;
+        return '<option value="' + t.replace(/"/g, "&quot;") + '">' + label + " (" + n + ")</option>";
+      })
+      .join("");
+    typeSelect.addEventListener("change", function () {
+      state.type = typeSelect.value;
+      state.shown = PAGE;
+      render("all");
+    });
+  }
+
   function matches(p) {
     if (state.type !== "All" && p.type !== state.type) return false;
     if (!state.q) return true;
@@ -86,6 +103,7 @@ function initProjectsPage() {
   // mode: "all" redraws the grid (first load, filter, search, sort)
   //       "more" only appends the next batch of cards
   function render(mode) {
+    if (typeSelect) typeSelect.value = state.type;
     Array.prototype.forEach.call(chipsEl.querySelectorAll(".chip"), function (b) {
       b.setAttribute("aria-pressed", b.getAttribute("data-type") === state.type ? "true" : "false");
     });

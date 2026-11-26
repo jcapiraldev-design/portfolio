@@ -25,13 +25,18 @@
     <div class="tools-bar">
       <div class="search">
         <label class="sr-only" for="q">Search projects</label>
-        <input id="q" type="search" placeholder="Search by name, type, or tool" autocomplete="off">
+        <input id="q" type="search" placeholder="Search" autocomplete="off">
+      </div>
+      <!-- Phones and tablets: the type filter as a dropdown (the buttons below are for larger screens) -->
+      <div class="type-filter">
+        <label class="sr-only" for="type-select">Filter by type</label>
+        <select id="type-select"></select>
       </div>
       <div class="sort">
         <label class="sr-only" for="sort">Sort projects</label>
         <select id="sort">
-          <option value="new">Newest first</option>
-          <option value="name">Name A to Z</option>
+          <option value="new">Newest</option>
+          <option value="name">Name A–Z</option>
         </select>
       </div>
     </div>

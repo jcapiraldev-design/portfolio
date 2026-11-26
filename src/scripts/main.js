@@ -7,9 +7,11 @@ import { initBackToTop } from "./core/back-to-top.js";
 import { initEffects } from "./core/effects.js";
 import { initModals } from "./core/modals.js";
 import { initNotFound } from "./core/not-found.js";
+import { initPauseOffscreen } from "./core/pause-offscreen.js";
 
 initLayout();
 initBackToTop();
 initEffects();
 initModals();
 initNotFound();
+initPauseOffscreen();

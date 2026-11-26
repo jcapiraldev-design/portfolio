@@ -64,6 +64,9 @@ for (const p of projects) {
   const thumb = p.image.replace(/\/projects\/([^/]+)$/, "/projects/thumbs/$1");
   if (!exists(thumb))
     problems.push(`projects.json: ${p.name}: missing thumbnail ${thumb} (run: npm run thumbnails)`);
+  const wallImg = p.image.replace(/\/projects\/([^/]+)$/, "/projects/wall/$1");
+  if (!exists(wallImg))
+    problems.push(`projects.json: ${p.name}: missing wall image ${wallImg} (run: npm run thumbnails)`);
 }
 
 if (problems.length) {

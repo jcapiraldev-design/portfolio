@@ -7,6 +7,7 @@
  *   npm run dev
  */
 const http = require("http");
+const zlib = require("zlib");
 const fs = require("fs");
 const path = require("path");
 const { build, DIST } = require("./build");
@@ -69,10 +70,20 @@ build().then(() => {
         file = path.join(DIST, "404.html");
         status = 404;
       }
-      res.writeHead(status, {
-        "Content-Type": TYPES[path.extname(file)] || "application/octet-stream",
-        ...headersFor(url),
-      });
+      const type = TYPES[path.extname(file)] || "application/octet-stream";
+      // Compress text files (HTML, CSS, JavaScript, SVG, JSON) like Vercel does, so
+      // local speed tests match the live site more closely
+      const compressible = /text|javascript|json|svg/.test(type);
+      if (compressible && /\bgzip\b/.test(req.headers["accept-encoding"] || "")) {
+        res.writeHead(status, {
+          "Content-Type": type,
+          "Content-Encoding": "gzip",
+          Vary: "Accept-Encoding",
+          ...headersFor(url),
+        });
+        return fs.createReadStream(file).pipe(zlib.createGzip()).pipe(res);
+      }
+      res.writeHead(status, { "Content-Type": type, ...headersFor(url) });
       fs.createReadStream(file).pipe(res);
     })
     .listen(PORT, () => console.log(`\nPreview: http://localhost:${PORT}  (Ctrl + C to stop)`));

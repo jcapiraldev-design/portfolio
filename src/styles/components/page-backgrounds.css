@@ -1,0 +1,233 @@
+/* =====================================================================
+   Page backgrounds: a quiet, fixed background for the About, Case Studies,
+   and Skills pages, each matching what the page is about. They sit behind
+   all content, are very faint, and stay still with "reduce motion" on.
+   ===================================================================== */
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 861px) {
+  .page-bg {
+    left: var(--side-w);
+  }
+}
+
+/* ---------- About: world map ---------- */
+.bg-map {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-bottom: 4vh;
+}
+
+.map-svg {
+  width: min(1250px, 100%);
+  height: auto;
+  margin-right: 0;
+  overflow: visible;
+  opacity: 0.8;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
+}
+
+.map-svg image {
+  opacity: 0.5;
+}
+
+.map-arc {
+  fill: none;
+  stroke: #5b6cff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 4 8;
+  animation: map-flow 2.4s linear infinite;
+  opacity: 0.75;
+}
+
+.map-pin circle {
+  fill: #2e9e6a;
+}
+
+.map-pin.is-home circle {
+  fill: #5b6cff;
+}
+
+.map-pin .map-ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  color: #2e9e6a;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-ping 2.8s ease-out infinite;
+}
+
+.map-pin.is-home .map-ring {
+  color: #5b6cff;
+}
+
+.map-pin:nth-of-type(2) .map-ring {
+  animation-delay: 0.7s;
+}
+
+.map-pin:nth-of-type(3) .map-ring {
+  animation-delay: 1.4s;
+}
+
+.map-pin:nth-of-type(4) .map-ring {
+  animation-delay: 2.1s;
+}
+
+.map-label {
+  font: 600 15px var(--sans);
+  fill: var(--muted);
+  opacity: 0.8;
+}
+
+@keyframes map-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes map-ping {
+  from {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* ---------- Case Studies: stream of code changes ---------- */
+.bg-code {
+  display: flex;
+  justify-content: flex-end;
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 45%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, #000 45%);
+  mask-composite: intersect;
+}
+
+.code-track {
+  width: min(560px, 60%);
+  margin-right: 3%;
+  animation: code-up 90s linear infinite;
+}
+
+.code-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.cl {
+  font: 14px/1.5 var(--mono, ui-monospace, monospace);
+  white-space: nowrap;
+  color: var(--muted);
+  opacity: 0.32;
+}
+
+.cl-add {
+  color: #2e9e6a;
+  opacity: 0.4;
+}
+
+.cl-del {
+  color: #c2453a;
+  opacity: 0.35;
+}
+
+@keyframes code-up {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+/* ---------- Skills: drifting logo cloud ---------- */
+.bg-logos img {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(46px * var(--s));
+  height: calc(46px * var(--s));
+  opacity: 0.12;
+  filter: saturate(0.8);
+  animation: logo-drift var(--t) ease-in-out var(--d) infinite alternate;
+}
+
+@keyframes logo-drift {
+  from {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+  to {
+    transform: translate(14px, -22px) rotate(4deg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-logos img {
+    opacity: 0.16;
+  }
+  .map-svg image {
+    opacity: 0.5;
+    filter: invert(1);
+  }
+}
+
+/* ---------- Phones: lighter and smaller ---------- */
+@media (max-width: 860px) {
+  .bg-map {
+    align-items: flex-start;
+    padding-top: 140px;
+  }
+  .map-svg {
+    width: 150%;
+    margin-right: -40%;
+    opacity: 0.4;
+  }
+  .map-label {
+    display: none;
+  }
+  .code-track {
+    width: 100%;
+    margin: 0 0 0 30%;
+  }
+  .cl {
+    font-size: 12px;
+  }
+  .bg-logos img {
+    width: calc(30px * var(--s));
+    height: calc(30px * var(--s));
+    opacity: 0.09;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-arc,
+  .map-pin .map-ring,
+  .code-track,
+  .bg-logos img {
+    animation: none;
+  }
+  .map-pin .map-ring {
+    opacity: 0;
+  }
+}

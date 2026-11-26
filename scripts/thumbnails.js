@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /*
- * Creates 640px-wide card thumbnails for project screenshots that don't have one yet:
- *   public/assets/images/projects/name.webp  ->  public/assets/images/projects/thumbs/name.webp
+ * Creates the smaller images for project screenshots that don't have them yet:
+ *   public/assets/images/projects/name.webp  ->  projects/thumbs/name.webp  (640px, project cards)
+ *                                            ->  projects/wall/name.webp    (360px, homepage wall)
  *
  * Uses the cwebp command (install it on a Mac with: brew install webp).
  *
@@ -12,8 +13,11 @@ const path = require("path");
 const { execFileSync } = require("child_process");
 
 const dir = path.resolve(__dirname, "../public/assets/images/projects");
-const out = path.join(dir, "thumbs");
-fs.mkdirSync(out, { recursive: true });
+const SIZES = [
+  { folder: "thumbs", width: "640", quality: "78" },
+  { folder: "wall", width: "360", quality: "72" },
+];
+SIZES.forEach((s) => fs.mkdirSync(path.join(dir, s.folder), { recursive: true }));
 
 try {
   execFileSync("cwebp", ["-version"], { stdio: "ignore" });
@@ -25,10 +29,22 @@ try {
 let made = 0;
 for (const file of fs.readdirSync(dir)) {
   if (!file.endsWith(".webp")) continue;
-  const target = path.join(out, file);
-  if (fs.existsSync(target)) continue;
-  execFileSync("cwebp", ["-quiet", "-q", "78", "-resize", "640", "0", path.join(dir, file), "-o", target]);
-  console.log("  ✓ thumbs/" + file);
-  made++;
+  for (const size of SIZES) {
+    const target = path.join(dir, size.folder, file);
+    if (fs.existsSync(target)) continue;
+    execFileSync("cwebp", [
+      "-quiet",
+      "-q",
+      size.quality,
+      "-resize",
+      size.width,
+      "0",
+      path.join(dir, file),
+      "-o",
+      target,
+    ]);
+    console.log(`  ✓ ${size.folder}/${file}`);
+    made++;
+  }
 }
-console.log(made ? `Created ${made} thumbnail(s).` : "All thumbnails are up to date.");
+console.log(made ? `Created ${made} image(s).` : "All thumbnails and wall images are up to date.");

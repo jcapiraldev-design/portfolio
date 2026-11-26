@@ -216,3 +216,16 @@ main section:focus {
     navigation: auto;
   }
 }
+
+/* Performance: decorative animations pause while off screen (see core/pause-offscreen.js),
+   and moving layers are prepared for smooth, GPU-friendly movement */
+.is-paused,
+.is-paused * {
+  animation-play-state: paused !important;
+}
+
+.wall-track,
+.code-track,
+.stack-track {
+  will-change: transform;
+}
