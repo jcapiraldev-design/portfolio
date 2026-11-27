@@ -25,9 +25,9 @@
 /* ---------- About: world map ---------- */
 .bg-map {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
-  padding-bottom: 4vh;
+  padding-bottom: 14vh;
 }
 
 .map-svg {
@@ -40,8 +40,9 @@
   mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
 }
 
+/* Solid, soft continents (easier on the eye than dots behind text) */
 .map-svg image {
-  opacity: 0.5;
+  opacity: 0.14;
 }
 
 .map-arc {
@@ -162,15 +163,99 @@
 }
 
 /* ---------- Skills: drifting logo cloud ---------- */
-.bg-logos img {
+.bg-logo {
   position: absolute;
   left: var(--x);
   top: var(--y);
   width: calc(46px * var(--s));
   height: calc(46px * var(--s));
   opacity: 0.12;
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.45s ease,
+    filter 0.45s ease;
+}
+
+.bg-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
   filter: saturate(0.8);
   animation: logo-drift var(--t) ease-in-out var(--d) infinite alternate;
+}
+
+/* Hovering a skill: its logo glides to the middle of the background, grows,
+   and lights up, while the other logos fade back (still behind the content) */
+.bg-logos.has-focus .bg-logo {
+  opacity: 0.05;
+}
+
+.bg-logos .bg-logo.is-focus {
+  opacity: 0.6;
+  transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(var(--fs, 4));
+  filter: drop-shadow(0 0 6px rgba(91, 108, 255, 0.55)) drop-shadow(0 0 16px rgba(95, 208, 168, 0.35));
+  z-index: 1;
+}
+
+/* A soft light behind the logo that gently pulses */
+.bg-logo::before {
+  content: "";
+  position: absolute;
+  inset: -55%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(110, 130, 255, 0.55),
+    rgba(95, 208, 168, 0.22) 55%,
+    transparent 75%
+  );
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s ease;
+  pointer-events: none;
+}
+
+.bg-logo.is-focus::before {
+  opacity: 1;
+  transform: scale(1);
+  animation: logo-glow 2.6s ease-in-out 0.6s infinite;
+}
+
+/* While the skill stays hovered, the logo floats gently up and down */
+.bg-logo.is-focus img {
+  position: relative;
+  filter: none;
+  animation: logo-float 3.2s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(1.5deg);
+  }
+}
+
+@keyframes logo-glow {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+/* Logos added just for a hover (skills that aren't in the cloud) are only visible
+   while their skill is hovered; they never linger in the background */
+.bg-logos .bg-logo.is-guest:not(.is-focus) {
+  opacity: 0;
 }
 
 @keyframes logo-drift {
@@ -183,11 +268,14 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .bg-logos img {
+  .bg-logo {
     opacity: 0.16;
   }
+  .bg-logos .bg-logo.is-focus {
+    opacity: 0.7;
+  }
   .map-svg image {
-    opacity: 0.5;
+    opacity: 0.16;
     filter: invert(1);
   }
 }
@@ -196,7 +284,8 @@
 @media (max-width: 860px) {
   .bg-map {
     align-items: flex-start;
-    padding-top: 140px;
+    padding-top: 120px;
+    padding-bottom: 0;
   }
   .map-svg {
     width: 150%;
@@ -213,7 +302,7 @@
   .cl {
     font-size: 12px;
   }
-  .bg-logos img {
+  .bg-logo {
     width: calc(30px * var(--s));
     height: calc(30px * var(--s));
     opacity: 0.09;
@@ -224,7 +313,14 @@
   .map-arc,
   .map-pin .map-ring,
   .code-track,
-  .bg-logos img {
+  .bg-logo img {
+    animation: none;
+  }
+  .bg-logo {
+    transition: opacity 0.3s ease;
+  }
+  .bg-logo.is-focus img,
+  .bg-logo.is-focus::before {
     animation: none;
   }
   .map-pin .map-ring {
